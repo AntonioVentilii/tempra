@@ -1,40 +1,35 @@
 # HANDOVER
 
-Read this before anything else, then [`AGENTS.md`](./AGENTS.md). Delete this file (and the pointer at the top of `AGENTS.md`) in a `docs(ai): ...` PR once every box below is ticked.
+Read this before anything else, then [`AGENTS.md`](./AGENTS.md). Delete this file (and the pointers at the top of `AGENTS.md` and `CLAUDE.md`) in a `docs(ai): ...` PR once every box below is ticked.
 
 ## Context
 
-On 2026-10-24 Antonio Ventilii (`AntonioVentilii`) transferred this repository to Enrica Cipolloni (`EnricaCipolloni`) and made it private. Enrica is the owner; Antonio stays on as an Admin collaborator and keeps maintaining the code. Talk to Enrica in Italian.
+On 2026-10-24 Antonio Ventilii (`AntonioVentilii`) transferred this repository to Enrica Cipolloni (`EnricaCipolloni`). Enrica is the owner; Antonio stays on as a collaborator and keeps maintaining the code. Talk to Enrica in Italian.
 
-Everything that was tied to Antonio's account has to be re-created or re-pointed on Enrica's side. The code itself needs no change for the transfer.
+Enrica's account is on **GitHub Free** and stays there. On Free a private repository gets neither GitHub Pages nor rulesets, so the decision is: **the repository is public**, under the MIT licence. Do not suggest upgrading the plan again.
 
-## 1. Check the GitHub plan first
+Before it went public the repo had a security audit: no secrets anywhere in the git history (gitleaks over every commit; the only hit is the Supabase publishable key, public by design), no keystores or provisioning files, no personal data beyond the commit author emails, workflows with `permissions: {}` and actions pinned by SHA. The fixes it produced are listed in section 1.
 
-Several features of a **private** repository depend on the owner's plan, and Antonio's account and Enrica's account may not be on the same one. Find out which plan Enrica's account has (github.com/settings/billing) before doing anything else.
+## 1. Before the switch to public (Antonio)
 
-| Feature on a private repo                             | GitHub Free   | GitHub Pro |
-| ----------------------------------------------------- | ------------- | ---------- |
-| GitHub Pages (the website and `deploy.yml`)           | Not available | Available  |
-| Rulesets (`.github/rulesets/main.json`)               | Not available | Available  |
-| Actions minutes per month                             | 2,000         | 3,000      |
-| macOS runner (`mobile.yml` iOS job) minute multiplier | 10x           | 10x        |
-
-If Enrica is on Free, the website at https://tempra.ventilii.dev stops deploying and the ruleset cannot be imported. Ask her to pick one, and do not work around it silently:
-
-1. **Upgrade to GitHub Pro** (about 4 USD per month). Nothing else changes. Recommended.
-2. **Make the repository public again.** Pages, rulesets and Actions minutes are free on public repos. The code becomes visible to everyone.
-3. **Host the site elsewhere** (Cloudflare Pages or Netlify, both free with private repos). This needs a new deploy setup in place of `deploy.yml` and a different DNS record; it is a `ci(pages): ...` PR of its own.
-
-The iOS job in `mobile.yml` runs on every PR and push to `main` and costs 10 minutes of quota per minute it runs. If minutes run short, limit it to `push` on `main` and tags in a `ci(mobile): ...` PR.
+- [ ] Merge `chore(repo): MIT license and security policy`.
+- [ ] Merge `fix(coach): drop the coach key from the address bar after restoring`.
+- [ ] Merge `fix(supabase): drop direct table grants and bound RPC payloads` and apply its migration to the live project, then write the applied date in its header.
+- [ ] Rotate the private key of the `av-automation` GitHub App (github.com/settings/apps). The old key is still stored in this repo's `RELEASE_BOT_PRIVATE_KEY` secret from before the transfer, and it works on every repo where Antonio installed the app.
 
 ## 2. Repository settings (Enrica, in the GitHub UI)
 
 - [ ] Accept the transfer from the GitHub email.
-- [ ] Settings → Collaborators → add `AntonioVentilii` with the **Admin** role. Until then Antonio cannot see the private repo.
-- [ ] Settings → Pages → Source **GitHub Actions**, custom domain `tempra.ventilii.dev`, **Enforce HTTPS** (needs Pro or a public repo, see section 1).
-- [ ] Settings → Rules → Rulesets → New ruleset → Import a ruleset → [`.github/rulesets/main.json`](./.github/rulesets/main.json) (needs Pro or a public repo).
+- [ ] Settings → Collaborators → set `AntonioVentilii` to the **Admin** role (it is Write today).
+- [ ] Settings → General → Danger Zone → **Change visibility → Public**, once section 1 is done.
+- [ ] Settings → Pages → Source **GitHub Actions**, custom domain `tempra.ventilii.dev`, **Enforce HTTPS**.
+- [ ] Settings → Rules → Rulesets: the `main` ruleset came over with the transfer but was dormant while the repo was private on Free. Check that it is listed and **Active**. If it is missing, import [`.github/rulesets/main.json`](./.github/rulesets/main.json) (New ruleset → Import a ruleset).
+- [ ] Settings → Code security: turn on **Private vulnerability reporting** (the channel `SECURITY.md` points to), **Dependabot alerts**, **Dependabot security updates**, **Secret scanning** with **Push protection**, and **CodeQL** default setup. All free on public repos.
+- [ ] Settings → Actions → General: "Approval for running fork pull request workflows" → **Require approval for all external contributors**; "Workflow permissions" → **Read repository contents**; leave "Allow GitHub Actions to create and approve pull requests" **off**.
 - [ ] Release bot, see section 3.
 - [ ] Tell Antonio when this section is done.
+
+Being public also means anyone can open issues and pull requests, and forks can run `checks.yml` and `mobile.yml` (no secrets are exposed to them). Every past PR, its comments and the commit author emails become visible.
 
 ## 3. Release bot (release-please)
 
@@ -94,10 +89,10 @@ Both stores:
 - [ ] Data safety (Play) and App Privacy (Apple) forms answered from the same facts.
 - [ ] Store listing: name, descriptions in it and en, screenshots at phone sizes, icon.
 
-Automating store builds in CI (signed AAB and IPA as artifacts, or upload with fastlane) is a later `ci(mobile): ...` PR. It needs the keystore, the Apple certificates and API keys as repository secrets, and on a private repo the macOS minutes from section 1.
+Automating store builds in CI (signed AAB and IPA as artifacts, or upload with fastlane) is a later `ci(mobile): ...` PR. It needs the keystore, the Apple certificates and API keys as repository secrets. Store secrets are never exposed to fork pull requests, so this stays safe on a public repo.
 
 ## 7. State at handover
 
 - `main` is green; CI is `checks.yml` (`checks-pass` is the only required status), `deploy.yml`, `mobile.yml`, `release-please.yml`.
-- The standing release PR `chore(release): v0.1.1` may be open: merging it only tags a release and updates `CHANGELOG.md`; the deploy already happens on every merge to `main`.
-- No licence file: the repo is private and all rights are reserved. Add one only if Enrica decides to open it up.
+- `v0.1.1` is tagged. release-please keeps the next release PR open; merging it only tags a release and updates `CHANGELOG.md`, the deploy already happens on every merge to `main`.
+- Licence: MIT ([`LICENSE`](./LICENSE)). Security reports: [`SECURITY.md`](./SECURITY.md).
