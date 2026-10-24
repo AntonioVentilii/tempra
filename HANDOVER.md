@@ -15,11 +15,11 @@ Several features of a **private** repository depend on the owner's plan, and Ant
 | Feature on a private repo                             | GitHub Free   | GitHub Pro |
 | ----------------------------------------------------- | ------------- | ---------- |
 | GitHub Pages (the website and `deploy.yml`)           | Not available | Available  |
-| Rulesets (`.github/rulesets/main.json`)               | Not available | Available  |
+| Rulesets (the `main` branch ruleset)                  | Not available | Available  |
 | Actions minutes per month                             | 2,000         | 3,000      |
 | macOS runner (`mobile.yml` iOS job) minute multiplier | 10x           | 10x        |
 
-If Enrica is on Free, the website at https://tempra.ventilii.dev stops deploying and the ruleset cannot be imported. Ask her to pick one, and do not work around it silently:
+If Enrica is on Free, the website at https://tempra.ventilii.dev stops deploying and the `main` ruleset is no longer enforced. Ask her to pick one, and do not work around it silently:
 
 1. **Upgrade to GitHub Pro** (about 4 USD per month). Nothing else changes. Recommended.
 2. **Make the repository public again.** Pages, rulesets and Actions minutes are free on public repos. The code becomes visible to everyone.
@@ -32,7 +32,7 @@ The iOS job in `mobile.yml` runs on every PR and push to `main` and costs 10 min
 - [ ] Accept the transfer from the GitHub email.
 - [ ] Settings → Collaborators → add `AntonioVentilii` with the **Admin** role. Until then Antonio cannot see the private repo.
 - [ ] Settings → Pages → Source **GitHub Actions**, custom domain `tempra.ventilii.dev`, **Enforce HTTPS** (needs Pro or a public repo, see section 1).
-- [ ] Settings → Rules → Rulesets → New ruleset → Import a ruleset → [`.github/rulesets/main.json`](./.github/rulesets/main.json) (needs Pro or a public repo).
+- [ ] Settings → Rules → Rulesets → check that the `main` ruleset came over with the transfer and is **Active** (needs Pro or a public repo, see section 1). If it is missing, re-create it from [`docs/ai/pr-and-ci.md`](./docs/ai/pr-and-ci.md#5a-branch-ruleset) section 5a.
 - [ ] Release bot, see section 3.
 - [ ] Tell Antonio when this section is done.
 
