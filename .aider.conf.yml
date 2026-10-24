@@ -1,0 +1,9 @@
+# Aider reads the canonical agent entry on every session.
+read:
+  - AGENTS.md
+  - docs/ai/pr-and-ci.md
+auto-commits: false
+attribute-author: false
+attribute-committer: false
+attribute-commit-message-author: false
+attribute-commit-message-committer: false
