@@ -57,6 +57,7 @@ test('coach link restores the session on a new device', async ({ page }) => {
 	await mockSupabase(page);
 	await page.goto(`/coach?code=${SQUAD_CODE.toLowerCase()}&key=${COACH_KEY}`);
 	await expect(page.getByTestId('squad-code')).toHaveText(SQUAD_CODE);
+	expect(new URL(page.url()).search).toBe('');
 	await page.getByTestId('coach-leave').click();
 	await expect(page.getByTestId('create-squad')).toBeVisible();
 });

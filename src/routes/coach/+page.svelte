@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { replaceState } from '$app/navigation';
 	import { page } from '$app/state';
 	import AthleteHistory from '$lib/components/coach/AthleteHistory.svelte';
 	import ConfigForm from '$lib/components/coach/ConfigForm.svelte';
@@ -28,7 +29,7 @@
 	import { isNullish, nonNullish } from '$lib/utils/nullish.utils';
 	import { buildRoster } from '$lib/utils/roster.utils';
 	import { formatWhen } from '$lib/utils/time.utils';
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 
 	const HISTORY_LIMIT = 1000;
 	const RECENT_LIMIT = 15;
@@ -149,6 +150,12 @@
 	onMount(() => {
 		const code = page.url.searchParams.get('code')?.toUpperCase();
 		const key = page.url.searchParams.get('key');
+
+		// The key is a password: keep it out of the address bar, history and screenshots.
+		// replaceState needs the router, which starts right after this first mount.
+		if (nonNullish(key)) {
+			void tick().then(() => replaceState(page.url.pathname, {}));
+		}
 
 		if (nonNullish(code) && nonNullish(key) && isNullish(session)) {
 			void restore({ code, key });
