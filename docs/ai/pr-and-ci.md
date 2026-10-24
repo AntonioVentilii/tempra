@@ -47,6 +47,10 @@ npm run cap:sync  # build + copy into android/ and ios/ (only when touching the 
 
 Write a new file under `supabase/migrations/` named `YYYYMMDDHHMMSS_<snake_case>.sql`, apply it to the `tempra` project (Supabase MCP `apply_migration` or the dashboard SQL editor), and describe the applied state in the file header. Never edit an applied migration.
 
-## 9. Commits
+## 9. Dependencies
+
+Dependabot opens weekly PRs: one grouped PR for npm minor and patch bumps, one per GitHub Action. Major npm bumps are ignored by config and done by hand in their own `chore(npm-deps)` or `deps(...)` PR, with the migration notes in the body. Merge a green dependabot PR with squash; never force a lockfile by hand.
+
+## 10. Commits
 
 Squash merges; the PR title becomes the commit. No AI attribution lines in commits or PR bodies.

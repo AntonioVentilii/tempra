@@ -7,6 +7,12 @@ updates:
     groups:
       npm-deps:
         patterns: ['*']
+        update-types: ['minor', 'patch']
+    # Major bumps (SvelteKit, TypeScript, ESLint, Capacitor) are migrations:
+    # they are done by hand in their own PR, never by a grouped bump.
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
     commit-message:
       prefix: 'chore(npm-deps)'
   - package-ecosystem: github-actions
