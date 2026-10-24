@@ -2,6 +2,8 @@
 
 Claude-specific runtime layer. [`AGENTS.md`](./AGENTS.md) is the canonical entry for all agents and [`docs/ai/`](./docs/ai/) is the source of truth; this file only adds Claude-only hints.
 
+> **Handover:** while [`HANDOVER.md`](./HANDOVER.md) exists, read it before anything else.
+
 > **Mandatory first step:** read [`AGENTS.md`](./AGENTS.md), then the area page you are about to touch ([`docs/ai/frontend/README.md`](./docs/ai/frontend/README.md) or [`docs/ai/backend/README.md`](./docs/ai/backend/README.md)).
 
 ## Before declaring done
