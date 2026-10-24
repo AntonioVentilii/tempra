@@ -29,7 +29,7 @@
 	import { isNullish, nonNullish } from '$lib/utils/nullish.utils';
 	import { buildRoster } from '$lib/utils/roster.utils';
 	import { formatWhen } from '$lib/utils/time.utils';
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 
 	const HISTORY_LIMIT = 1000;
 	const RECENT_LIMIT = 15;
@@ -152,8 +152,9 @@
 		const key = page.url.searchParams.get('key');
 
 		// The key is a password: keep it out of the address bar, history and screenshots.
+		// replaceState needs the router, which starts right after this first mount.
 		if (nonNullish(key)) {
-			replaceState(page.url.pathname, {});
+			void tick().then(() => replaceState(page.url.pathname, {}));
 		}
 
 		if (nonNullish(code) && nonNullish(key) && isNullish(session)) {
