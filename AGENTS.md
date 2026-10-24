@@ -1,6 +1,8 @@
 # AGENTS.md
 
-Canonical entry point for every AI coding agent working in this repository (Claude Code, Codex, Cursor, Copilot, Aider, ...). Read this first; it is short on purpose. Everything deeper lives under [`docs/ai/`](./docs/ai/).
+> **Ownership handover in progress.** Before any task, read [`HANDOVER.md`](./HANDOVER.md) and tell the owner which of its open steps still apply.
+
+Canonical entry point for every AI coding agent working in this repository: Claude Code, Codex and GPT, Gemini CLI, Cursor, Copilot, Windsurf, Aider, opencode, Continue. If your tool reads `AGENTS.md` you are in the right place; if it reads its own file (`CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, `.cursor/rules/`, `.windsurfrules`, `.aider.conf.yml`) that file points back here. Read this first; it is short on purpose. Everything deeper lives under [`docs/ai/`](./docs/ai/).
 
 ## 1. What this repo is
 

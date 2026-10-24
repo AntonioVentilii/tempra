@@ -6,7 +6,7 @@
 2. CI workflows (`.github/workflows/**`).
 3. This folder (`docs/ai/**`).
 4. [`AGENTS.md`](../../AGENTS.md).
-5. Tool-specific layers (`CLAUDE.md`, `.cursor/rules`, ...). They never contradict 1 to 4.
+5. Tool-specific layers: `CLAUDE.md` and `.claude/` (Claude Code), `GEMINI.md` (Gemini CLI), `.github/copilot-instructions.md` (Copilot), `.cursor/rules/tempra.mdc` (Cursor), `.windsurfrules` (Windsurf), `.aider.conf.yml` (Aider). Codex, opencode and Continue read `AGENTS.md` directly. Each layer is a thin pointer and never contradicts 1 to 4; new substance lands in `docs/ai/` first, then the pointers are updated in the same PR.
 
 A contradiction is fixed in the PR that found it, in the lower-ranked source.
 
