@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
 	appId: 'dev.ventilii.tempra',
 	appName: 'Tempra',
 	webDir: 'build',
-	backgroundColor: '#121417',
+	backgroundColor: '#0b0c0f',
 	android: {
 		allowMixedContent: false
 	},
@@ -16,11 +16,11 @@ const config: CapacitorConfig = {
 	plugins: {
 		SplashScreen: {
 			launchShowDuration: 0,
-			backgroundColor: '#121417'
+			backgroundColor: '#0b0c0f'
 		},
 		StatusBar: {
 			style: 'DARK',
-			backgroundColor: '#121417'
+			backgroundColor: '#0b0c0f'
 		}
 	}
 };

@@ -2,7 +2,7 @@ import type { I18nKey } from '$lib/constants/messages/it';
 
 export const en: Record<I18nKey, string> = {
 	'app.name': 'Tempra',
-	'app.tagline': 'Cognitive training in recovery breaks',
+	'app.tagline': 'Clear head under fatigue',
 	'app.version': 'Version',
 	'nav.athlete': 'Athlete',
 	'nav.coach': 'Coach',

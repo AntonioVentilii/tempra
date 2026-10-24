@@ -42,9 +42,9 @@
 	aria-label={label}
 >
 	{#if values.length > 1}
-		<polyline fill="none" stroke="var(--steel)" stroke-width="2" {points} />
+		<polyline fill="none" stroke="var(--cool)" stroke-width="2" {points} />
 	{/if}
 	{#if last.length === 2}
-		<circle cx={last[0]} cy={last[1]} r="2.5" fill="var(--ember)" />
+		<circle cx={last[0]} cy={last[1]} r="2.5" fill="var(--accent)" />
 	{/if}
 </svg>

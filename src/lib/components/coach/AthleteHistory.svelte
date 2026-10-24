@@ -72,11 +72,11 @@
 			<line x1={PAD} y1={H - PAD} x2={W - PAD} y2={H - PAD} stroke="var(--line)" />
 			<line x1={PAD} y1={PAD} x2={W - PAD} y2={PAD} stroke="var(--line)" stroke-dasharray="2 4" />
 			<path d={accuracyPath} fill="none" stroke="var(--fg-2)" stroke-width="1.5" />
-			<path d={indexPath} fill="none" stroke="var(--ember)" stroke-width="2.5" />
+			<path d={indexPath} fill="none" stroke="var(--accent)" stroke-width="2.5" />
 		</svg>
 		<p class="text-fg-2 mt-1 flex gap-4 text-xs">
 			<span
-				><i class="bg-ember inline-block h-1 w-4 align-middle"></i>
+				><i class="bg-accent inline-block h-1 w-4 align-middle"></i>
 				{t({ locale: $localeStore, key: 'summary.index' })}</span
 			>
 			<span

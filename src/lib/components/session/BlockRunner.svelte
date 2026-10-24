@@ -147,7 +147,7 @@
 		>
 			{formatClock(leftS)}
 		</div>
-		<div class="font-display text-ember-2 text-lg font-bold tracking-[.08em] uppercase">
+		<div class="font-display text-accent-2 text-lg font-bold tracking-[.08em] uppercase">
 			{#if nonNullish(currentGame)}
 				{t({ locale: $localeStore, key: `game.${currentGame}.name` as I18nKey })}
 			{/if}
@@ -156,11 +156,8 @@
 			{showingGame ? gameLeftS : ''}
 		</div>
 	</div>
-	<div class="bg-bg-3 h-1.5 overflow-hidden rounded-sm">
-		<i
-			class="bg-ember block h-full transition-[width] duration-300 ease-linear"
-			style="width: {Math.min(100, (elapsedS / total) * 100)}%;"
-		></i>
+	<div class="track">
+		<i style="width: {Math.min(100, (elapsedS / total) * 100)}%;"></i>
 	</div>
 
 	<div
@@ -176,7 +173,7 @@
 					<h3 class="text-fg-2 text-base font-bold tracking-[.08em]">
 						{t({ locale: $localeStore, key: 'session.next' })}
 					</h3>
-					<div class="stim text-ember">
+					<div class="stim text-accent">
 						{t({ locale: $localeStore, key: `game.${currentGame}.name` as I18nKey })}
 					</div>
 					<p class="hint">{hintFor(currentGame)}</p>

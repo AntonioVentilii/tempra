@@ -25,7 +25,7 @@
 
 <div class="bg-bg-3 h-1 w-full overflow-hidden rounded-sm" aria-hidden="true">
 	<i
-		class="bg-steel block h-full origin-left"
+		class="bg-cool block h-full origin-left"
 		style="transform: scaleX({armed ? 0 : 1}); transition: transform {armed
 			? durationMs
 			: 0}ms linear;"

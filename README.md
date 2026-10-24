@@ -32,7 +32,7 @@ npm run build      # static export in build/
 npm run cap:sync   # copy the build into the Android and iOS projects
 ```
 
-Node version in `.node-version`. Agents: start from [`AGENTS.md`](./AGENTS.md); the long-form docs live under [`docs/ai/`](./docs/ai/).
+Identity (logo, palette, type, screens) lives on the Claude Design canvas linked from `docs/ai/frontend/README.md`. Node version in `.node-version`. Agents: start from [`AGENTS.md`](./AGENTS.md); the long-form docs live under [`docs/ai/`](./docs/ai/).
 
 ## Mobile
 

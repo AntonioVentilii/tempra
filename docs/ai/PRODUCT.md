@@ -65,6 +65,10 @@ Defaults: difficulty 3, all six games, 90 s block, 30 s per game, time pressure 
 
 A service worker caches the app shell and assets at install, so the app opens without signal; the athlete plays with the last config the device saw and results queue in the outbox. API calls are never cached.
 
+## Look
+
+Track-and-field identity from the Tempra Brand canvas: asphalt ground, volt accent, condensed italics, bib-shaped buttons, lane-stripe progress. See `docs/ai/frontend/README.md` § Design tokens.
+
 ## Languages
 
 Italian (default) and English, switchable in the footer, remembered on the device.

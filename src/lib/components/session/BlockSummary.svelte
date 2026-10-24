@@ -50,7 +50,7 @@
 			<div class="grid grid-cols-[90px_1fr_52px] items-center gap-2 text-sm">
 				<span>{t({ locale: $localeStore, key: `game.${game.game}.name` as I18nKey })}</span>
 				<i
-					class="bg-steel block h-2.5 rounded-[5px]"
+					class="bg-cool block h-2.5 rounded-[5px]"
 					style="width: {(game.score / maxScore) * 100}%;"
 				></i>
 				<b class="tnum text-right">{game.correct}/{game.correct + game.wrong}</b>

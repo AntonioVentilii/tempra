@@ -1,6 +1,6 @@
 export const it = {
 	'app.name': 'Tempra',
-	'app.tagline': 'Allenamento cognitivo nei recuperi',
+	'app.tagline': 'Testa lucida sotto fatica',
 	'app.version': 'Versione',
 	'nav.athlete': 'Atleta',
 	'nav.coach': 'Coach',

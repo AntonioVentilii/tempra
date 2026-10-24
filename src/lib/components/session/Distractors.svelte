@@ -12,7 +12,7 @@
 	let flash = $state(false);
 	let blobs = $state<Blob[]>([]);
 
-	const COLORS = ['var(--steel)', 'var(--warn)', 'var(--bad)', 'var(--ember)'];
+	const COLORS = ['var(--cool)', 'var(--warn)', 'var(--bad)', 'var(--accent)'];
 
 	onMount(() => {
 		const timers: ReturnType<typeof setTimeout>[] = [];

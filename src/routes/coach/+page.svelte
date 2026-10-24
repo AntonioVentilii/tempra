@@ -260,7 +260,10 @@
 		</button>
 	</form>
 {:else}
-	<div class="card flex flex-wrap items-start justify-between gap-3" data-tid="squad-card">
+	<div
+		class="card card-accent flex flex-wrap items-start justify-between gap-3"
+		data-tid="squad-card"
+	>
 		<div>
 			<span class="label">{t({ locale: $localeStore, key: 'coach.squad' })}</span>
 			<div class="code" data-tid="squad-code">{session.code}</div>

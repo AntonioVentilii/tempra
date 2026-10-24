@@ -32,16 +32,15 @@
 		<a href="/" class="no-underline" aria-label={t({ locale: $localeStore, key: 'nav.home' })}>
 			<Brand />
 		</a>
-		<nav
-			class="border-line bg-bg-2 flex gap-1 rounded-full border p-1"
-			aria-label={t({ locale: $localeStore, key: 'nav.home' })}
-		>
+		<nav class="flex gap-0.5" aria-label={t({ locale: $localeStore, key: 'nav.home' })}>
 			{#each tabs as tab (tab.href)}
 				<a
 					href={tab.href}
-					class="rounded-full px-3 py-2 text-sm font-semibold no-underline {isActive(tab.href)
-						? 'bg-ember text-on-accent'
-						: 'text-fg-2'}"
+					class="font-display px-3.5 py-2 text-base font-extrabold tracking-[.06em] uppercase italic no-underline [clip-path:polygon(10%_0,100%_0,90%_100%,0_100%)] {isActive(
+						tab.href
+					)
+						? 'bg-accent text-on-accent'
+						: 'bg-bg-3 text-fg-2'}"
 					aria-current={isActive(tab.href) ? 'page' : undefined}
 				>
 					{tab.label}

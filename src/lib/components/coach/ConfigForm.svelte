@@ -47,7 +47,7 @@
 			min="1"
 			max="5"
 			step="1"
-			class="accent-ember w-full"
+			class="accent-accent w-full"
 			value={draft.difficulty}
 			oninput={(e) => (draft.difficulty = Number(e.currentTarget.value) as Difficulty)}
 		/>
@@ -64,12 +64,12 @@
 					class="inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-2 text-sm select-none {draft.games.includes(
 						key
 					)
-						? 'border-ember bg-bg-3'
+						? 'border-accent bg-bg-3'
 						: 'border-line bg-bg-3'}"
 				>
 					<input
 						type="checkbox"
-						class="accent-ember m-0"
+						class="accent-accent m-0"
 						checked={draft.games.includes(key)}
 						onchange={() => toggleGame(key)}
 					/>

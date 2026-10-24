@@ -282,7 +282,7 @@
 {:else if view === 'summary' && nonNullish(lastResult)}
 	<BlockSummary result={lastResult} {nextDifficulty} onBack={() => (view = 'home')} />
 {:else}
-	<div class="card flex flex-col gap-3" data-tid="athlete-home">
+	<div class="card card-accent flex flex-col gap-3" data-tid="athlete-home">
 		<div class="flex flex-wrap items-end gap-2.5">
 			<div class="min-w-0 flex-1 basis-40">
 				<label class="label" for="athlete-name"

@@ -53,7 +53,7 @@
 					<button
 						class="bg-bg-3 grid w-full cursor-pointer grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 rounded-[10px] border px-3 py-2.5 text-left {selected ===
 						athlete.name
-							? 'border-ember'
+							? 'border-accent'
 							: 'border-transparent'}"
 						onclick={() => onSelect(athlete.name)}
 						aria-pressed={selected === athlete.name}
