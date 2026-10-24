@@ -1,0 +1,135 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  # Squash-merge titles become the commits release-please reads, so PR titles
+  # must be Conventional Commits WITH a scope (same house rule as uliveto).
+  pr-title:
+    runs-on: ubuntu-24.04
+    permissions: {}
+    steps:
+      - name: Skip outside pull requests
+        if: github.event_name != 'pull_request'
+        run: echo "PR title check only runs for pull_request events."
+
+      - name: Validate Conventional Commit PR title (scope required)
+        if: github.event_name == 'pull_request'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          pattern='^(feat|fix|perf|deps|revert|docs|style|chore|refactor|test|build|ci)\([-a-zA-Z0-9,._/]+\)!?: .+$'
+
+          if [[ "$PR_TITLE" =~ $pattern ]]; then
+            echo "PR title OK."
+            exit 0
+          fi
+
+          # Keep the title off the start of a line so it can't inject a ::workflow:: command.
+          echo "::error::PR title must be a Conventional Commit WITH A SCOPE: 'type(scope): description' (or 'type(scope)!: ...' for a breaking change)."
+          echo "::error::Scope = the affected area, e.g. 'feat(games): add simon', 'fix(coach): results refresh', 'ci(pages): bump action'."
+          echo "Got title: $PR_TITLE"
+          exit 1
+
+  site:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install (frozen lockfile)
+        run: npm ci
+
+      - name: Lint (prettier + eslint + i18n catalogs)
+        run: npm run lint
+
+      - name: Check (svelte-check)
+        run: npm run check
+
+      - name: Unit tests
+        run: npm test
+
+      # Same static export the deploy workflow publishes to GitHub Pages.
+      - name: Build
+        run: npm run build
+
+      - name: Static export is complete
+        run: |
+          test -f build/index.html
+          test -f build/404.html
+          test -f build/athlete.html
+          test -f build/coach.html
+          test "$(cat build/CNAME)" = "tempra.ventilii.dev"
+
+  e2e:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install (frozen lockfile)
+        run: npm ci
+
+      - name: Install Chromium
+        run: npm run e2e:install
+
+      # Supabase is mocked inside the specs (e2e/supabase-mock.ts): no network,
+      # no writes to the live project.
+      - name: Playwright
+        run: npm run e2e
+        env:
+          CI: 'true'
+
+      - name: Upload report
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7
+
+  # Single required status for the ruleset: gate on this one job instead
+  # of enumerating every check.
+  checks-pass:
+    if: always()
+    needs: ['pr-title', 'site', 'e2e']
+    runs-on: ubuntu-24.04
+    permissions: {}
+    steps:
+      - name: Fail if any required check did not succeed
+        env:
+          NEEDS: ${{ toJson(needs) }}
+        run: |
+          echo "$NEEDS"
+          if echo "$NEEDS" | grep -qE '"result": *"(failure|cancelled)"'; then
+            echo "::error::A required check failed."
+            exit 1
+          fi

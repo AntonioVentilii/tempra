@@ -1,0 +1,10 @@
+{
+	"name": "Tempra",
+	"short_name": "Tempra",
+	"description": "Allenamento cognitivo nei recuperi",
+	"start_url": "/athlete",
+	"display": "standalone",
+	"background_color": "#121417",
+	"theme_color": "#121417",
+	"icons": [{ "src": "/icon-512.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

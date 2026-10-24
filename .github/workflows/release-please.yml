@@ -1,0 +1,51 @@
+name: Release Please
+
+# Automates versioning + changelog from Conventional Commit PR titles.
+# Same pattern as uliveto, scaven-family and icdc-core.
+#
+# On every push to `main`, release-please maintains a standing "release PR"
+# that bumps package.json and regenerates CHANGELOG.md from the commits since
+# the last release. Merging that PR cuts a `vX.Y.Z` tag + GitHub Release.
+# Deploys are driven by `main` itself (deploy.yml), so a release is a
+# bookkeeping step, not the ship.
+#
+# TOKEN: release-please runs as the av-automation GitHub App. GitHub does not
+# start other workflows for events created with the default GITHUB_TOKEN, so
+# the release PR's checks would wait for a manual approval. Needs the
+# RELEASE_BOT_APP_ID repo variable, the RELEASE_BOT_PRIVATE_KEY repo secret
+# and the app installed on this repo.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release-please-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  release-please:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Generate bot token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ vars.RELEASE_BOT_APP_ID }}
+          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+
+      # When updating this action, also bump the $schema version in
+      # release-please-config.json to match the bundled release-please version.
+      - uses: googleapis/release-please-action@0b6b3fc0186a2f7118bfd88fab9ea481e1839504 # v4.4.0
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+          # Releases only ever come off main, whatever branch a dispatch ran on.
+          target-branch: main
