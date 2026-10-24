@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { replaceState } from '$app/navigation';
 	import { page } from '$app/state';
 	import AthleteHistory from '$lib/components/coach/AthleteHistory.svelte';
 	import ConfigForm from '$lib/components/coach/ConfigForm.svelte';
@@ -149,6 +150,11 @@
 	onMount(() => {
 		const code = page.url.searchParams.get('code')?.toUpperCase();
 		const key = page.url.searchParams.get('key');
+
+		// The key is a password: keep it out of the address bar, history and screenshots.
+		if (nonNullish(key)) {
+			replaceState(page.url.pathname, {});
+		}
 
 		if (nonNullish(code) && nonNullish(key) && isNullish(session)) {
 			void restore({ code, key });
