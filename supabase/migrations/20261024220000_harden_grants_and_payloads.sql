@@ -6,7 +6,7 @@
 -- The RPCs are SECURITY DEFINER and keep working unchanged.
 -- Free-form RPC inputs get upper bounds so nobody can fill the database with
 -- oversized payloads: real params are well under 1 KB, configs under 1 KB.
--- Apply to project znhomweyvdkkhvgcnvdc as `harden_grants_and_payloads`; not applied yet.
+-- Applied to project znhomweyvdkkhvgcnvdc on 2026-10-25 as `harden_grants_and_payloads`.
 
 revoke all on table public.squads, public.results from anon, authenticated;
 revoke insert, update, delete, truncate, references, trigger on table public.squad_config from anon, authenticated;
