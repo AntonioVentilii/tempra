@@ -12,14 +12,16 @@ Before it went public the repo had a security audit: no secrets anywhere in the 
 
 ## 1. Before the switch to public (Antonio)
 
-- [ ] Merge `chore(repo): MIT license and security policy`.
-- [ ] Merge `fix(coach): drop the coach key from the address bar after restoring`.
-- [ ] Merge `fix(supabase): drop direct table grants and bound RPC payloads` and apply its migration to the live project, then write the applied date in its header.
+- [x] Merge `chore(repo): MIT license and security policy`.
+- [x] Merge `fix(coach): drop the coach key from the address bar after restoring`.
+- [x] Merge `fix(supabase): drop direct table grants and bound RPC payloads` and apply its migration to the live project, then write the applied date in its header.
 - [ ] Rotate the private key of the `av-automation` GitHub App (github.com/settings/apps). The old key is still stored in this repo's `RELEASE_BOT_PRIVATE_KEY` secret from before the transfer, and it works on every repo where Antonio installed the app.
 
-## 2. Repository settings (Enrica, in the GitHub UI)
+## 2. Repository settings (Enrica)
 
-- [ ] Accept the transfer from the GitHub email.
+Each step is a GitHub setting. An agent can do most of them with `gh api` once Enrica is logged in to `gh` with her own account; creating the GitHub App in section 3 has to happen in the browser.
+
+- [x] Accept the transfer from the GitHub email.
 - [ ] Settings → Collaborators → set `AntonioVentilii` to the **Admin** role (it is Write today).
 - [ ] Settings → General → Danger Zone → **Change visibility → Public**, once section 1 is done.
 - [ ] Settings → Pages → Source **GitHub Actions**, custom domain `tempra.ventilii.dev`, **Enforce HTTPS**.
