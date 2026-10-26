@@ -4,7 +4,7 @@ Read this before anything else, then [`AGENTS.md`](./AGENTS.md). Delete this fil
 
 ## Context
 
-On 2026-10-24 Antonio Ventilii (`AntonioVentilii`) transferred this repository to Enrica Cipolloni (`EnricaCipolloni`). Enrica is the owner; Antonio stays on as a collaborator and keeps maintaining the code. Talk to Enrica in Italian.
+On 2026-10-24 Antonio Ventilii (`AntonioVentilii`) transferred this repository to Enrica Cipolloni (`EnricaCipolloni`). Enrica is the owner; Antonio stays on as a collaborator and keeps maintaining the code. On a personal account a collaborator cannot be made Admin (roles exist only in organisations): Antonio can push, open and merge PRs, but every setting, secret and ruleset change is Enrica's. Talk to Enrica in Italian.
 
 Enrica's account is on **GitHub Free** and stays there. On Free a private repository gets neither GitHub Pages nor rulesets, so the decision is: **the repository is public**, under the MIT licence. Do not suggest upgrading the plan again.
 
@@ -15,20 +15,19 @@ Before it went public the repo had a security audit: no secrets anywhere in the 
 - [x] Merge `chore(repo): MIT license and security policy`.
 - [x] Merge `fix(coach): drop the coach key from the address bar after restoring`.
 - [x] Merge `fix(supabase): drop direct table grants and bound RPC payloads` and apply its migration to the live project, then write the applied date in its header.
-- [ ] Rotate the private key of the `av-automation` GitHub App (github.com/settings/apps). The old key is still stored in this repo's `RELEASE_BOT_PRIVATE_KEY` secret from before the transfer, and it works on every repo where Antonio installed the app.
+- [ ] Rotate the private key of the `av-automation` GitHub App (github.com/settings/apps). Not a blocker: Enrica overwrote `RELEASE_BOT_PRIVATE_KEY` with her own app's key on 2026-10-25, so the old key is no longer stored here; rotating is hygiene for Antonio's other repos.
 
 ## 2. Repository settings (Enrica)
 
 Each step is a GitHub setting. An agent can do most of them with `gh api` once Enrica is logged in to `gh` with her own account; creating the GitHub App in section 3 has to happen in the browser.
 
 - [x] Accept the transfer from the GitHub email.
-- [ ] Settings → Collaborators → set `AntonioVentilii` to the **Admin** role (it is Write today).
-- [ ] Settings → General → Danger Zone → **Change visibility → Public**, once section 1 is done.
+- [ ] Settings → General → Danger Zone → **Change visibility → Public**. Section 1 is done apart from the non-blocking key rotation.
 - [ ] Settings → Pages → Source **GitHub Actions**, custom domain `tempra.ventilii.dev`, **Enforce HTTPS**.
 - [ ] Settings → Rules → Rulesets: the `main` ruleset came over with the transfer but was dormant while the repo was private on Free. Check that it is listed and **Active**. If it is missing, import [`.github/rulesets/main.json`](./.github/rulesets/main.json) (New ruleset → Import a ruleset).
 - [ ] Settings → Code security: turn on **Private vulnerability reporting** (the channel `SECURITY.md` points to), **Dependabot alerts**, **Dependabot security updates**, **Secret scanning** with **Push protection**, and **CodeQL** default setup. All free on public repos.
 - [ ] Settings → Actions → General: "Approval for running fork pull request workflows" → **Require approval for all external contributors**; "Workflow permissions" → **Read repository contents**; leave "Allow GitHub Actions to create and approve pull requests" **off**.
-- [ ] Release bot, see section 3.
+- [x] Release bot, see section 3 (Enrica's own app, workflow green on 2026-10-25).
 - [ ] Tell Antonio when this section is done.
 
 Being public also means anyone can open issues and pull requests, and forks can run `checks.yml` and `mobile.yml` (no secrets are exposed to them). Every past PR, its comments and the commit author emails become visible.
