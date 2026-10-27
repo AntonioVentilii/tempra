@@ -36,7 +36,7 @@ Identity (logo, palette, type, screens) lives on the Claude Design canvas linked
 
 ## Mobile
 
-`android/` and `ios/` are Capacitor shells around `build/`. Open them with `npm run cap:android` (Android Studio) or `npm run cap:ios` (Xcode). CI assembles a debug APK on every change ([`.github/workflows/mobile.yml`](./.github/workflows/mobile.yml)); store builds need signing credentials and are a later step.
+`android/` and `ios/` are Capacitor shells around `build/`. Open them with `npm run cap:android` (Android Studio) or `npm run cap:ios` (Xcode). CI assembles a debug APK on every change ([`.github/workflows/mobile.yml`](./.github/workflows/mobile.yml)). Every GitHub Release carries the Android APK and AAB and the iOS IPA, built by [`.github/workflows/release-assets.yml`](./.github/workflows/release-assets.yml); they are signed once the signing secrets are set (see [`docs/ai/pr-and-ci.md`](./docs/ai/pr-and-ci.md) section 7).
 
 ## Deploy
 

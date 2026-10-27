@@ -90,7 +90,7 @@ Both stores:
 - [ ] Data safety (Play) and App Privacy (Apple) forms answered from the same facts.
 - [ ] Store listing: name, descriptions in it and en, screenshots at phone sizes, icon.
 
-Automating store builds in CI (signed AAB and IPA as artifacts, or upload with fastlane) is a later `ci(mobile): ...` PR. It needs the keystore, the Apple certificates and API keys as repository secrets. Store secrets are never exposed to fork pull requests, so this stays safe on a public repo.
+Every release already attaches the APK, AAB and IPA built by [`release-assets.yml`](./.github/workflows/release-assets.yml); until the signing secrets exist they are a debug APK and an unsigned IPA. Once the keystore and the Apple distribution certificate and profile exist, Enrica adds them as the repository secrets listed in [`docs/ai/pr-and-ci.md`](./docs/ai/pr-and-ci.md) section 7 and the next release is signed. Uploading to the stores (fastlane, App Store Connect API key) is a later `ci(mobile): ...` PR. Secrets are never exposed to fork pull requests, so this stays safe on a public repo.
 
 ## 7. State at handover
 
