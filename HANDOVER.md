@@ -23,12 +23,12 @@ Each step is a GitHub setting. An agent can do most of them with `gh api` once E
 
 - [x] Accept the transfer from the GitHub email.
 - [x] Settings → General → Danger Zone → **Change visibility → Public**. Section 1 is done apart from the non-blocking key rotation.
-- [ ] Settings → Pages → Source **GitHub Actions**, custom domain `tempra.ventilii.dev`, **Enforce HTTPS**.
+- [x] Settings → Pages → Source **GitHub Actions**, custom domain `tempra.ventilii.dev`, **Enforce HTTPS**.
 - [x] Settings → Rules → Rulesets: the `main` ruleset came over with the transfer but was dormant while the repo was private on Free. Check that it is listed and **Active**. If it is missing, re-create it from [`docs/ai/pr-and-ci.md`](./docs/ai/pr-and-ci.md#5a-branch-ruleset) section 5a.
-- [ ] Settings → Code security: turn on **Private vulnerability reporting** (the channel `SECURITY.md` points to), **Dependabot alerts**, **Dependabot security updates**, **Secret scanning** with **Push protection**, and **CodeQL** default setup. All free on public repos.
-- [ ] Settings → Actions → General: "Approval for running fork pull request workflows" → **Require approval for all external contributors**; "Workflow permissions" → **Read repository contents**; leave "Allow GitHub Actions to create and approve pull requests" **off**.
+- [x] Settings → Code security: turn on **Private vulnerability reporting** (the channel `SECURITY.md` points to), **Dependabot alerts**, **Dependabot security updates**, **Secret scanning** with **Push protection**, and **CodeQL** default setup. All free on public repos.
+- [x] Settings → Actions → General: "Approval for running fork pull request workflows" → **Require approval for all external contributors**; "Workflow permissions" → **Read repository contents**; leave "Allow GitHub Actions to create and approve pull requests" **off**.
 - [x] Release bot, see section 3 (Enrica's own app, workflow green on 2026-10-25).
-- [ ] Tell Antonio when this section is done.
+- [x] Tell Antonio when this section is done.
 
 Being public also means anyone can open issues and pull requests, and forks can run `checks.yml` and `mobile.yml` (no secrets are exposed to them). Every past PR, its comments and the commit author emails become visible.
 
@@ -40,18 +40,18 @@ Until now that app was `av-automation`, which belongs to Antonio, is not public 
 
 What to do instead:
 
-- [ ] Enrica creates her own GitHub App (Settings → Developer settings → GitHub Apps → New GitHub App): any name, webhook off, repository permissions **Contents: Read and write**, **Issues: Read and write**, **Pull requests: Read and write**, installable "Only on this account".
-- [ ] Generate a private key for it (downloads a `.pem`) and install the app on `EnricaCipolloni/tempra` only.
-- [ ] Repo Settings → Secrets and variables → Actions: variable `RELEASE_BOT_APP_ID` = the new app's ID, secret `RELEASE_BOT_PRIVATE_KEY` = the full content of the `.pem`. Overwrite any value carried over from the old owner.
-- [ ] Re-run the "Release Please" workflow from the Actions tab and check that it opens or updates the `chore(release): vX.Y.Z` PR.
+- [x] Enrica creates her own GitHub App (Settings → Developer settings → GitHub Apps → New GitHub App): any name, webhook off, repository permissions **Contents: Read and write**, **Issues: Read and write**, **Pull requests: Read and write**, installable "Only on this account".
+- [x] Generate a private key for it (downloads a `.pem`) and install the app on `EnricaCipolloni/tempra` only.
+- [x] Repo Settings → Secrets and variables → Actions: variable `RELEASE_BOT_APP_ID` = the new app's ID, secret `RELEASE_BOT_PRIVATE_KEY` = the full content of the `.pem`. Overwrite any value carried over from the old owner.
+- [x] Re-run the "Release Please" workflow from the Actions tab and check that it opens or updates the `chore(release): vX.Y.Z` PR.
 
 No code change is needed: the workflow only reads the variable and the secret.
 
 ## 4. Domain and DNS (Antonio)
 
-- [ ] At Namecheap, change `tempra.ventilii.dev CNAME antonioventilii.github.io` to `tempra.ventilii.dev CNAME enricacipolloni.github.io`, after Enrica has set the custom domain in Pages.
-- [ ] If `ventilii.dev` is a verified domain in Antonio's account (github.com/settings/pages), GitHub may block another account from using its subdomains. Either keep it verified and confirm the site still serves, or remove the verification for this subdomain.
-- [ ] Update the DNS line in [`docs/ai/pr-and-ci.md`](./docs/ai/pr-and-ci.md) section 6 to `enricacipolloni.github.io`.
+- [x] At Namecheap, change `tempra.ventilii.dev CNAME antonioventilii.github.io` to `tempra.ventilii.dev CNAME enricacipolloni.github.io` (done 2026-10-27).
+- [x] Verified-domain check: the site serves from Enrica's Pages with an approved Let's Encrypt certificate, so nothing on Antonio's account blocks the subdomain.
+- [x] Update the DNS line in [`docs/ai/pr-and-ci.md`](./docs/ai/pr-and-ci.md) section 6 and in `README.md`.
 
 The domain stays Antonio's; `static/CNAME` and the CI assertion on `build/CNAME` do not change. If Enrica later wants her own domain, that is a change to `static/CNAME`, `checks.yml`, `deploy.yml`, `AGENTS.md` and `docs/ai/`, in one PR.
 
