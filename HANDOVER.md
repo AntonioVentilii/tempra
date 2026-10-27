@@ -86,7 +86,7 @@ Apple App Store:
 
 Both stores:
 
-- [ ] A privacy policy URL (the app stores athlete display names and game results in Supabase, see [`docs/ai/backend/README.md`](./docs/ai/backend/README.md)). A page on the site itself works.
+- [ ] A privacy policy URL (the app stores athlete display names and game results in Supabase, see [`docs/ai/backend/README.md`](./docs/ai/backend/README.md)). A page on the site itself works. A draft lives at `/privacy`; fill its bracketed placeholders (controller, legal basis, contact, retention) before submitting.
 - [ ] Data safety (Play) and App Privacy (Apple) forms answered from the same facts.
 - [ ] Store listing: name, descriptions in it and en, screenshots at phone sizes, icon.
 

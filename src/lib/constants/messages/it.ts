@@ -171,6 +171,47 @@ export const it = {
 	'athlete.outbox': '{n} risultati in attesa di invio',
 	'summary.queued': 'Nessuna connessione: il risultato parte appena torni online',
 
+	'footer.privacy': 'Privacy',
+	'join.name.hint': 'Basta il nome o un soprannome, non serve il cognome.',
+	'privacy.title': 'Privacy',
+	'privacy.lead':
+		'Tempra raccoglie il minimo per far funzionare l’allenamento: un nome scelto da te e i punteggi dei giochi. Niente account, email, età o posizione, niente pubblicità.',
+	'privacy.updated': 'Ultimo aggiornamento: 27 ottobre 2026.',
+	'privacy.who.title': 'Chi è responsabile',
+	'privacy.who.text':
+		'Titolare del trattamento: [DA COMPLETARE: nome, indirizzo, email]. Quando una società sportiva usa Tempra con i suoi atleti: [DA DECIDERE: la società è titolare e Tempra tratta i dati per suo conto, oppure Tempra è titolare].',
+	'privacy.data.title': 'Quali dati',
+	'privacy.data.1':
+		'Il nome che l’atleta scrive per entrare nella squadra. Può essere un soprannome.',
+	'privacy.data.2':
+		'I risultati di ogni blocco: punti, precisione, tempi di reazione, livello, giochi, data e ora.',
+	'privacy.data.3': 'Il nome della squadra scelto dall’allenatore.',
+	'privacy.data.4':
+		'Un identificativo casuale del dispositivo, usato solo per mostrare all’allenatore chi è online. Non viene salvato sul server.',
+	'privacy.why.title': 'Perché',
+	'privacy.why.text':
+		'Per far giocare l’atleta con i parametri scelti dall’allenatore e mostrare all’allenatore i risultati della squadra. Nessuna pubblicità, nessuna profilazione, nessuna vendita a terzi. Base giuridica: [DA COMPLETARE].',
+	'privacy.see.title': 'Chi li vede',
+	'privacy.see.text':
+		'Chi ha il link dell’allenatore vede nomi e risultati di tutti gli atleti della squadra. Chi ha solo il codice della squadra vede i nomi degli atleti online in quel momento, non i risultati. Il link dell’allenatore va custodito come una password.',
+	'privacy.where.title': 'Dove sono',
+	'privacy.where.1':
+		'Database: Supabase, server a Zurigo (Svizzera), paese che l’Unione europea riconosce come adeguato per la protezione dei dati.',
+	'privacy.where.2':
+		'Sito: GitHub Pages (GitHub, Stati Uniti), che riceve l’indirizzo IP di chi apre il sito, come ogni servizio di hosting.',
+	'privacy.where.3':
+		'Caratteri tipografici: Google Fonts (Google, Stati Uniti), che riceve l’indirizzo IP quando il sito li scarica.',
+	'privacy.where.4':
+		'Sul tuo dispositivo: squadra, nome e i tuoi ultimi risultati, per funzionare anche senza rete. Si cancellano eliminando i dati del sito nel browser o disinstallando l’app.',
+	'privacy.keep.title': 'Per quanto tempo',
+	'privacy.keep.text':
+		'Finché l’allenatore non cancella i dati di un atleta o elimina la squadra. [DA DECIDERE: cancellazione automatica dopo un periodo senza attività].',
+	'privacy.minors.title': 'Atleti minorenni',
+	'privacy.minors.text':
+		'Tempra è pensata anche per squadre giovanili. Con atleti minorenni, e in particolare sotto i 14 anni, l’uso passa dalla società sportiva o dall’allenatore, che ne informa i genitori e, se serve, raccoglie il loro consenso. Consigliamo di usare solo il nome o un soprannome, mai nome e cognome.',
+	'privacy.rights.title': 'I tuoi diritti',
+	'privacy.rights.text':
+		'Puoi chiedere di vedere, correggere o cancellare i tuoi dati. Il modo più rapido è chiederlo all’allenatore: dal pannello coach può cancellare i risultati di un atleta o l’intera squadra. Puoi anche scrivere a [DA COMPLETARE: email]. Se pensi che i tuoi dati siano trattati in modo scorretto puoi rivolgerti al Garante per la protezione dei dati personali (garanteprivacy.it).',
 	'footer.made': 'Un progetto di Antonio Ventilii.'
 } as const;
 

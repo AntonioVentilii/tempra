@@ -35,3 +35,16 @@ test('no horizontal overflow at phone width', async ({ page }) => {
 	);
 	expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test('footer links to the privacy page, readable at phone width', async ({ page }) => {
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/');
+	await page.getByTestId('footer-privacy').click();
+	await expect(page).toHaveURL(/\/privacy$/);
+	await expect(page.getByRole('heading', { level: 1, name: 'Privacy' })).toBeVisible();
+	await expect(page.getByTestId('privacy')).toContainText('Atleti minorenni');
+	const overflow = await page.evaluate(
+		() => document.documentElement.scrollWidth - document.documentElement.clientWidth
+	);
+	expect(overflow).toBeLessThanOrEqual(0);
+});

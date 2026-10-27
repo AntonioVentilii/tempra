@@ -69,6 +69,10 @@ A service worker caches the app shell and assets at install, so the app opens wi
 
 Track-and-field identity from the Tempra Brand canvas: asphalt ground, volt accent, condensed italics, bib-shaped buttons, lane-stripe progress. See `docs/ai/frontend/README.md` § Design tokens.
 
+## Privacy
+
+`/privacy` (linked from the footer and from the athlete join form) states what is collected (display name, block results, squad name, an ephemeral device id for presence), who sees it, where it lives (Supabase in Zurich, GitHub Pages, Google Fonts, the device), how long it is kept, how minors use the app and how to have data deleted. The join form suggests a first name or nickname. Placeholders in square brackets (controller, legal basis, contact, retention) are open decisions for the owner.
+
 ## Languages
 
 Italian (default) and English, switchable in the footer, remembered on the device.

@@ -13,6 +13,7 @@ src/
     +page.svelte              landing
     athlete/+page.svelte      join form → home card → BlockRunner → BlockSummary
     coach/+page.svelte        create / restore → squad card + ConfigForm + ResultsTable
+    privacy/+page.svelte      privacy notice, one section per catalog key group (privacy.*)
   lib/
     components/
       games/                  one component per game + index.ts (GAME_COMPONENTS)
