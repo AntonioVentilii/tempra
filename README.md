@@ -40,7 +40,7 @@ Identity (logo, palette, type, screens) lives on the Claude Design canvas linked
 
 ## Deploy
 
-Every push to `main` builds the static site and publishes it to GitHub Pages ([`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml)). `static/CNAME` pins the custom domain; the DNS record is a CNAME from `tempra.ventilii.dev` to `antonioventilii.github.io`. Versioning and the changelog are handled by release-please from Conventional Commit PR titles.
+Every push to `main` builds the static site and publishes it to GitHub Pages ([`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml)). `static/CNAME` pins the custom domain; the DNS record is a CNAME from `tempra.ventilii.dev` to `enricacipolloni.github.io`. Versioning and the changelog are handled by release-please from Conventional Commit PR titles.
 
 The database schema and RPCs are in [`supabase/migrations/`](./supabase/migrations/); see [`docs/ai/backend/README.md`](./docs/ai/backend/README.md) for the security model.
 

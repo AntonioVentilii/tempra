@@ -33,11 +33,11 @@ npm run cap:sync  # build + copy into android/ and ios/ (only when touching the 
 
 ## 5a. Branch ruleset
 
-[`.github/rulesets/main.json`](../../.github/rulesets/main.json) is the ruleset for `main`, exported in GitHub's import format: pull request required, squash only, review threads resolved, `checks-pass` required and up to date, no deletion, no force push; repository admins bypass. Import it from Settings → Rules → Rulesets → New ruleset → Import a ruleset. Keep the file and the live ruleset in sync.
+The ruleset for `main` lives only in the repository settings (Settings → Rules → Rulesets), not in a file: pull request required, squash only, review threads resolved, code owner review (inactive while there is no `CODEOWNERS` file), `checks-pass` (from GitHub Actions) required and up to date, code quality errors block the merge, no branch creation, no deletion, no force push. Nobody bypasses it.
 
 ## 6. Deploy
 
-[`deploy.yml`](../../.github/workflows/deploy.yml) runs on every push to `main`: builds and publishes `build/` to GitHub Pages at https://tempra.ventilii.dev. Pages must be configured once in the repository settings (source: GitHub Actions, custom domain `tempra.ventilii.dev`, enforce HTTPS). DNS: `tempra.ventilii.dev CNAME antonioventilii.github.io` at Namecheap.
+[`deploy.yml`](../../.github/workflows/deploy.yml) runs on every push to `main`: builds and publishes `build/` to GitHub Pages at https://tempra.ventilii.dev. Pages must be configured once in the repository settings (source: GitHub Actions, custom domain `tempra.ventilii.dev`, enforce HTTPS). DNS: `tempra.ventilii.dev CNAME enricacipolloni.github.io` at Namecheap (the domain is Antonio's, the repository and Pages site are Enrica's).
 
 ## 7. Release
 
