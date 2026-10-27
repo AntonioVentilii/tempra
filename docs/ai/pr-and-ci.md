@@ -37,7 +37,7 @@ The ruleset for `main` lives only in the repository settings (Settings → Rules
 
 ## 6. Deploy
 
-[`deploy.yml`](../../.github/workflows/deploy.yml) runs on every push to `main`: builds and publishes `build/` to GitHub Pages at https://tempra.ventilii.dev. Pages must be configured once in the repository settings (source: GitHub Actions, custom domain `tempra.ventilii.dev`, enforce HTTPS). DNS: `tempra.ventilii.dev CNAME antonioventilii.github.io` at Namecheap.
+[`deploy.yml`](../../.github/workflows/deploy.yml) runs on every push to `main`: builds and publishes `build/` to GitHub Pages at https://tempra.ventilii.dev. Pages must be configured once in the repository settings (source: GitHub Actions, custom domain `tempra.ventilii.dev`, enforce HTTPS). DNS: `tempra.ventilii.dev CNAME enricacipolloni.github.io` at Namecheap (the domain is Antonio's, the repository and Pages site are Enrica's).
 
 ## 7. Release
 
