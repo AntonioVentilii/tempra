@@ -21,6 +21,8 @@ The coach key never leaves Postgres except once, in the `create_squad` response.
 | `update_squad_config(p_code, p_coach_key, p_config)`                                                                           | coach   | Rejects a non-object config, verifies the key, replaces the config, bumps `updated_at`.                                                   |
 | `submit_result(p_code, p_athlete, p_game, p_difficulty, p_score, p_accuracy, p_mean_rt_ms, p_trials, p_duration_ms, p_params)` | athlete | Inserts a result for an existing squad. `p_game` is `'block'` for a whole block; `p_params` carries `index`, `games`, `per_game`.         |
 | `list_results(p_code, p_coach_key, p_limit)`                                                                                   | coach   | Verifies the key, newest first, max 1000.                                                                                                 |
+| `delete_athlete_results(p_code, p_coach_key, p_athlete)`                                                                       | coach   | Verifies the key, deletes every result of that athlete name in the squad, returns how many.                                               |
+| `delete_squad(p_code, p_coach_key)`                                                                                            | coach   | Verifies the key and deletes the squad; `squad_config` and `results` go with it (`on delete cascade`).                                    |
 
 Validation lives in the functions (name lengths, unknown squad, unauthorized). The client surfaces failures as toasts and never retries blindly.
 

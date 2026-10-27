@@ -116,6 +116,30 @@ export const mockSupabase = async (page: Page): Promise<MockState> => {
 				await json(route, state.results);
 
 				return;
+			case 'delete_athlete_results': {
+				if (body.p_coach_key !== COACH_KEY) {
+					await json(route, { message: 'unauthorized' }, 400);
+
+					return;
+				}
+
+				const before = state.results.length;
+				state.results = state.results.filter((r) => r.athlete !== body.p_athlete);
+				await json(route, before - state.results.length);
+
+				return;
+			}
+			case 'delete_squad':
+				if (body.p_coach_key !== COACH_KEY) {
+					await json(route, { message: 'unauthorized' }, 400);
+
+					return;
+				}
+
+				state.results = [];
+				await json(route, null);
+
+				return;
 			default:
 				await json(route, { message: `unmocked rpc ${fn}` }, 404);
 		}

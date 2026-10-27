@@ -57,9 +57,10 @@ Defaults: difficulty 3, all six games, 90 s block, 30 s per game, time pressure 
 
 - Squad card: code, name, live badge (real time or 10 s poll), last publish time, copy athlete link, copy coach link, leave.
 - **Roster**: one row per athlete, live first. Status badge: in a block (with the game), online, offline. Blocks played, last index with trend arrow (last three blocks vs the three before, ±3 points), mean accuracy, last block time, sparkline of the last twelve indices. Athletes who joined but never played appear as soon as they are online.
-- **Athlete history**: tap a roster row for the full track record: index (ember) and accuracy (grey) over time, plus the table of every block.
+- **Athlete history**: tap a roster row for the full track record: index (ember) and accuracy (grey) over time, plus the table of every block. A button deletes every result of that athlete after a browser confirm.
 - Config form: all parameters above; Publish writes them in one call and athletes receive them within a second.
 - Latest squad blocks: the fifteen most recent results across athletes, with index badge (green ≥ 75, amber ≥ 50, red below).
+- **Delete the squad**: after a browser confirm, removes the squad, its config and every result on the server and clears the coach session on the device. The code stops working; athletes keep only what their own device cached.
 
 ## Offline
 

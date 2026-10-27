@@ -51,6 +51,29 @@ test('coach creates a squad, publishes parameters and sees the roster fill', asy
 		.click();
 	await expect(page.getByTestId('athlete-history')).toContainText('Storico di Giulia');
 	await expect(page.getByTestId('athlete-history').locator('tbody tr')).toHaveCount(1);
+
+	page.once('dialog', (dialog) => void dialog.accept());
+	await page.getByTestId('athlete-delete').click();
+	await expect(page.getByRole('status')).toContainText('Risultati di Giulia cancellati');
+	const erase = state.calls.find((c) => c.fn === 'delete_athlete_results');
+	expect(erase?.body).toMatchObject({ p_coach_key: COACH_KEY, p_athlete: 'Giulia' });
+	await expect(page.getByTestId('athlete-history')).toBeHidden();
+	await expect(page.getByTestId('roster')).not.toContainText('Giulia');
+});
+
+test('coach deletes the squad and every result', async ({ page }) => {
+	const state = await mockSupabase(page);
+	await page.goto(`/coach?code=${SQUAD_CODE}&key=${COACH_KEY}`);
+	await expect(page.getByTestId('squad-code')).toHaveText(SQUAD_CODE);
+
+	page.once('dialog', (dialog) => void dialog.dismiss());
+	await page.getByTestId('squad-delete').click();
+	expect(state.calls.some((c) => c.fn === 'delete_squad')).toBe(false);
+
+	page.once('dialog', (dialog) => void dialog.accept());
+	await page.getByTestId('squad-delete').click();
+	await expect(page.getByTestId('create-squad')).toBeVisible();
+	expect(state.calls.find((c) => c.fn === 'delete_squad')?.body.p_coach_key).toBe(COACH_KEY);
 });
 
 test('coach link restores the session on a new device', async ({ page }) => {
