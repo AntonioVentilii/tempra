@@ -22,9 +22,9 @@ Before it went public the repo had a security audit: no secrets anywhere in the 
 Each step is a GitHub setting. An agent can do most of them with `gh api` once Enrica is logged in to `gh` with her own account; creating the GitHub App in section 3 has to happen in the browser.
 
 - [x] Accept the transfer from the GitHub email.
-- [ ] Settings → General → Danger Zone → **Change visibility → Public**. Section 1 is done apart from the non-blocking key rotation.
+- [x] Settings → General → Danger Zone → **Change visibility → Public**. Section 1 is done apart from the non-blocking key rotation.
 - [ ] Settings → Pages → Source **GitHub Actions**, custom domain `tempra.ventilii.dev`, **Enforce HTTPS**.
-- [ ] Settings → Rules → Rulesets: the `main` ruleset came over with the transfer but was dormant while the repo was private on Free. Check that it is listed and **Active**. If it is missing, re-create it from [`docs/ai/pr-and-ci.md`](./docs/ai/pr-and-ci.md#5a-branch-ruleset) section 5a.
+- [x] Settings → Rules → Rulesets: the `main` ruleset came over with the transfer but was dormant while the repo was private on Free. Check that it is listed and **Active**. If it is missing, re-create it from [`docs/ai/pr-and-ci.md`](./docs/ai/pr-and-ci.md#5a-branch-ruleset) section 5a.
 - [ ] Settings → Code security: turn on **Private vulnerability reporting** (the channel `SECURITY.md` points to), **Dependabot alerts**, **Dependabot security updates**, **Secret scanning** with **Push protection**, and **CodeQL** default setup. All free on public repos.
 - [ ] Settings → Actions → General: "Approval for running fork pull request workflows" → **Require approval for all external contributors**; "Workflow permissions" → **Read repository contents**; leave "Allow GitHub Actions to create and approve pull requests" **off**.
 - [x] Release bot, see section 3 (Enrica's own app, workflow green on 2026-10-25).
