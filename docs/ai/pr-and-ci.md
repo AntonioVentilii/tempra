@@ -2,7 +2,7 @@
 
 ## 1. PR title
 
-Conventional Commits with a **required scope**: `type(scope): description`. The `pr-title` job rejects anything else. Verbs: `feat`, `fix`, `perf`, `refactor`, `style`, `docs`, `test`, `chore`, `build`, `ci`, `deps`, `revert`. Scopes in use: `games`, `session`, `coach`, `athlete`, `home`, `i18n`, `scoring`, `supabase`, `realtime`, `pages`, `ci`, `deps`, `ai` (for `docs/ai/**`), `release`.
+Conventional Commits with a **required scope**: `type(scope): description`. The `pr-title` job rejects anything else. Verbs: `feat`, `fix`, `perf`, `refactor`, `style`, `docs`, `test`, `chore`, `build`, `ci`, `deps`, `revert`. Scopes in use: `games`, `session`, `coach`, `athlete`, `home`, `i18n`, `scoring`, `supabase`, `realtime`, `pages`, `ci`, `deps`, `ai` (for `docs/ai/**`), `release`, `mobile`.
 
 Examples: `feat(games): add simon sequence`, `fix(realtime): resubscribe after reconnect`, `docs(ai): document the game contract`.
 
@@ -41,7 +41,16 @@ The ruleset for `main` lives only in the repository settings (Settings → Rules
 
 ## 7. Release
 
-[`release-please.yml`](../../.github/workflows/release-please.yml) keeps a release PR open on `main`; merging it bumps `package.json`, regenerates `CHANGELOG.md` and tags `vX.Y.Z`. It is bookkeeping: the deploy already happened on merge. Needs the `RELEASE_BOT_APP_ID` variable and `RELEASE_BOT_PRIVATE_KEY` secret (av-automation app), as in the sibling repos.
+[`release-please.yml`](../../.github/workflows/release-please.yml) keeps a release PR open on `main`; merging it bumps `package.json`, regenerates `CHANGELOG.md` and tags `vX.Y.Z`. It is bookkeeping for the website: the deploy already happened on merge. Needs the `RELEASE_BOT_APP_ID` variable and `RELEASE_BOT_PRIVATE_KEY` secret (the owner's GitHub App).
+
+[`release-assets.yml`](../../.github/workflows/release-assets.yml) runs when that release is published and attaches the installable apps to it, versioned from the tag (build number `MAJOR*1000000 + MINOR*1000 + PATCH`). Signing comes from repository secrets; without them it still attaches something installable and warns on the run:
+
+| Platform | Secrets                                                                                             | With them                                                                                                               | Without them                                                                                    |
+| -------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Android  | `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` | `tempra-vX.Y.Z.apk` and `.aab`, signed with the upload key                                                              | `tempra-vX.Y.Z-debug.apk` (new debug key each run: uninstall before updating)                   |
+| iOS      | `IOS_CERTIFICATE_P12_BASE64`, `IOS_CERTIFICATE_PASSWORD`, `IOS_PROVISIONING_PROFILE_BASE64`         | `tempra-vX.Y.Z.ipa`, export method read from the profile (ad hoc profile for devices, App Store profile for TestFlight) | `tempra-vX.Y.Z-unsigned.ipa`, installable only through a re-signing tool (AltStore, Sideloadly) |
+
+`*_BASE64` values are the file encoded with `base64 -i <file>`. Run the workflow by hand with a tag to rebuild and re-attach the files of an existing release; pull requests that touch it or `android/app/build.gradle` build without attaching.
 
 ## 8. Database changes
 

@@ -1,0 +1,289 @@
+name: Release assets
+
+# Builds the installable Android and iOS apps for a release and attaches them
+# to its GitHub Release. release-please publishes the release with its app
+# token, so the `published` event starts this workflow.
+#
+# Signing comes from repository secrets; whatever is missing falls back to a
+# build anyone can still install, with a warning on the run:
+#   Android: ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD,
+#            ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD
+#            -> tempra-vX.Y.Z.apk + tempra-vX.Y.Z.aab (signed with the upload key)
+#            else tempra-vX.Y.Z-debug.apk
+#   iOS:     IOS_CERTIFICATE_P12_BASE64, IOS_CERTIFICATE_PASSWORD,
+#            IOS_PROVISIONING_PROFILE_BASE64
+#            -> tempra-vX.Y.Z.ipa (export method read from the profile)
+#            else tempra-vX.Y.Z-unsigned.ipa (sideload tools re-sign it)
+#
+# Run it by hand with a tag to (re)attach the files to an existing release.
+# Pull requests that touch the build only check it and keep the files on the run.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to build and attach to (e.g. v0.1.1)
+        required: true
+  pull_request:
+    paths:
+      - .github/workflows/release-assets.yml
+      - android/app/build.gradle
+
+permissions: {}
+
+concurrency:
+  group: release-assets-${{ github.event.release.tag_name || inputs.tag || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  version:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    outputs:
+      ref: ${{ steps.version.outputs.ref }}
+      tag: ${{ steps.version.outputs.tag }}
+      version: ${{ steps.version.outputs.version }}
+      code: ${{ steps.version.outputs.code }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Pull requests have no tag: they build the version in package.json.
+      # The build number is MAJOR*1000000 + MINOR*1000 + PATCH, so it grows
+      # with every release as both stores require.
+      - name: Resolve version
+        id: version
+        env:
+          TAG_INPUT: ${{ github.event.release.tag_name || inputs.tag }}
+        run: |
+          tag="${TAG_INPUT:-v$(node -p "require('./package.json').version")}"
+          if ! [[ "$tag" =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+            echo "::error::Expected a tag like v1.2.3."
+            exit 1
+          fi
+          code=$(( BASH_REMATCH[1] * 1000000 + BASH_REMATCH[2] * 1000 + BASH_REMATCH[3] ))
+          {
+            echo "ref=$TAG_INPUT"
+            echo "tag=$tag"
+            echo "version=${tag#v}"
+            echo "code=$code"
+          } >> "$GITHUB_OUTPUT"
+
+  android:
+    needs: version
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.version.outputs.ref }}
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Setup Java
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+
+      - name: Install (frozen lockfile)
+        run: npm ci
+
+      - name: Build web and sync into the Android project
+        run: npm run cap:sync
+
+      - name: Build APK and AAB
+        working-directory: android
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          TEMPRA_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          TEMPRA_ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          TEMPRA_ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          TAG: ${{ needs.version.outputs.tag }}
+          VERSION: ${{ needs.version.outputs.version }}
+          CODE: ${{ needs.version.outputs.code }}
+        run: |
+          dist="$RUNNER_TEMP/dist"
+          mkdir -p "$dist"
+          props=(-PtempraVersionName="$VERSION" -PtempraVersionCode="$CODE")
+
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            export TEMPRA_ANDROID_KEYSTORE="$RUNNER_TEMP/upload.jks"
+            echo "$KEYSTORE_BASE64" | base64 --decode > "$TEMPRA_ANDROID_KEYSTORE"
+            ./gradlew assembleRelease bundleRelease --no-daemon "${props[@]}"
+            cp app/build/outputs/apk/release/app-release.apk "$dist/tempra-$TAG.apk"
+            cp app/build/outputs/bundle/release/app-release.aab "$dist/tempra-$TAG.aab"
+          else
+            echo "::warning::ANDROID_KEYSTORE_BASE64 is not set: attaching a debug APK. Each run signs it with a new debug key, so installing a newer one means uninstalling the old one first."
+            ./gradlew assembleDebug --no-daemon "${props[@]}"
+            cp app/build/outputs/apk/debug/app-debug.apk "$dist/tempra-$TAG-debug.apk"
+          fi
+          ls -l "$dist"
+
+      - name: Upload Android build
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: tempra-android
+          path: ${{ runner.temp }}/dist/*
+          if-no-files-found: error
+          retention-days: 14
+
+  ios:
+    needs: version
+    runs-on: macos-15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.version.outputs.ref }}
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install (frozen lockfile)
+        run: npm ci
+
+      - name: Build web and sync into the iOS project
+        run: npm run cap:sync
+
+      # Signing settings go on the App target only (edited in this checkout,
+      # never committed): passed on the command line they would also reach the
+      # Swift packages, which reject a provisioning profile.
+      - name: Archive and export IPA
+        working-directory: ios/App
+        env:
+          CERT_BASE64: ${{ secrets.IOS_CERTIFICATE_P12_BASE64 }}
+          CERT_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+          PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+          TAG: ${{ needs.version.outputs.tag }}
+          VERSION: ${{ needs.version.outputs.version }}
+          CODE: ${{ needs.version.outputs.code }}
+        run: |
+          set -o pipefail
+          dist="$RUNNER_TEMP/dist"
+          archive="$RUNNER_TEMP/App.xcarchive"
+          mkdir -p "$dist"
+          archive_args=(-project App.xcodeproj -scheme App -configuration Release
+            -destination 'generic/platform=iOS' -archivePath "$archive"
+            MARKETING_VERSION="$VERSION" CURRENT_PROJECT_VERSION="$CODE")
+
+          if [ -n "$CERT_BASE64" ] && [ -n "$PROFILE_BASE64" ]; then
+            keychain="$RUNNER_TEMP/signing.keychain-db"
+            keychain_password="$(openssl rand -hex 24)"
+            security create-keychain -p "$keychain_password" "$keychain"
+            security set-keychain-settings -lut 21600 "$keychain"
+            security unlock-keychain -p "$keychain_password" "$keychain"
+            echo "$CERT_BASE64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+            security import "$RUNNER_TEMP/cert.p12" -P "$CERT_PASSWORD" -A -t cert -f pkcs12 -k "$keychain"
+            security set-key-partition-list -S apple-tool:,apple: -k "$keychain_password" "$keychain" > /dev/null
+            security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
+            # "Apple Distribution: Name (TEAM)" -> "Apple Distribution", a selector Xcode resolves in the keychain.
+            cert_name="$(security find-identity -v -p codesigning "$keychain" | awk -F '"' 'NR == 1 { print $2 }')"
+            identity="${cert_name%%:*}"
+
+            profile="$RUNNER_TEMP/profile.mobileprovision"
+            echo "$PROFILE_BASE64" | base64 --decode > "$profile"
+            security cms -D -i "$profile" > "$RUNNER_TEMP/profile.plist"
+            pb() { /usr/libexec/PlistBuddy -c "Print :$1" "$RUNNER_TEMP/profile.plist" 2> /dev/null; }
+            uuid="$(pb UUID)"
+            team="$(pb TeamIdentifier:0)"
+            app_id="$(pb Entitlements:application-identifier)"
+            bundle_id="${app_id#"$team".}"
+            for dir in "$HOME/Library/MobileDevice/Provisioning Profiles" "$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles"; do
+              mkdir -p "$dir"
+              cp "$profile" "$dir/$uuid.mobileprovision"
+            done
+
+            if pb ProvisionsAllDevices > /dev/null; then
+              method=enterprise
+            elif pb ProvisionedDevices > /dev/null; then
+              if [ "$(pb Entitlements:get-task-allow)" = "true" ]; then method=debugging; else method=release-testing; fi
+            else
+              method=app-store-connect
+            fi
+            echo "Signing $bundle_id for team $team with profile $uuid ($method)."
+
+            sed -i '' "s/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual; DEVELOPMENT_TEAM = $team; PROVISIONING_PROFILE_SPECIFIER = \"$uuid\"; CODE_SIGN_IDENTITY = \"$identity\";/" App.xcodeproj/project.pbxproj
+            xcodebuild archive "${archive_args[@]}" OTHER_CODE_SIGN_FLAGS="--keychain $keychain" | xcpretty
+
+            cat > "$RUNNER_TEMP/ExportOptions.plist" << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>$method</string>
+            <key>teamID</key><string>$team</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>signingCertificate</key><string>$identity</string>
+            <key>provisioningProfiles</key>
+            <dict><key>$bundle_id</key><string>$uuid</string></dict>
+          </dict>
+          </plist>
+          EOF
+            xcodebuild -exportArchive -archivePath "$archive" -exportPath "$RUNNER_TEMP/export" \
+              -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" | xcpretty
+            cp "$(find "$RUNNER_TEMP/export" -maxdepth 1 -name '*.ipa' | head -n 1)" "$dist/tempra-$TAG.ipa"
+          else
+            echo "::warning::IOS_CERTIFICATE_P12_BASE64 or IOS_PROVISIONING_PROFILE_BASE64 is not set: attaching an unsigned IPA. It installs only through a tool that re-signs it (AltStore, Sideloadly)."
+            xcodebuild archive "${archive_args[@]}" CODE_SIGNING_ALLOWED=NO | xcpretty
+            mkdir -p "$RUNNER_TEMP/ipa/Payload"
+            cp -R "$archive/Products/Applications/App.app" "$RUNNER_TEMP/ipa/Payload/"
+            (cd "$RUNNER_TEMP/ipa" && zip -qry "$dist/tempra-$TAG-unsigned.ipa" Payload)
+          fi
+          ls -l "$dist"
+
+      - name: Remove signing keychain
+        if: always()
+        run: security delete-keychain "$RUNNER_TEMP/signing.keychain-db" 2> /dev/null || true
+
+      - name: Upload iOS build
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: tempra-ios
+          path: ${{ runner.temp }}/dist/*
+          if-no-files-found: error
+          retention-days: 14
+
+  # Only this job can write to the release, and it runs no project code.
+  attach:
+    if: github.event_name != 'pull_request'
+    needs: [version, android, ios]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Download builds
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Attach to the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ needs.version.outputs.tag }}
+        run: |
+          ls -l dist
+          gh release upload "$TAG" dist/* --clobber

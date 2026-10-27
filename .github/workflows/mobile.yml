@@ -4,7 +4,7 @@ name: Mobile
 # Android: debug APK on every PR touching the app (artifact on the run).
 # iOS: compiles the Xcode project without signing, so a broken Capacitor
 # update is caught before anyone opens Xcode. Store builds (signed AAB /
-# IPA) are a later step and need the store credentials as repo secrets.
+# IPA) are attached to each GitHub Release by release-assets.yml.
 
 on:
   push:

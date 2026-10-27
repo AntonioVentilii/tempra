@@ -7,8 +7,9 @@ android {
         applicationId "dev.ventilii.tempra"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        // The release workflow passes the tag's version (-PtempraVersionName, -PtempraVersionCode).
+        versionCode((project.findProperty('tempraVersionCode') ?: '1') as int)
+        versionName((project.findProperty('tempraVersionName') ?: '1.0') as String)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -16,8 +17,24 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    // Upload key for release builds, read from the environment so the keystore
+    // and its passwords never enter the repo. Without it release builds stay unsigned.
+    signingConfigs {
+        release {
+            def keystore = System.getenv('TEMPRA_ANDROID_KEYSTORE')
+            if (keystore) {
+                storeFile file(keystore)
+                storePassword System.getenv('TEMPRA_ANDROID_KEYSTORE_PASSWORD')
+                keyAlias System.getenv('TEMPRA_ANDROID_KEY_ALIAS')
+                keyPassword System.getenv('TEMPRA_ANDROID_KEY_PASSWORD')
+            }
+        }
+    }
     buildTypes {
         release {
+            if (System.getenv('TEMPRA_ANDROID_KEYSTORE')) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
