@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.1.2](https://github.com/EnricaCipolloni/tempra/compare/v0.1.1...v0.1.2) (2026-10-27)
+
+
+### Bug Fixes
+
+* **coach:** drop the coach key from the address bar after restoring ([#15](https://github.com/EnricaCipolloni/tempra/issues/15)) ([b5e2ac1](https://github.com/EnricaCipolloni/tempra/commit/b5e2ac17e03b01771a6c27ebbbc717907f9f0442))
+* **supabase:** drop direct table grants and bound RPC payloads ([#14](https://github.com/EnricaCipolloni/tempra/issues/14)) ([bc93363](https://github.com/EnricaCipolloni/tempra/commit/bc93363e6e2988305ffbd4a9e569fd8af6f1ef16))
+
+
+### Documentation
+
+* **ai:** DNS now points to enricacipolloni.github.io ([#23](https://github.com/EnricaCipolloni/tempra/issues/23)) ([4238c08](https://github.com/EnricaCipolloni/tempra/commit/4238c08f02116283174094bab069cf11c5ad4512))
+* **ai:** handover for the public repository ([#17](https://github.com/EnricaCipolloni/tempra/issues/17)) ([261abc4](https://github.com/EnricaCipolloni/tempra/commit/261abc408e7f537b5ef8008b1e8a4f7e7ae4b020))
+* **ai:** no Admin role on a personal repo, key rotation not blocking ([#20](https://github.com/EnricaCipolloni/tempra/issues/20)) ([8c621ed](https://github.com/EnricaCipolloni/tempra/commit/8c621edcc616a5d4448b75e28d75d6ef16a13304))
+* **ai:** tick the handover steps already done ([#18](https://github.com/EnricaCipolloni/tempra/issues/18)) ([2cd188c](https://github.com/EnricaCipolloni/tempra/commit/2cd188c89299633455f46bc64b3dea3c991ae699))
+* **ai:** tick the visibility and ruleset steps in the handover ([#21](https://github.com/EnricaCipolloni/tempra/issues/21)) ([76d6102](https://github.com/EnricaCipolloni/tempra/commit/76d6102b28bac058928867ccf104e672465011ad))
+* **github:** drop the versioned ruleset file ([#12](https://github.com/EnricaCipolloni/tempra/issues/12)) ([081cf32](https://github.com/EnricaCipolloni/tempra/commit/081cf320f29d117d50c60f563447ad790ac0b9a2))
+
+
+### Miscellaneous Chores
+
+* **repo:** MIT license and security policy ([#16](https://github.com/EnricaCipolloni/tempra/issues/16)) ([79434c0](https://github.com/EnricaCipolloni/tempra/commit/79434c094b46db578d13cd124354c374248d1165))
+
+
+### Continuous Integration
+
+* **actions:** bump actions/setup-java from 4.7.1 to 6.1.0 ([#13](https://github.com/EnricaCipolloni/tempra/issues/13)) ([65d5594](https://github.com/EnricaCipolloni/tempra/commit/65d559423668cd7a02039f755708b9cbf13d9f64))
+* **mobile:** attach Android and iOS builds to each release ([#22](https://github.com/EnricaCipolloni/tempra/issues/22)) ([4c3f12c](https://github.com/EnricaCipolloni/tempra/commit/4c3f12c7f9dd117673150485efddeb47b55848b6))
+
 ## [0.1.1](https://github.com/AntonioVentilii/tempra/compare/v0.1.0...v0.1.1) (2026-10-24)
 
 
