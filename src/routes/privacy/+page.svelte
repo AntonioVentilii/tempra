@@ -9,21 +9,22 @@
 		items?: I18nKey[];
 	}
 
+	// The lead says it all; each section stays folded until someone asks.
 	const sections: Section[] = [
-		{ title: 'privacy.who.title', text: 'privacy.who.text' },
 		{
 			title: 'privacy.data.title',
 			items: ['privacy.data.1', 'privacy.data.2', 'privacy.data.3', 'privacy.data.4']
 		},
-		{ title: 'privacy.why.title', text: 'privacy.why.text' },
 		{ title: 'privacy.see.title', text: 'privacy.see.text' },
+		{ title: 'privacy.minors.title', text: 'privacy.minors.text' },
+		{ title: 'privacy.rights.title', text: 'privacy.rights.text' },
 		{
 			title: 'privacy.where.title',
 			items: ['privacy.where.1', 'privacy.where.2', 'privacy.where.3', 'privacy.where.4']
 		},
 		{ title: 'privacy.keep.title', text: 'privacy.keep.text' },
-		{ title: 'privacy.minors.title', text: 'privacy.minors.text' },
-		{ title: 'privacy.rights.title', text: 'privacy.rights.text' }
+		{ title: 'privacy.why.title', text: 'privacy.why.text' },
+		{ title: 'privacy.who.title', text: 'privacy.who.text' }
 	];
 </script>
 
@@ -36,26 +37,31 @@
 	</title>
 </svelte:head>
 
-<article class="card flex flex-col gap-4" data-tid="privacy">
-	<header class="flex flex-col gap-2">
-		<h1 class="text-4xl font-extrabold">{t({ locale: $localeStore, key: 'privacy.title' })}</h1>
-		<p class="max-w-prose">{t({ locale: $localeStore, key: 'privacy.lead' })}</p>
-		<p class="text-fg-2 text-xs">{t({ locale: $localeStore, key: 'privacy.updated' })}</p>
-	</header>
+<article class="card flex flex-col gap-3" data-tid="privacy">
+	<h1 class="text-4xl font-extrabold">{t({ locale: $localeStore, key: 'privacy.title' })}</h1>
+	<p class="max-w-prose">{t({ locale: $localeStore, key: 'privacy.lead' })}</p>
 
-	{#each sections as section (section.title)}
-		<section class="flex max-w-prose flex-col gap-1.5">
-			<h2 class="text-2xl font-bold">{t({ locale: $localeStore, key: section.title })}</h2>
-			{#if nonNullish(section.text)}
-				<p class="text-fg-2 text-sm">{t({ locale: $localeStore, key: section.text })}</p>
-			{/if}
-			{#if nonNullish(section.items)}
-				<ul class="text-fg-2 flex list-disc flex-col gap-1 pl-5 text-sm">
-					{#each section.items as item (item)}
-						<li>{t({ locale: $localeStore, key: item })}</li>
-					{/each}
-				</ul>
-			{/if}
-		</section>
-	{/each}
+	<div class="flex flex-col">
+		{#each sections as section (section.title)}
+			<details class="border-line border-t py-2.5">
+				<summary class="font-display cursor-pointer text-lg font-bold tracking-[.04em] uppercase">
+					{t({ locale: $localeStore, key: section.title })}
+				</summary>
+				{#if nonNullish(section.text)}
+					<p class="text-fg-2 mt-1.5 max-w-prose text-sm">
+						{t({ locale: $localeStore, key: section.text })}
+					</p>
+				{/if}
+				{#if nonNullish(section.items)}
+					<ul class="text-fg-2 mt-1.5 flex max-w-prose list-disc flex-col gap-1 pl-5 text-sm">
+						{#each section.items as item (item)}
+							<li>{t({ locale: $localeStore, key: item })}</li>
+						{/each}
+					</ul>
+				{/if}
+			</details>
+		{/each}
+	</div>
+
+	<p class="text-fg-2 text-xs">{t({ locale: $localeStore, key: 'privacy.updated' })}</p>
 </article>

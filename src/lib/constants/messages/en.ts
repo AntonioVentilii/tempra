@@ -172,44 +172,36 @@ export const en: Record<I18nKey, string> = {
 	'summary.queued': 'No connection: the result goes out as soon as you are back online',
 
 	'footer.privacy': 'Privacy',
-	'join.name.hint': 'A first name or a nickname is enough, no surname needed.',
+	'join.name.hint': 'A name or nickname is enough.',
 	'privacy.title': 'Privacy',
-	'privacy.lead':
-		'Tempra collects the minimum training needs: a name you pick and your game scores. No account, email, age or location, no ads.',
-	'privacy.updated': 'Last updated: 27 October 2026.',
+	'privacy.lead': 'Just a name, even a nickname, and your scores. No account, email, age or ads.',
+	'privacy.updated': 'Updated 29 October 2026.',
 	'privacy.who.title': 'Who is responsible',
 	'privacy.who.text':
-		'Data controller: [TO COMPLETE: name, address, email]. When a sports club uses Tempra with its athletes: [TO DECIDE: the club is the controller and Tempra processes data on its behalf, or Tempra is the controller].',
+		'Controller: [TO COMPLETE: name, email]. Role of the sports club: [TO DECIDE].',
 	'privacy.data.title': 'What data',
-	'privacy.data.1': 'The name the athlete types to join the squad. It can be a nickname.',
-	'privacy.data.2':
-		'The result of every block: points, accuracy, reaction times, level, games, date and time.',
-	'privacy.data.3': 'The squad name chosen by the coach.',
-	'privacy.data.4':
-		'A random device identifier, used only to show the coach who is online. It is not stored on the server.',
+	'privacy.data.1': 'Name or nickname.',
+	'privacy.data.2': 'Block results: points, accuracy, times, level, date.',
+	'privacy.data.3': 'Squad name.',
+	'privacy.data.4': 'A random phone code to show who is online. Not stored.',
 	'privacy.why.title': 'Why',
 	'privacy.why.text':
-		'To let the athlete play with the parameters the coach set and to show the coach the squad results. No ads, no profiling, no selling to third parties. Legal basis: [TO COMPLETE].',
+		'To train with the coach parameters and show the coach your results. No ads, no profiling. Legal basis: [TO COMPLETE].',
 	'privacy.see.title': 'Who sees it',
 	'privacy.see.text':
-		'Whoever holds the coach link sees the names and results of every athlete in the squad. Whoever holds only the squad code sees the names of athletes online at that moment, not their results. Keep the coach link like a password.',
+		'The coach sees names and results. Whoever has only the code sees who is online, not results.',
 	'privacy.where.title': 'Where it lives',
-	'privacy.where.1':
-		'Database: Supabase, servers in Zurich (Switzerland), a country the European Union recognises as adequate for data protection.',
-	'privacy.where.2':
-		'Website: GitHub Pages (GitHub, United States), which receives the IP address of whoever opens the site, like any hosting service.',
-	'privacy.where.3':
-		'Typefaces: Google Fonts (Google, United States), which receives the IP address when the site downloads them.',
-	'privacy.where.4':
-		'On your device: squad, name and your latest results, so it works without signal. Clearing the site data in the browser or uninstalling the app removes them.',
+	'privacy.where.1': 'Database: Supabase, Zurich (Switzerland, adequate for the EU).',
+	'privacy.where.2': 'Website: GitHub Pages (US), sees the IP address.',
+	'privacy.where.3': 'Typefaces: Google Fonts (US), sees the IP address.',
+	'privacy.where.4': 'On your phone: squad, name and latest results.',
 	'privacy.keep.title': 'How long',
-	'privacy.keep.text':
-		"Until the coach deletes an athlete's data or the squad. [TO DECIDE: automatic deletion after a period without activity].",
+	'privacy.keep.text': 'Until the coach deletes it. [TO DECIDE: automatic deletion].',
 	'privacy.minors.title': 'Under-age athletes',
 	'privacy.minors.text':
-		'Tempra is also meant for youth squads. With under-age athletes, and especially under 14, use goes through the sports club or the coach, who informs the parents and collects their consent where needed. We recommend a first name or a nickname, never a full name.',
+		'Under 14, use goes through the sports club, which informs the parents. Use only a name or nickname.',
 	'privacy.rights.title': 'Your rights',
 	'privacy.rights.text':
-		"You can ask to see, correct or delete your data. The quickest way is to ask the coach: from the coach panel they can delete an athlete's results or the whole squad. You can also write to [TO COMPLETE: email]. If you think your data is mishandled you can contact the Italian data protection authority, Garante per la protezione dei dati personali (garanteprivacy.it).",
+		'See, correct or delete your data: ask the coach or write to [TO COMPLETE: email]. Complaints: garanteprivacy.it (Italian authority).',
 	'footer.made': 'A project by Antonio Ventilii.'
 };
