@@ -48,3 +48,19 @@ test('footer links to the privacy page, readable at phone width', async ({ page 
 	);
 	expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test('privacy page erases what this device saved, keeping the language', async ({ page }) => {
+	await page.goto('/privacy');
+	await page.evaluate(() => {
+		localStorage.setItem('tempra.athlete.name', '"Giulia"');
+		localStorage.setItem('tempra.results', '[]');
+		localStorage.setItem('tempra.locale', '"it"');
+	});
+	page.once('dialog', (dialog) => void dialog.accept());
+	await page.getByTestId('erase-device').click();
+	await expect(page.getByRole('status')).toContainText('Dati cancellati');
+	const left = await page.evaluate(() =>
+		Object.keys(localStorage).filter((k) => k.startsWith('tempra.'))
+	);
+	expect(left).toEqual(['tempra.locale']);
+});

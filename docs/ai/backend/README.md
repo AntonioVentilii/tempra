@@ -24,6 +24,10 @@ The coach key never leaves Postgres except once, in the `create_squad` response.
 
 Validation lives in the functions (name lengths, unknown squad, unauthorized). The client surfaces failures as toasts and never retries blindly.
 
+## Retention
+
+`purge_inactive_squads()` deletes every squad whose latest activity (creation, last config publish, last result) is older than 12 months; config and results go with it. pg_cron job `purge-inactive-squads` runs it nightly at 03:17 UTC. It is not granted to `anon`. Change the interval in a new migration and in the privacy copy (`privacy.keep.text`) together.
+
 ## Realtime
 
 One channel per squad, `squad:<code>` (`src/lib/services/realtime.service.ts`), carries three things:

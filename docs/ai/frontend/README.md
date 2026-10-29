@@ -7,7 +7,7 @@ SvelteKit 2, Svelte 5 (runes), TypeScript, Tailwind 4, static adapter with `404.
 ```
 src/
   app.css                     design tokens (dark-first), @theme bridge to Tailwind, shared primitives
-  app.html                    fonts (Barlow / Barlow Condensed from Google Fonts), manifest, favicon
+  app.html                    font preload, manifest, favicon (fonts are self-hosted in static/fonts, @font-face in app.css)
   routes/
     +layout.svelte            header (brand, Athlete / Coach tabs), footer (locale switch, version), Toast
     +page.svelte              landing

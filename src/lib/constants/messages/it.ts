@@ -194,13 +194,17 @@ export const it = {
 	'privacy.where.title': 'Dove sono',
 	'privacy.where.1': 'Database: Supabase, Zurigo (Svizzera, adeguata per l’UE).',
 	'privacy.where.2': 'Sito: GitHub Pages (USA), vede l’indirizzo IP.',
-	'privacy.where.3': 'Caratteri: Google Fonts (USA), vede l’indirizzo IP.',
-	'privacy.where.4': 'Sul telefono: squadra, nome e ultimi risultati.',
+	'privacy.where.3': 'Sul telefono: squadra, nome e ultimi risultati.',
 	'privacy.keep.title': 'Per quanto',
-	'privacy.keep.text': 'Finché il coach non li cancella. [DA DECIDERE: cancellazione automatica].',
+	'privacy.keep.text':
+		'Finché il coach non li cancella, al massimo 12 mesi dopo l’ultima attività della squadra.',
 	'privacy.minors.title': 'Atleti minorenni',
 	'privacy.minors.text':
 		'Sotto i 14 anni passa dalla società sportiva, che informa i genitori. Usa solo nome o soprannome.',
+	'privacy.device.erase': 'Cancella i dati da questo telefono',
+	'privacy.device.confirm':
+		'Cancellare squadra, nome, risultati e invii in attesa salvati su questo telefono?',
+	'privacy.device.erased': 'Dati cancellati da questo telefono',
 	'privacy.rights.title': 'I tuoi diritti',
 	'privacy.rights.text':
 		'Vedere, correggere o cancellare i tuoi dati: chiedi al coach o scrivi a [DA COMPLETARE: email]. Reclami: garanteprivacy.it.',
