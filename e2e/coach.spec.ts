@@ -13,7 +13,7 @@ test('coach creates a squad, publishes parameters and sees the roster fill', asy
 
 	await page.fill('#c-diff', '5');
 	await page.selectOption('#c-block', '120');
-	await page.getByLabel('Distrattori visivi').check();
+	await page.getByLabel('Distrattori visivi', { exact: true }).check();
 	await page.fill('#c-msg', 'Oggi si soffre');
 	await page.getByRole('button', { name: 'Pubblica alla squadra' }).click();
 	await expect(page.getByRole('status')).toContainText('Parametri pubblicati');

@@ -2,6 +2,7 @@
 	import { page } from '$app/state';
 	import BlockRunner from '$lib/components/session/BlockRunner.svelte';
 	import BlockSummary from '$lib/components/session/BlockSummary.svelte';
+	import InfoTip from '$lib/components/ui/InfoTip.svelte';
 	import Kpi from '$lib/components/ui/Kpi.svelte';
 	import { CONFIG_POLL_MS, SQUAD_CODE_LENGTH } from '$lib/constants/config.constants';
 	import { LOCALE_TAG } from '$lib/constants/locale.constants';
@@ -306,7 +307,7 @@
 				<span class="text-fg-2 text-xs">{squad.name}</span>
 			</div>
 		</div>
-		<div class="grid grid-cols-2 gap-2.5 sm:grid-cols-4" data-tid="athlete-kpis">
+		<div class="grid grid-cols-3 gap-2.5" data-tid="athlete-kpis">
 			<Kpi
 				value={squad.config.difficulty}
 				label={t({ locale: $localeStore, key: 'athlete.difficulty' })}
@@ -318,13 +319,6 @@
 			<Kpi
 				value={squad.config.games.length}
 				label={t({ locale: $localeStore, key: 'athlete.games' })}
-			/>
-			<Kpi
-				value={t({
-					locale: $localeStore,
-					key: squad.config.time_pressure ? 'athlete.yes' : 'athlete.no'
-				})}
-				label={t({ locale: $localeStore, key: 'athlete.pressure' })}
 			/>
 		</div>
 		{#if squad.config.message.length > 0}
@@ -340,13 +334,20 @@
 					key: realtimeLive ? 'athlete.realtime.on' : 'athlete.realtime.off'
 				})}
 			</span>
-			<span>
-				{t({
+			<InfoTip
+				label={t({ locale: $localeStore, key: 'athlete.info.label' })}
+				text={t({
 					locale: $localeStore,
-					key: 'athlete.config.updated',
-					values: { when: formatWhen(squad.updated_at, LOCALE_TAG[$localeStore]) }
+					key: 'athlete.info',
+					values: {
+						pressure: t({
+							locale: $localeStore,
+							key: squad.config.time_pressure ? 'athlete.yes' : 'athlete.no'
+						}),
+						when: formatWhen(squad.updated_at, LOCALE_TAG[$localeStore])
+					}
 				})}
-			</span>
+			/>
 			{#if $outboxStore.length > 0}
 				<span class="badge badge-warn">
 					{t({ locale: $localeStore, key: 'athlete.outbox', values: { n: $outboxStore.length } })}
@@ -363,13 +364,14 @@
 	>
 		{t({ locale: $localeStore, key: 'athlete.start' })}
 	</button>
-	<p class="hint">{t({ locale: $localeStore, key: 'athlete.start.hint' })}</p>
 
 	{#if myHistory.length > 0}
-		<div class="card" data-tid="athlete-history">
-			<h3 class="text-fg-2 text-base font-bold tracking-[.08em]">
+		<details class="card" data-tid="athlete-history">
+			<summary
+				class="font-display text-fg-2 cursor-pointer text-base font-extrabold tracking-[.08em] uppercase italic"
+			>
 				{t({ locale: $localeStore, key: 'athlete.history' })}
-			</h3>
+			</summary>
 			<div class="mt-2 overflow-x-auto">
 				<table class="tnum w-full border-collapse text-sm">
 					<thead>
@@ -408,7 +410,7 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
+		</details>
 	{/if}
 
 	<button class="btn btn-ghost self-start text-sm" data-tid="leave-squad" onclick={leaveSquad}>

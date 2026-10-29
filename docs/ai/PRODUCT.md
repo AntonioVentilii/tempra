@@ -61,6 +61,10 @@ Defaults: difficulty 3, all six games, 90 s block, 30 s per game, time pressure 
 - Config form: all parameters above; Publish writes them in one call and athletes receive them within a second.
 - Latest squad blocks: the fifteen most recent results across athletes, with index badge (green ≥ 75, amber ≥ 50, red below).
 
+## Copy
+
+Short by design: the athlete home shows level, block length, game count, the coach's message and the live badge; time pressure, last update and how a block works sit behind an "i". The landing folds "how it works" and the games list. Coach toggle hints and the live hint are behind an "i" too. Game rules on the 1.5 s interstitial are a few words each.
+
 ## Offline
 
 A service worker caches the app shell and assets at install, so the app opens without signal; the athlete plays with the last config the device saw and results queue in the outbox. API calls are never cached.

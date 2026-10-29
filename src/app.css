@@ -255,6 +255,23 @@ h3 {
 	border-left-color: var(--bad);
 }
 
+/* "i" button that opens a detail on demand (InfoTip.svelte): copy stays short by default. */
+.info-tip {
+	display: inline-grid;
+	place-items: center;
+	width: 28px;
+	height: 28px;
+	border: 1px solid var(--fg-2);
+	color: var(--fg-2);
+	font: italic 700 0.8rem var(--font-body);
+	cursor: pointer;
+}
+
+.info-tip[aria-expanded='true'] {
+	border-color: var(--accent);
+	color: var(--accent-2);
+}
+
 .toggle-row {
 	display: flex;
 	justify-content: space-between;
