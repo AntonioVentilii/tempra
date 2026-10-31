@@ -173,6 +173,18 @@ export const ptBR: Record<I18nKey, string> = {
 	'coach.athlete.history': 'Histórico de {name}',
 	'coach.athlete.chart': 'Índice Tempra e precisão ao longo do tempo',
 	'coach.athlete.back': 'Fechar',
+	'coach.athlete.delete': 'Apagar os dados deste atleta',
+	'coach.athlete.delete.confirm':
+		'Apagar todos os resultados de {name}? Não será possível recuperar.',
+	'coach.athlete.deleted': 'Resultados de {name} apagados',
+	'coach.squad.delete.title': 'Excluir a equipe',
+	'coach.squad.delete.text':
+		'Apaga a equipe, os parâmetros e todos os resultados dos atletas. O código para de funcionar.',
+	'coach.squad.delete': 'Excluir equipe e dados',
+	'coach.squad.delete.confirm':
+		'Excluir a equipe e todos os resultados? Não será possível recuperar.',
+	'coach.squad.deleted': 'Equipe e dados excluídos',
+	'coach.delete.error': 'Não foi possível apagar. Verifique a conexão.',
 	'coach.recent': 'Últimos blocos da equipe',
 	'coach.realtime.on': 'Em tempo real',
 	'coach.realtime.off': 'Atualizando a cada 10 segundos',
