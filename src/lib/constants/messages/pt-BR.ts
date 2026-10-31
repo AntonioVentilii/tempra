@@ -184,7 +184,7 @@ export const ptBR: Record<I18nKey, string> = {
 	'privacy.title': 'Privacidade',
 	'privacy.lead':
 		'Só um nome, mesmo um apelido, e as suas pontuações. Sem conta, e-mail, idade ou anúncios.',
-	'privacy.updated': 'Atualizada em 31 de outubro de 2026.',
+	'privacy.updated': 'Atualizada em 29 de outubro de 2026.',
 	'privacy.who.title': 'Quem é responsável',
 	'privacy.who.text':
 		'Controlador: [A COMPLETAR: nome, e-mail]. Papel do clube esportivo: [A DECIDIR].',
