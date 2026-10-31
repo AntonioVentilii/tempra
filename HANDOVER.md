@@ -88,6 +88,7 @@ Both stores:
 
 - [ ] A privacy policy URL (the app stores athlete display names and game results in Supabase, see [`docs/ai/backend/README.md`](./docs/ai/backend/README.md)). A page on the site itself works. A draft lives at `/privacy`; fill its bracketed placeholders (controller, legal basis, contact) before submitting.
 - [ ] GDPR paperwork the code cannot do: sign the Supabase DPA (dashboard → Organization → Legal Documents) in the organisation that owns the project, keep a one-page record of processing, and, if clubs are the controllers, a short processing agreement for them to sign.
+- [ ] Ask the lawyer whether having no automatic expiry holds up for abandoned squads: with no accounts, a lost coach link leaves nobody able to delete one, and it can hold minors' names. Accounts would settle it.
 - [ ] Data safety (Play) and App Privacy (Apple) forms answered from the same facts.
 - [ ] Store listing: name, descriptions in it and en, screenshots at phone sizes, icon.
 

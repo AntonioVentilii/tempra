@@ -189,7 +189,7 @@ export const it = {
 	'privacy.title': 'Privacy',
 	'privacy.lead':
 		'Solo un nome, anche un soprannome, e i punteggi. Niente account, email, età o pubblicità.',
-	'privacy.updated': 'Aggiornata il 29 ottobre 2026.',
+	'privacy.updated': 'Aggiornata il 31 ottobre 2026.',
 	'privacy.who.title': 'Chi è responsabile',
 	'privacy.who.text':
 		'Titolare: [DA COMPLETARE: nome, email]. Ruolo della società sportiva: [DA DECIDERE].',
@@ -211,7 +211,7 @@ export const it = {
 	'privacy.where.3': 'Sul telefono: squadra, nome e ultimi risultati.',
 	'privacy.keep.title': 'Per quanto',
 	'privacy.keep.text':
-		'Finché il coach non li cancella, o dopo 12 mesi senza attività della squadra.',
+		'Finché il coach non li cancella o non chiedi di cancellarli. Non c’è una scadenza automatica.',
 	'privacy.minors.title': 'Atleti minorenni',
 	'privacy.minors.text':
 		'Sotto i 14 anni passa dalla società sportiva, che informa i genitori. Usa solo nome o soprannome.',
