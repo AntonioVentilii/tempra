@@ -175,6 +175,44 @@ export const it = {
 	'athlete.outbox': '{n} risultati in attesa di invio',
 	'summary.queued': 'Nessuna connessione: il risultato parte appena torni online',
 
+	'footer.privacy': 'Privacy',
+	'join.name.hint': 'Basta nome o soprannome.',
+	'privacy.title': 'Privacy',
+	'privacy.lead':
+		'Solo un nome, anche un soprannome, e i punteggi. Niente account, email, età o pubblicità.',
+	'privacy.updated': 'Aggiornata il 29 ottobre 2026.',
+	'privacy.who.title': 'Chi è responsabile',
+	'privacy.who.text':
+		'Titolare: [DA COMPLETARE: nome, email]. Ruolo della società sportiva: [DA DECIDERE].',
+	'privacy.data.title': 'Quali dati',
+	'privacy.data.1': 'Nome o soprannome.',
+	'privacy.data.2': 'Risultati dei blocchi: punti, precisione, tempi, livello, data.',
+	'privacy.data.3': 'Nome della squadra.',
+	'privacy.data.4':
+		'Un codice casuale salvato sul telefono, per mostrare chi è online. Non finisce nel database.',
+	'privacy.why.title': 'Perché',
+	'privacy.why.text':
+		'Per allenarti con i parametri del coach e mostrargli i risultati. Niente pubblicità né profilazione. Base giuridica: [DA COMPLETARE].',
+	'privacy.see.title': 'Chi li vede',
+	'privacy.see.text':
+		'Il coach vede nomi e risultati. Chi ha solo il codice vede chi è online, non i risultati.',
+	'privacy.where.title': 'Dove sono',
+	'privacy.where.1': 'Database: Supabase, Zurigo (Svizzera, adeguata per l’UE).',
+	'privacy.where.2': 'Sito: GitHub Pages (USA), vede l’indirizzo IP.',
+	'privacy.where.3': 'Sul telefono: squadra, nome e ultimi risultati.',
+	'privacy.keep.title': 'Per quanto',
+	'privacy.keep.text':
+		'Finché il coach non li cancella, o dopo 12 mesi senza attività della squadra.',
+	'privacy.minors.title': 'Atleti minorenni',
+	'privacy.minors.text':
+		'Sotto i 14 anni passa dalla società sportiva, che informa i genitori. Usa solo nome o soprannome.',
+	'privacy.device.erase': 'Cancella i dati da questo telefono',
+	'privacy.device.confirm':
+		'Cancellare squadra, nome, risultati e invii in attesa salvati su questo telefono?',
+	'privacy.device.erased': 'Dati cancellati da questo telefono',
+	'privacy.rights.title': 'I tuoi diritti',
+	'privacy.rights.text':
+		'Vedere, correggere o cancellare i tuoi dati: chiedi al coach o scrivi a [DA COMPLETARE: email]. Reclami: garanteprivacy.it.',
 	'footer.made': 'Un progetto di Antonio Ventilii.'
 } as const;
 
