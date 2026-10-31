@@ -46,10 +46,8 @@ export const it = {
 	'athlete.realtime.on': 'Live',
 	'athlete.realtime.off': 'Ogni 20 s',
 	'athlete.adapted': 'Livello per te: {level}',
-	'athlete.info.label': 'Dettagli del blocco',
 	'athlete.info':
 		'Pressione tempo: {pressure}. Parametri del {when}. Parti a inizio recupero: il blocco finisce da solo.',
-	'coach.live.info': 'Dettagli live',
 
 	'session.next': 'Prossimo',
 	'session.points': '{n} punti',
@@ -129,7 +127,7 @@ export const it = {
 	'game.stroop.hint': 'Tocca il COLORE, non la parola.',
 	'game.stroop.about': 'Inibizione: ignorare la parola, rispondere al colore.',
 	'game.gonogo.name': 'Go / No-Go',
-	'game.gonogo.hint': 'VERDE tocca, ROSSO no.',
+	'game.gonogo.hint': 'Tocca GO, mai NO.',
 	'game.gonogo.about': 'Controllo degli impulsi e tempo di reazione.',
 	'game.nback.name': 'N-back',
 	'game.nback.hint': 'MATCH se è uguale a {n} lettere fa.',
@@ -144,6 +142,7 @@ export const it = {
 	'game.trail.hint': 'Numeri in ordine crescente.',
 	'game.trail.about': 'Scansione visiva e sequenziamento.',
 
+	'info.label': 'Dettagli: {topic}',
 	'game.match': 'Match',
 	'game.different': 'Diverso',
 	'game.go': 'GO',

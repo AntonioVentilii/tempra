@@ -287,7 +287,7 @@
 					})}
 				</span>
 				<InfoTip
-					label={t({ locale: $localeStore, key: 'coach.live.info' })}
+					label={t({ locale: $localeStore, key: 'coach.live' })}
 					text={t({ locale: $localeStore, key: 'coach.live.hint' })}
 				/>
 			</span>

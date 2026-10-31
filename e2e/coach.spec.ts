@@ -53,6 +53,18 @@ test('coach creates a squad, publishes parameters and sees the roster fill', asy
 	await expect(page.getByTestId('athlete-history').locator('tbody tr')).toHaveCount(1);
 });
 
+test('an info note stays on screen, even from the right edge', async ({ page }) => {
+	await mockSupabase(page);
+	// Wide enough for the squad card to keep the live badge in its right column.
+	await page.setViewportSize({ width: 600, height: 800 });
+	await page.goto(`/coach?code=${SQUAD_CODE}&key=${COACH_KEY}`);
+	await page.getByRole('button', { name: 'Dettagli: Live' }).click();
+	const box = await page.getByRole('note').boundingBox();
+	const viewport = await page.evaluate(() => document.documentElement.clientWidth);
+	expect(box?.x).toBeGreaterThanOrEqual(0);
+	expect((box?.x ?? 0) + (box?.width ?? 0)).toBeLessThanOrEqual(viewport);
+});
+
 test('coach link restores the session on a new device', async ({ page }) => {
 	await mockSupabase(page);
 	await page.goto(`/coach?code=${SQUAD_CODE.toLowerCase()}&key=${COACH_KEY}`);

@@ -16,7 +16,7 @@ test('athlete joins with a code, sees the coach parameters and plays a block', a
 	await expect(page.getByTestId('athlete-kpis').locator('.kpi b').first()).toHaveText('3');
 
 	// Details stay behind the "i": open on tap, gone on the next tap anywhere.
-	await page.getByRole('button', { name: 'Info: Dettagli del blocco' }).click();
+	await page.getByRole('button', { name: 'Dettagli: Blocco' }).click();
 	await expect(page.getByRole('note')).toContainText('Pressione tempo: Sì');
 	await page.getByRole('note').click();
 	await expect(page.getByRole('note')).toBeHidden();

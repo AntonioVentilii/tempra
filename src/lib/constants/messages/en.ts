@@ -48,10 +48,8 @@ export const en: Record<I18nKey, string> = {
 	'athlete.realtime.on': 'Live',
 	'athlete.realtime.off': 'Every 20 s',
 	'athlete.adapted': 'Your level: {level}',
-	'athlete.info.label': 'Block details',
 	'athlete.info':
 		'Time pressure: {pressure}. Parameters from {when}. Start when your rest starts: the block ends on its own.',
-	'coach.live.info': 'Live details',
 
 	'session.next': 'Next',
 	'session.points': '{n} points',
@@ -131,7 +129,7 @@ export const en: Record<I18nKey, string> = {
 	'game.stroop.hint': 'Tap the COLOUR, not the word.',
 	'game.stroop.about': 'Inhibition: ignore the word, answer the colour.',
 	'game.gonogo.name': 'Go / No-Go',
-	'game.gonogo.hint': 'GREEN tap, RED no.',
+	'game.gonogo.hint': 'Tap GO, never NO.',
 	'game.gonogo.about': 'Impulse control and reaction time.',
 	'game.nback.name': 'N-back',
 	'game.nback.hint': 'MATCH if it equals the letter {n} back.',
@@ -146,6 +144,7 @@ export const en: Record<I18nKey, string> = {
 	'game.trail.hint': 'Numbers in ascending order.',
 	'game.trail.about': 'Visual scanning and sequencing.',
 
+	'info.label': 'Details: {topic}',
 	'game.match': 'Match',
 	'game.different': 'Different',
 	'game.go': 'GO',

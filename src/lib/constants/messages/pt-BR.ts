@@ -49,10 +49,8 @@ export const ptBR: Record<I18nKey, string> = {
 	'athlete.realtime.on': 'Ao vivo',
 	'athlete.realtime.off': 'A cada 20 s',
 	'athlete.adapted': 'Seu nível: {level}',
-	'athlete.info.label': 'Detalhes do bloco',
 	'athlete.info':
 		'Pressão de tempo: {pressure}. Parâmetros de {when}. Comece quando o descanso começar: o bloco termina sozinho.',
-	'coach.live.info': 'Detalhes ao vivo',
 
 	'session.next': 'Próximo',
 	'session.points': '{n} pontos',
@@ -132,7 +130,7 @@ export const ptBR: Record<I18nKey, string> = {
 	'game.stroop.hint': 'Toque na COR, não na palavra.',
 	'game.stroop.about': 'Inibição: ignorar a palavra, responder à cor.',
 	'game.gonogo.name': 'Go / No-Go',
-	'game.gonogo.hint': 'VERDE toque, VERMELHO não.',
+	'game.gonogo.hint': 'Toque em GO, nunca em NÃO.',
 	'game.gonogo.about': 'Controle de impulsos e tempo de reação.',
 	'game.nback.name': 'N-back',
 	'game.nback.hint': 'MATCH se for igual à letra de {n} atrás.',
@@ -147,6 +145,7 @@ export const ptBR: Record<I18nKey, string> = {
 	'game.trail.hint': 'Números em ordem crescente.',
 	'game.trail.about': 'Varredura visual e sequenciamento.',
 
+	'info.label': 'Detalhes: {topic}',
 	'game.match': 'Match',
 	'game.different': 'Diferente',
 	'game.go': 'GO',

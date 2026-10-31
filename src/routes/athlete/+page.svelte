@@ -335,7 +335,7 @@
 				})}
 			</span>
 			<InfoTip
-				label={t({ locale: $localeStore, key: 'athlete.info.label' })}
+				label={t({ locale: $localeStore, key: 'athlete.block' })}
 				text={t({
 					locale: $localeStore,
 					key: 'athlete.info',
