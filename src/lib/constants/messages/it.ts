@@ -5,7 +5,7 @@ export const it = {
 	'nav.athlete': 'Atleta',
 	'nav.coach': 'Coach',
 	'nav.home': 'Home',
-	'lang.switch': 'English',
+	'lang.label': 'Lingua',
 
 	'home.title': 'Testa lucida quando le gambe bruciano.',
 	'home.lead':
@@ -154,6 +154,10 @@ export const it = {
 	'color.green': 'Verde',
 	'color.blue': 'Blu',
 	'color.yellow': 'Giallo',
+	'color.red.short': 'R',
+	'color.green.short': 'V',
+	'color.blue.short': 'B',
+	'color.yellow.short': 'G',
 
 	'coach.roster': 'Atleti',
 	'coach.roster.empty':

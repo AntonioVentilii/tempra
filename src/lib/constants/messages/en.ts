@@ -7,7 +7,7 @@ export const en: Record<I18nKey, string> = {
 	'nav.athlete': 'Athlete',
 	'nav.coach': 'Coach',
 	'nav.home': 'Home',
-	'lang.switch': 'Italiano',
+	'lang.label': 'Language',
 
 	'home.title': 'Clear head while the legs are burning.',
 	'home.lead':
@@ -154,6 +154,10 @@ export const en: Record<I18nKey, string> = {
 	'color.green': 'Green',
 	'color.blue': 'Blue',
 	'color.yellow': 'Yellow',
+	'color.red.short': 'R',
+	'color.green.short': 'G',
+	'color.blue.short': 'B',
+	'color.yellow.short': 'Y',
 
 	'coach.roster': 'Athletes',
 	'coach.roster.empty':

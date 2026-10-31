@@ -18,7 +18,7 @@ npm run build     # static export must succeed (CI also asserts build/CNAME)
 ## Easy-to-miss rules
 
 - Props read at component top level must go through `$derived`; `svelte-check` reports `state_referenced_locally` otherwise and CI treats the repo as warning-free.
-- A new remote parameter touches four places in one PR: `SquadConfig` type, `DEFAULT_SQUAD_CONFIG`, `default_squad_config()` in a new migration under `supabase/migrations/`, and `ConfigForm.svelte` (plus both locale catalogs and `PRODUCT.md`).
+- A new remote parameter touches four places in one PR: `SquadConfig` type, `DEFAULT_SQUAD_CONFIG`, `default_squad_config()` in a new migration under `supabase/migrations/`, and `ConfigForm.svelte` (plus every locale catalog and `PRODUCT.md`).
 - The Supabase publishable key in `src/lib/constants/supabase.constants.ts` is public by design. Never add a service-role key anywhere in this repo.
 - Never add AI attribution to commits or PRs; no em dashes in prose.
 - Ask before using a spec-first workflow for a net-new feature; for small changes implement directly.

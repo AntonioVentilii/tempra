@@ -9,7 +9,7 @@ src/
   app.css                     design tokens (dark-first), @theme bridge to Tailwind, shared primitives
   app.html                    fonts (Barlow / Barlow Condensed from Google Fonts), manifest, favicon
   routes/
-    +layout.svelte            header (brand, Athlete / Coach tabs), footer (locale switch, version), Toast
+    +layout.svelte            header (brand, Athlete / Coach tabs), footer (locale picker, version), Toast
     +page.svelte              landing
     athlete/+page.svelte      join form → home card → BlockRunner → BlockSummary
     coach/+page.svelte        create / restore → squad card + ConfigForm + ResultsTable
@@ -19,7 +19,7 @@ src/
       session/                BlockRunner, BlockSummary, TrialTimer, Distractors
       coach/                  Roster, AthleteHistory, ConfigForm, ResultsTable
       ui/                     Brand, Kpi, Toast, Sparkline
-    constants/                config, locale, supabase, messages/{it,en}.ts
+    constants/                config, locale, supabase, messages/{it,en,pt-BR}.ts
     services/                 supabase.service (lazy client), squad.service (RPC wrappers), realtime.service (channel: config, presence, result broadcast)
     stores/                   locale, squad (athlete side), coach, results (local history), outbox (unsent results), toast
     types/                    config, result, game, presence
@@ -59,11 +59,11 @@ interface GameProps {
 - Report `rt_ms` only for correct trials (mean RT is over correct answers).
 - Render `TrialTimer` inside `{#key trialId}` so the bar restarts per trial.
 - BlockRunner owns the slot clock and unmounts the game when the slot ends. A game never knows how long it runs.
-- Register in `GAME_COMPONENTS`, add the key to `GAME_KEYS`, add `game.<key>.name|hint|about` to both catalogs, document the ladder in `PRODUCT.md`.
+- Register in `GAME_COMPONENTS`, add the key to `GAME_KEYS`, add `game.<key>.name|hint|about` to every catalog, document the ladder in `PRODUCT.md`.
 
 ## i18n
 
-`t({ locale: $localeStore, key, values })` from `$lib/utils/i18n.utils`. Keys are flat dotted strings typed from the Italian catalog (`I18nKey`); `en.ts` is `Record<I18nKey, string>` so TypeScript catches drift, and `scripts/check-locale-catalogs.mjs` catches it in `npm run lint` without a TS build. Placeholders are `{name}`. Italian is the default locale; the browser language picks English when it starts with `en`.
+`t({ locale: $localeStore, key, values })` from `$lib/utils/i18n.utils`. Keys are flat dotted strings typed from the Italian catalog (`I18nKey`); `en.ts` and `pt-BR.ts` are `Record<I18nKey, string>` so TypeScript catches drift, and `scripts/check-locale-catalogs.mjs` catches it in `npm run lint` without a TS build. Placeholders are `{name}`. Locales are `it` (default), `en`, `pt-BR`: Portuguese copy is Brazilian (você, celular, tela). Resolution: the saved choice (`tempra.locale` in localStorage), else `matchLocale(navigator.languages)` by primary subtag (`pt-*` goes to `pt-BR`), else Italian. The footer picker is a native `<select>` with each language named in itself (`LOCALE_NAME`); the layout mirrors the locale onto `<html lang>`. A new locale touches `SUPPORTED_LOCALES`, `LOCALE_TAG`, `LOCALE_NAME`, the subtag map in `i18n.utils.ts`, `CATALOGS`, a new catalog file and the catalog tests. Labels that abbreviate a word (Stroop buttons) get their own `.short` key, since initials collide across languages.
 
 ## Design tokens
 
