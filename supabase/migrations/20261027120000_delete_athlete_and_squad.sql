@@ -1,7 +1,7 @@
 -- Erasure on request: the coach can delete one athlete's results or the whole
 -- squad. Both verify the coach key like every other coach RPC. Deleting the
 -- squad cascades to squad_config and results (foreign keys in core.sql).
--- Not applied yet.
+-- Applied to project znhomweyvdkkhvgcnvdc on 2026-10-31 as `delete_athlete_and_squad`.
 
 create or replace function public.delete_athlete_results(p_code text, p_coach_key text, p_athlete text)
 returns int
