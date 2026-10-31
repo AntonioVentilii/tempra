@@ -60,6 +60,9 @@
 	<footer class="text-fg-2 flex flex-wrap items-center justify-between gap-2 text-xs">
 		<span>{t({ locale: $localeStore, key: 'footer.made' })}</span>
 		<span class="flex items-center gap-3">
+			<a href="/privacy" class="text-fg-2" data-tid="footer-privacy">
+				{t({ locale: $localeStore, key: 'footer.privacy' })}
+			</a>
 			<label class="flex cursor-pointer items-center gap-1.5">
 				<svg
 					viewBox="0 0 24 24"

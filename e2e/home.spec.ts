@@ -51,3 +51,32 @@ test('no horizontal overflow at phone width', async ({ page }) => {
 	);
 	expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test('footer links to the privacy page, readable at phone width', async ({ page }) => {
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/');
+	await page.getByTestId('footer-privacy').click();
+	await expect(page).toHaveURL(/\/privacy$/);
+	await expect(page.getByRole('heading', { level: 1, name: 'Privacy' })).toBeVisible();
+	await expect(page.getByTestId('privacy')).toContainText('Atleti minorenni');
+	const overflow = await page.evaluate(
+		() => document.documentElement.scrollWidth - document.documentElement.clientWidth
+	);
+	expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test('privacy page erases what this device saved, keeping the language', async ({ page }) => {
+	await page.goto('/privacy');
+	await page.evaluate(() => {
+		localStorage.setItem('tempra.athlete.name', '"Giulia"');
+		localStorage.setItem('tempra.results', '[]');
+		localStorage.setItem('tempra.locale', '"it"');
+	});
+	page.once('dialog', (dialog) => void dialog.accept());
+	await page.getByTestId('erase-device').click();
+	await expect(page.getByRole('status')).toContainText('Dati cancellati');
+	const left = await page.evaluate(() =>
+		Object.keys(localStorage).filter((k) => k.startsWith('tempra.'))
+	);
+	expect(left).toEqual(['tempra.locale']);
+});
