@@ -191,8 +191,7 @@ export const it = {
 		'Solo un nome, anche un soprannome, e i punteggi. Niente account, email, età o pubblicità.',
 	'privacy.updated': 'Aggiornata il 31 ottobre 2026.',
 	'privacy.who.title': 'Chi è responsabile',
-	'privacy.who.text':
-		'Titolare: [DA COMPLETARE: nome, email]. Ruolo della società sportiva: [DA DECIDERE].',
+	'privacy.who.text': 'Titolare: {owner}, {contact}. Ruolo della società sportiva: [DA DECIDERE].',
 	'privacy.data.title': 'Quali dati',
 	'privacy.data.1': 'Nome o soprannome.',
 	'privacy.data.2': 'Risultati dei blocchi: punti, precisione, tempi, livello, data.',
@@ -221,7 +220,42 @@ export const it = {
 	'privacy.device.erased': 'Dati cancellati da questo telefono',
 	'privacy.rights.title': 'I tuoi diritti',
 	'privacy.rights.text':
-		'Vedere, correggere o cancellare i tuoi dati: chiedi al coach o scrivi a [DA COMPLETARE: email]. Reclami: garanteprivacy.it.',
+		'Vedere, correggere o cancellare i tuoi dati: chiedi al coach o scrivi a {contact}. Reclami: garanteprivacy.it.',
+	'footer.terms': 'Termini',
+	'footer.report': 'Segnala',
+	'legal.draft': 'Bozza: gestore e contatti saranno indicati prima dell’arrivo sugli store.',
+	'legal.owner.pending': '[DA COMPLETARE: nome]',
+	'legal.contact.pending': '[DA COMPLETARE: email]',
+	'terms.title': 'Termini d’uso',
+	'terms.lead': 'Tempra è gratuita e senza account. Allenati in sicurezza e rispetta gli altri.',
+	'terms.updated': 'Aggiornati il 31 ottobre 2026.',
+	'terms.service.title': 'Il servizio',
+	'terms.service.text':
+		'Tempra è gestita da {owner}. Offre giochi cognitivi per i recuperi e un pannello per il coach. Oggi è gratuita e non richiede account. Usandola accetti questi termini.',
+	'terms.use.title': 'Uso corretto',
+	'terms.use.text':
+		'Tieni per te il link coach: è l’unica chiave della squadra. Non usare nomi di altre persone senza il loro permesso, non scrivere contenuti offensivi o illegali e non tentare di aggirare le protezioni del servizio.',
+	'terms.content.title': 'Contenuti degli utenti',
+	'terms.content.text':
+		'Nomi, nomi squadra e messaggi sono scritti dagli utenti, che ne rispondono. Possiamo rimuovere i contenuti che violano questi termini ed eliminare le squadre coinvolte.',
+	'terms.report.title': 'Segnalazioni',
+	'terms.report.text':
+		'Hai visto un nome o un messaggio offensivo, o un uso scorretto? Scrivi a {contact} indicando codice squadra e cosa è successo. Valutiamo ogni segnalazione e, se serve, rimuoviamo il contenuto o la squadra. Puoi anche chiedere direttamente al coach, che può cancellare i dati di un atleta.',
+	'terms.health.title': 'Salute e sicurezza',
+	'terms.health.text':
+		'Tempra è uno strumento di allenamento, non un dispositivo medico: non fa diagnosi e non sostituisce il parere di un medico. I punteggi non misurano la tua salute.\nI distrattori visivi usano flash e forme in movimento: non attivarli se soffri di fotosensibilità o epilessia. Fermati se stai male e gioca solo durante i recuperi, in un luogo sicuro.',
+	'terms.availability.title': 'Disponibilità',
+	'terms.availability.text':
+		'Il servizio viene offerto così com’è e può cambiare, interrompersi o chiudere. Se perdi il link coach non possiamo recuperarlo.',
+	'terms.liability.title': 'Responsabilità',
+	'terms.liability.text':
+		'Nei limiti consentiti dalla legge non rispondiamo di perdite di dati o danni indiretti legati all’uso del servizio. Restano validi i diritti che la legge riconosce ai consumatori.',
+	'terms.code.title': 'Codice e marchio',
+	'terms.code.text':
+		'Il codice di Tempra è pubblico con licenza MIT. La licenza non comprende il nome e il logo Tempra.',
+	'terms.law.title': 'Legge applicabile',
+	'terms.law.text':
+		'Si applica la legge italiana, salvi i diritti inderogabili del consumatore nel suo Paese di residenza. Se cambiamo questi termini aggiorniamo la data in alto.',
 	'footer.made': 'Un progetto di Antonio Ventilii.'
 } as const;
 

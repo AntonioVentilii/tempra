@@ -190,8 +190,7 @@ export const en: Record<I18nKey, string> = {
 	'privacy.lead': 'Just a name, even a nickname, and your scores. No account, email, age or ads.',
 	'privacy.updated': 'Updated 31 October 2026.',
 	'privacy.who.title': 'Who is responsible',
-	'privacy.who.text':
-		'Controller: [TO COMPLETE: name, email]. Role of the sports club: [TO DECIDE].',
+	'privacy.who.text': 'Controller: {owner}, {contact}. Role of the sports club: [TO DECIDE].',
 	'privacy.data.title': 'What data',
 	'privacy.data.1': 'Name or nickname.',
 	'privacy.data.2': 'Block results: points, accuracy, times, level, date.',
@@ -220,6 +219,41 @@ export const en: Record<I18nKey, string> = {
 	'privacy.device.erased': 'Data deleted from this phone',
 	'privacy.rights.title': 'Your rights',
 	'privacy.rights.text':
-		'See, correct or delete your data: ask the coach or write to [TO COMPLETE: email]. Complaints: garanteprivacy.it (Italian authority).',
+		'See, correct or delete your data: ask the coach or write to {contact}. Complaints: garanteprivacy.it (Italian authority).',
+	'footer.terms': 'Terms',
+	'footer.report': 'Report',
+	'legal.draft': 'Draft: the operator and contact details will be added before the store launch.',
+	'legal.owner.pending': '[TO COMPLETE: name]',
+	'legal.contact.pending': '[TO COMPLETE: email]',
+	'terms.title': 'Terms of use',
+	'terms.lead': 'Tempra is free and needs no account. Train safely and respect others.',
+	'terms.updated': 'Updated 31 October 2026.',
+	'terms.service.title': 'The service',
+	'terms.service.text':
+		'Tempra is run by {owner}. It offers cognitive games for recovery breaks and a panel for the coach. Today it is free and needs no account. By using it you accept these terms.',
+	'terms.use.title': 'Fair use',
+	'terms.use.text':
+		'Keep the coach link to yourself: it is the squad’s only key. Do not use other people’s names without their permission, do not write offensive or illegal content and do not try to get around the service’s protections.',
+	'terms.content.title': 'User content',
+	'terms.content.text':
+		'Names, squad names and messages are written by users, who are responsible for them. We may remove content that breaks these terms and delete the squads involved.',
+	'terms.report.title': 'Reports',
+	'terms.report.text':
+		'Seen an offensive name or message, or misuse? Write to {contact} with the squad code and what happened. We review every report and, where needed, remove the content or the squad. You can also ask the coach directly, who can delete an athlete’s data.',
+	'terms.health.title': 'Health and safety',
+	'terms.health.text':
+		'Tempra is a training tool, not a medical device: it does not diagnose anything and does not replace a doctor’s advice. Scores do not measure your health.\nVisual distractors use flashes and moving shapes: do not turn them on if you have photosensitivity or epilepsy. Stop if you feel unwell and play only during recovery, somewhere safe.',
+	'terms.availability.title': 'Availability',
+	'terms.availability.text':
+		'The service is offered as is and may change, stop or close. If you lose the coach link we cannot recover it.',
+	'terms.liability.title': 'Liability',
+	'terms.liability.text':
+		'As far as the law allows, we are not liable for data loss or indirect damage linked to using the service. The rights the law gives consumers are unaffected.',
+	'terms.code.title': 'Code and brand',
+	'terms.code.text':
+		'Tempra’s code is public under the MIT licence. The licence does not cover the Tempra name and logo.',
+	'terms.law.title': 'Governing law',
+	'terms.law.text':
+		'Italian law applies, without affecting the mandatory rights of consumers in their country of residence. When we change these terms we update the date at the top.',
 	'footer.made': 'A project by Antonio Ventilii.'
 };
