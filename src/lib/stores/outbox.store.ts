@@ -48,7 +48,8 @@ export const flushOutbox = async (): Promise<number> => {
 				}
 			}
 
-			pending = pending.slice(1);
+			// Reread the store: a block can end and queue another result while this one was in flight.
+			pending = get(outboxStore).slice(1);
 			persist(pending);
 		}
 	} finally {
