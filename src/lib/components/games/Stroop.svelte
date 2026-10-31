@@ -12,14 +12,16 @@
 
 	interface Ink {
 		key: I18nKey;
+		// Button label: initials collide in some languages (pt-BR Vermelho / Verde).
+		short: I18nKey;
 		hex: string;
 	}
 
 	const COLORS: Ink[] = [
-		{ key: 'color.red', hex: '#ff5a5a' },
-		{ key: 'color.green', hex: '#4fd38a' },
-		{ key: 'color.blue', hex: '#6fa8ff' },
-		{ key: 'color.yellow', hex: '#ffc857' }
+		{ key: 'color.red', short: 'color.red.short', hex: '#ff5a5a' },
+		{ key: 'color.green', short: 'color.green.short', hex: '#4fd38a' },
+		{ key: 'color.blue', short: 'color.blue.short', hex: '#6fa8ff' },
+		{ key: 'color.yellow', short: 'color.yellow.short', hex: '#ffc857' }
 	];
 
 	const windowMs = $derived(ladder([2500, 2000, 1600, 1300, 1000], difficulty));
@@ -82,7 +84,7 @@
 			aria-label={t({ locale: $localeStore, key: colour.key })}
 			onclick={() => answer(colour)}
 		>
-			{t({ locale: $localeStore, key: colour.key }).charAt(0)}
+			{t({ locale: $localeStore, key: colour.short })}
 		</button>
 	{/each}
 </div>
