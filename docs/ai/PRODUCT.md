@@ -35,14 +35,14 @@ Defaults: difficulty 3, all six games, 90 s block, 30 s per game, time pressure 
 
 ## Games
 
-| Key       | Name       | Rule                                 | Ladder (level 1 → 5)                                                                       |
-| --------- | ---------- | ------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `stroop`  | Stroop     | Tap the ink colour, not the word.    | Window 2500 → 1000 ms; congruent 60% → 20%; from level 4 buttons mis-coloured              |
-| `gonogo`  | Go / No-Go | Tap the green circle, never the red. | Shown 900 → 400 ms; no-go 20% → 40%; from level 4 half the no-go are green with a NO label |
-| `nback`   | N-back     | Match if the letter equals N back.   | N 1,1,2,2,3; stimulus 2000 → 1000 ms                                                       |
-| `flanker` | Flanker    | Direction of the centre arrow.       | Window 2000 → 800 ms; incongruent 50% → 80%; 3 → 7 arrows                                  |
-| `math`    | Arithmetic | Pick the result among four.          | Operands up to 10 → 200; × from level 3; window 7 → 3 s; close distractors from level 4    |
-| `trail`   | Trail      | Tap numbers in ascending order.      | 9 → 25 numbers; from level 4 the grid reshuffles after each correct tap                    |
+| Key       | Name       | Rule                               | Ladder (level 1 → 5)                                                                       |
+| --------- | ---------- | ---------------------------------- | ------------------------------------------------------------------------------------------ |
+| `stroop`  | Stroop     | Tap the ink colour, not the word.  | Window 2500 → 1000 ms; congruent 60% → 20%; from level 4 buttons mis-coloured              |
+| `gonogo`  | Go / No-Go | Tap GO, never NO.                  | Shown 900 → 400 ms; no-go 20% → 40%; from level 4 half the no-go are green with a NO label |
+| `nback`   | N-back     | Match if the letter equals N back. | N 1,1,2,2,3; stimulus 2000 → 1000 ms                                                       |
+| `flanker` | Flanker    | Direction of the centre arrow.     | Window 2000 → 800 ms; incongruent 50% → 80%; 3 → 7 arrows                                  |
+| `math`    | Arithmetic | Pick the result among four.        | Operands up to 10 → 200; × from level 3; window 7 → 3 s; close distractors from level 4    |
+| `trail`   | Trail      | Tap numbers in ascending order.    | 9 → 25 numbers; from level 4 the grid reshuffles after each correct tap                    |
 
 ## A block
 
@@ -50,16 +50,22 @@ Defaults: difficulty 3, all six games, 90 s block, 30 s per game, time pressure 
 2. For each slot: 1.5 s interstitial with the game's name and rule, then the game runs for the slot length.
 3. Points: 10 per correct trial, minus 5 per error when the penalty is on, never below zero per game.
 4. When under 3 s remain no new slot starts; the block ends. Aborting discards the block.
-5. Summary: points, accuracy, mean reaction time (correct trials only), Tempra index = round((0.6 · accuracy + 0.4 · speed) · 100 · (0.8 + 0.08 · difficulty)) where speed maps mean RT from 2200 ms (0) to 400 ms (1), 0.5 when no RT exists. A verdict line keys off accuracy (≥ 90%, ≥ 60%, below).
-6. The result is stored on the device and sent to the squad (`submit_result`), then broadcast on the channel so the coach's roster updates at once. If the send fails it goes into an outbox and is retried on reload and when the device comes back online; a badge on the home card shows how many are pending.
+5. Haptics: a light tick on a correct tap, a stronger one on any error (a wrong tap or a missed trial), a distinct pattern when the block ends. Nothing on a correct withhold, since no tap happened. The Abort button ticks too. The apps use the phone's haptics; the website uses the browser's vibration API where one exists, so iOS Safari stays silent. The Vibration switch in the footer turns all of it off on that device: it is on by default, remembered on the device, and hidden where the browser cannot vibrate.
+6. Summary: points, accuracy, mean reaction time (correct trials only), Tempra index = round((0.6 · accuracy + 0.4 · speed) · 100 · (0.8 + 0.08 · difficulty)) where speed maps mean RT from 2200 ms (0) to 400 ms (1), 0.5 when no RT exists. A verdict line keys off accuracy (≥ 90%, ≥ 60%, below).
+7. The result is stored on the device and sent to the squad (`submit_result`), then broadcast on the channel so the coach's roster updates at once. If the send fails it goes into an outbox and is retried on reload and when the device comes back online; a badge on the home card shows how many are pending. A result for a squad the coach has deleted is dropped, since it can never arrive.
 
 ## Coach panel
 
 - Squad card: code, name, live badge (real time or 10 s poll), last publish time, copy athlete link, copy coach link, leave.
 - **Roster**: one row per athlete, live first. Status badge: in a block (with the game), online, offline. Blocks played, last index with trend arrow (last three blocks vs the three before, ±3 points), mean accuracy, last block time, sparkline of the last twelve indices. Athletes who joined but never played appear as soon as they are online.
-- **Athlete history**: tap a roster row for the full track record: index (ember) and accuracy (grey) over time, plus the table of every block.
+- **Athlete history**: tap a roster row for the full track record: index (ember) and accuracy (grey) over time, plus the table of every block. A button deletes every result of that athlete after a browser confirm.
 - Config form: all parameters above; Publish writes them in one call and athletes receive them within a second.
 - Latest squad blocks: the fifteen most recent results across athletes, with index badge (green ≥ 75, amber ≥ 50, red below).
+- **Delete the squad**: after a browser confirm, removes the squad, its config and every result on the server and clears the coach session on the device. The code stops working; athletes keep only what their own device cached.
+
+## Copy
+
+Short by design: the athlete home shows level, block length, game count, the coach's message and the live badge; time pressure, last update and how a block works sit behind an "i". The landing folds "how it works" and the games list. Coach toggle hints and the live hint are behind an "i" too. Game rules on the 1.5 s interstitial are a few words each.
 
 ## Offline
 
@@ -69,9 +75,15 @@ A service worker caches the app shell and assets at install, so the app opens wi
 
 Track-and-field identity from the Tempra Brand canvas: asphalt ground, volt accent, condensed italics, bib-shaped buttons, lane-stripe progress. See `docs/ai/frontend/README.md` § Design tokens.
 
+## Privacy
+
+`/privacy` (linked from the footer and from the athlete join form) leads with one line, then folds each topic in a `<details>`: what is collected (display name, block results, squad name, a random per-browser id kept in localStorage and sent only over presence, never written to the database), who sees it, where it lives (Supabase in Zurich, GitHub Pages, the device), how long it is kept, how minors use the app and how to have data deleted. The join form says a name or nickname is enough. A button erases everything Tempra saved on the device except the language, after a confirm. Data stays until the coach deletes it or someone asks: nothing expires by itself (see backend README § Retention). Fonts are self-hosted, so no third party sees visitors beyond hosting and Supabase. Placeholders in square brackets (legal basis, role of the club) are open decisions for the owner; the operator and the contact come from `legal.constants.ts`, and until both are set `/privacy` and `/terms` show a draft notice.
+
+`/terms` (linked from the footer) follows the same folded layout: the service, fair use, user content, reports, health and safety (not a medical device, flashes in the visual distractors), availability, liability, code and brand, governing law. The Report link in the footer lands on the reports section, which stays open.
+
 ## Languages
 
-Italian (default) and English, switchable in the footer, remembered on the device.
+Italian (default), English and Brazilian Portuguese (pt-BR, also served to any other Portuguese browser). The first visit follows the browser languages in order of preference, falling back to Italian; the globe picker in the footer switches language and the choice is remembered on the device (there are no accounts to store it on).
 
 ## Not in the product (yet)
 

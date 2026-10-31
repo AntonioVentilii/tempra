@@ -1,5 +1,38 @@
 @import 'tailwindcss';
 
+/* Fonts are served from this site, not Google: no visitor IP leaves for a typeface.
+   Latin subsets of Saira (variable 400 to 600, italic 600) and Saira Extra Condensed
+   (700, 800), SIL Open Font License, from Google Fonts. The italics of the display face
+   are synthesised, as they were before. */
+@font-face {
+	font-family: 'Saira';
+	font-style: normal;
+	font-weight: 400 600;
+	font-display: swap;
+	src: url('/fonts/saira.woff2') format('woff2');
+}
+@font-face {
+	font-family: 'Saira';
+	font-style: italic;
+	font-weight: 600;
+	font-display: swap;
+	src: url('/fonts/saira-italic-600.woff2') format('woff2');
+}
+@font-face {
+	font-family: 'Saira Extra Condensed';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('/fonts/saira-extra-condensed-700.woff2') format('woff2');
+}
+@font-face {
+	font-family: 'Saira Extra Condensed';
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
+	src: url('/fonts/saira-extra-condensed-800.woff2') format('woff2');
+}
+
 /* Track and field, not dashboard: asphalt ground, volt accent (spikes and bibs),
    forward-leaning condensed italics, hard edges, no gradients, no shadows. */
 :root {
@@ -253,6 +286,23 @@ h3 {
 
 .badge-bad {
 	border-left-color: var(--bad);
+}
+
+/* "i" button that opens a detail on demand (InfoTip.svelte): copy stays short by default. */
+.info-tip {
+	display: inline-grid;
+	place-items: center;
+	width: 28px;
+	height: 28px;
+	border: 1px solid var(--fg-2);
+	color: var(--fg-2);
+	font: italic 700 0.8rem var(--font-body);
+	cursor: pointer;
+}
+
+.info-tip[aria-expanded='true'] {
+	border-color: var(--accent);
+	color: var(--accent-2);
 }
 
 .toggle-row {

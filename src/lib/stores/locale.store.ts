@@ -1,23 +1,22 @@
 import { browser } from '$app/environment';
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type Locale } from '$lib/constants/locale.constants';
+import { matchLocale } from '$lib/utils/i18n.utils';
+import { nonNullish } from '$lib/utils/nullish.utils';
 import { readLocal, writeLocal } from '$lib/utils/storage.utils';
 import { writable } from 'svelte/store';
 
 const KEY = 'locale';
 
+// A choice saved on the device wins; otherwise the browser languages in order of preference.
 const detect = (): Locale => {
 	const saved = readLocal<Locale>(KEY);
 
-	if (saved && SUPPORTED_LOCALES.includes(saved)) {
+	if (nonNullish(saved) && SUPPORTED_LOCALES.includes(saved)) {
 		return saved;
 	}
 
 	if (browser) {
-		const lang = navigator.language.slice(0, 2) as Locale;
-
-		if (SUPPORTED_LOCALES.includes(lang)) {
-			return lang;
-		}
+		return matchLocale(navigator.languages ?? [navigator.language]) ?? DEFAULT_LOCALE;
 	}
 
 	return DEFAULT_LOCALE;

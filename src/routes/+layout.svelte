@@ -3,6 +3,9 @@
 	import { page } from '$app/state';
 	import Brand from '$lib/components/ui/Brand.svelte';
 	import Toast from '$lib/components/ui/Toast.svelte';
+	import { LOCALE_NAME, SUPPORTED_LOCALES, type Locale } from '$lib/constants/locale.constants';
+	import { hapticsSupported } from '$lib/services/haptics.service';
+	import { hapticsStore, setHaptics } from '$lib/stores/haptics.store';
 	import { localeStore, setLocale } from '$lib/stores/locale.store';
 	import { t } from '$lib/utils/i18n.utils';
 	import type { Snippet } from 'svelte';
@@ -20,7 +23,10 @@
 
 	const isActive = (href: string) => page.url.pathname.startsWith(href);
 
-	const switchLocale = () => setLocale($localeStore === 'it' ? 'en' : 'it');
+	// Screen readers and the browser's own hyphenation follow the chosen language.
+	$effect(() => {
+		document.documentElement.lang = $localeStore;
+	});
 </script>
 
 <svelte:head>
@@ -55,10 +61,53 @@
 
 	<footer class="text-fg-2 flex flex-wrap items-center justify-between gap-2 text-xs">
 		<span>{t({ locale: $localeStore, key: 'footer.made' })}</span>
-		<span class="flex items-center gap-3">
-			<button class="cursor-pointer underline" onclick={switchLocale}>
-				{t({ locale: $localeStore, key: 'lang.switch' })}
-			</button>
+		{#if hapticsSupported()}
+			<label class="flex cursor-pointer items-center gap-1.5 py-1">
+				<input
+					type="checkbox"
+					data-tid="haptics-toggle"
+					checked={$hapticsStore}
+					onchange={(e) => setHaptics(e.currentTarget.checked)}
+				/>
+				{t({ locale: $localeStore, key: 'haptics.label' })}
+			</label>
+		{/if}
+		<span class="flex flex-wrap items-center gap-3">
+			<a href="/privacy" class="text-fg-2" data-tid="footer-privacy">
+				{t({ locale: $localeStore, key: 'footer.privacy' })}
+			</a>
+			<a href="/terms" class="text-fg-2" data-tid="footer-terms">
+				{t({ locale: $localeStore, key: 'footer.terms' })}
+			</a>
+			<a href="/terms#report" class="text-fg-2" data-tid="footer-report">
+				{t({ locale: $localeStore, key: 'footer.report' })}
+			</a>
+			<label class="flex cursor-pointer items-center gap-1.5">
+				<svg
+					viewBox="0 0 24 24"
+					class="size-4"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					aria-hidden="true"
+				>
+					<circle cx="12" cy="12" r="9" />
+					<path
+						d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9s1.3-6.3 3.8-9z"
+					/>
+				</svg>
+				<select
+					class="text-fg-2 cursor-pointer bg-transparent py-1 underline"
+					aria-label={t({ locale: $localeStore, key: 'lang.label' })}
+					data-tid="locale-select"
+					value={$localeStore}
+					onchange={(e) => setLocale(e.currentTarget.value as Locale)}
+				>
+					{#each SUPPORTED_LOCALES as locale (locale)}
+						<option value={locale} lang={locale}>{LOCALE_NAME[locale]}</option>
+					{/each}
+				</select>
+			</label>
 			<span class="tnum">{t({ locale: $localeStore, key: 'app.version' })} {__APP_VERSION__}</span>
 		</span>
 	</footer>

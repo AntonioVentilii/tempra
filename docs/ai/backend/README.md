@@ -21,8 +21,14 @@ The coach key never leaves Postgres except once, in the `create_squad` response.
 | `update_squad_config(p_code, p_coach_key, p_config)`                                                                           | coach   | Rejects a non-object config, verifies the key, replaces the config, bumps `updated_at`.                                                   |
 | `submit_result(p_code, p_athlete, p_game, p_difficulty, p_score, p_accuracy, p_mean_rt_ms, p_trials, p_duration_ms, p_params)` | athlete | Inserts a result for an existing squad. `p_game` is `'block'` for a whole block; `p_params` carries `index`, `games`, `per_game`.         |
 | `list_results(p_code, p_coach_key, p_limit)`                                                                                   | coach   | Verifies the key, newest first, max 1000.                                                                                                 |
+| `delete_athlete_results(p_code, p_coach_key, p_athlete)`                                                                       | coach   | Verifies the key, deletes every result of that athlete name in the squad, returns how many.                                               |
+| `delete_squad(p_code, p_coach_key)`                                                                                            | coach   | Verifies the key and deletes the squad; `squad_config` and `results` go with it (`on delete cascade`).                                    |
 
-Validation lives in the functions (name lengths, unknown squad, unauthorized). The client surfaces failures as toasts and never retries blindly.
+Validation lives in the functions (name lengths, unknown squad, unauthorized). The client surfaces failures as toasts and never retries blindly. The one exception is `unknown squad` in `flushOutbox`: the coach deleted the squad, so the queued result is dropped instead of retried forever.
+
+## Retention
+
+Nothing expires by itself: history stays until the coach deletes it (`delete_athlete_results`, `delete_squad`) or someone asks, because following an athlete over the years is the product. Any automatic deletion, including a shorter history as a plan limit later, must change the privacy copy (`privacy.keep.text`) in the same PR. With no accounts, a squad whose coach link is lost has no one left who can delete it, so a request for it is handled by hand on the project.
 
 ## Realtime
 
@@ -38,7 +44,7 @@ Fallbacks: athletes poll `get_squad` every 20 s, the coach polls `get_squad` + `
 
 1. Add `supabase/migrations/YYYYMMDDHHMMSS_<name>.sql`. Never edit an applied file.
 2. Apply it to the project (Supabase MCP `apply_migration`, or the dashboard SQL editor), then note the date in the file header.
-3. If `SquadConfig` changes: update the TypeScript type, `DEFAULT_SQUAD_CONFIG`, `default_squad_config()` (new migration with `create or replace`), `ConfigForm.svelte`, both catalogs, `PRODUCT.md`. `normaliseConfig` in `squad.service.ts` merges defaults over stored JSON, so older rows keep working.
+3. If `SquadConfig` changes: update the TypeScript type, `DEFAULT_SQUAD_CONFIG`, `default_squad_config()` (new migration with `create or replace`), `ConfigForm.svelte`, every catalog, `PRODUCT.md`. `normaliseConfig` in `squad.service.ts` merges defaults over stored JSON, so older rows keep working.
 4. A new RPC: `revoke all ... from public` then `grant execute ... to anon, authenticated`, like the existing ones.
 
 ## Keys
