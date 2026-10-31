@@ -13,8 +13,8 @@ A contradiction is fixed in the PR that found it, in the lower-ranked source.
 ## Allowed without asking
 
 - Edit anything under `src/lib/**`, `src/routes/**`, `src/app.css`, `src/app.html`, `src/tests/**`.
-- Add a game component under `src/lib/components/games/` and register it in `index.ts`, `GAME_KEYS`, both catalogs and `PRODUCT.md`.
-- Add i18n keys to both catalogs.
+- Add a game component under `src/lib/components/games/` and register it in `index.ts`, `GAME_KEYS`, every catalog and `PRODUCT.md`.
+- Add i18n keys to every catalog.
 - Update `docs/ai/**` when the meta-update rule fires.
 - Run any `npm run …` script.
 

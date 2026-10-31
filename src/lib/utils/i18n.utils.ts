@@ -1,9 +1,13 @@
 import { DEFAULT_LOCALE, type Locale } from '$lib/constants/locale.constants';
 import { en } from '$lib/constants/messages/en';
 import { it, type I18nKey } from '$lib/constants/messages/it';
+import { ptBR } from '$lib/constants/messages/pt-BR';
 import { nonNullish } from '$lib/utils/nullish.utils';
 
-const CATALOGS: Record<Locale, Record<I18nKey, string>> = { it, en };
+const CATALOGS: Record<Locale, Record<I18nKey, string>> = { it, en, 'pt-BR': ptBR };
+
+// Primary language subtag to the catalog that serves it: any Portuguese gets the Brazilian copy.
+const BY_LANGUAGE: Record<string, Locale> = { it: 'it', en: 'en', pt: 'pt-BR' };
 
 export type { I18nKey };
 
@@ -30,4 +34,20 @@ export const t = ({
 	return raw.replace(/\{(\w+)\}/g, (match, name: string) =>
 		nonNullish(values[name]) ? String(values[name]) : match
 	);
+};
+
+/**
+ * First supported locale among the browser languages, in order of preference
+ * (`navigator.languages`); `undefined` when none matches.
+ */
+export const matchLocale = (languages: readonly string[]): Locale | undefined => {
+	for (const tag of languages) {
+		const match = BY_LANGUAGE[tag.toLowerCase().split('-')[0]];
+
+		if (nonNullish(match)) {
+			return match;
+		}
+	}
+
+	return undefined;
 };
