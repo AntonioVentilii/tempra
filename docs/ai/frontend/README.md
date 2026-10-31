@@ -19,7 +19,7 @@ src/
       games/                  one component per game + index.ts (GAME_COMPONENTS)
       session/                BlockRunner, BlockSummary, TrialTimer, Distractors
       coach/                  Roster, AthleteHistory, ConfigForm, ResultsTable
-      ui/                     Brand, Kpi, Toast, Sparkline
+      ui/                     Brand, Kpi, Toast, Sparkline, InfoTip ("i" button that shows a detail on demand)
     constants/                config, locale, supabase, messages/{it,en,pt-BR}.ts
     services/                 supabase.service (lazy client), squad.service (RPC wrappers), realtime.service (channel: config, presence, result broadcast)
     stores/                   locale, squad (athlete side), coach, results (local history), outbox (unsent results), toast
@@ -76,6 +76,10 @@ Identity lives on the Claude Design canvas "Tempra Brand" (https://claude.ai/art
 - Type: Saira Extra Condensed 800 italic for headings, numbers, codes (always uppercase); Saira 400 to 600 for body and tables; `.tnum` wherever digits line up.
 - Shapes: no radius, no gradient, no shadow. Buttons are bibs: slanted edges with `clip-path`, text upright. Cards carry a 3px top rule (`.card`, volt with `.card-accent`). Status is a left rule on a `.badge`. The block progress is `.track`: lane stripes under a volt fill.
 - The mark (`Brand.svelte`, `static/logo.svg`, `favicon.svg`, `icon-512.svg`): a slanted T whose stem is a pulse spike. Drawn as two shapes, 13% stroke, readable at 16px. Never outlined, never shadowed, never recoloured outside volt / asphalt / chalk.
+
+## Copy
+
+Athletes read between sets, out of breath: every visible line is short, one idea, no explanation. Anything that explains goes behind an `InfoTip` (tap "i") or into a closed `<details>`; the visible screen keeps only what you act on. Coach hints follow the same rule.
 
 ## Accessibility
 
