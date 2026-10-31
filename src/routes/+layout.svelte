@@ -72,9 +72,15 @@
 				{t({ locale: $localeStore, key: 'haptics.label' })}
 			</label>
 		{/if}
-		<span class="flex items-center gap-3">
+		<span class="flex flex-wrap items-center gap-3">
 			<a href="/privacy" class="text-fg-2" data-tid="footer-privacy">
 				{t({ locale: $localeStore, key: 'footer.privacy' })}
+			</a>
+			<a href="/terms" class="text-fg-2" data-tid="footer-terms">
+				{t({ locale: $localeStore, key: 'footer.terms' })}
+			</a>
+			<a href="/terms#report" class="text-fg-2" data-tid="footer-report">
+				{t({ locale: $localeStore, key: 'footer.report' })}
 			</a>
 			<label class="flex cursor-pointer items-center gap-1.5">
 				<svg
