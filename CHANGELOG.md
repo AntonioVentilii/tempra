@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/EnricaCipolloni/tempra/compare/v0.1.2...v0.1.3) (2026-10-31)
+
+
+### Features
+
+* **i18n:** Brazilian Portuguese and a language picker in the footer ([#29](https://github.com/EnricaCipolloni/tempra/issues/29)) ([33b6664](https://github.com/EnricaCipolloni/tempra/commit/33b6664f3f56a90fbc53a717681837a60f1b8b13))
+
 ## [0.1.2](https://github.com/EnricaCipolloni/tempra/compare/v0.1.1...v0.1.2) (2026-10-27)
 
 
