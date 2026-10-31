@@ -188,7 +188,8 @@ export const it = {
 	'privacy.data.1': 'Nome o soprannome.',
 	'privacy.data.2': 'Risultati dei blocchi: punti, precisione, tempi, livello, data.',
 	'privacy.data.3': 'Nome della squadra.',
-	'privacy.data.4': 'Un codice casuale del telefono per mostrare chi è online. Non viene salvato.',
+	'privacy.data.4':
+		'Un codice casuale salvato sul telefono, per mostrare chi è online. Non finisce nel database.',
 	'privacy.why.title': 'Perché',
 	'privacy.why.text':
 		'Per allenarti con i parametri del coach e mostrargli i risultati. Niente pubblicità né profilazione. Base giuridica: [DA COMPLETARE].',
@@ -201,7 +202,7 @@ export const it = {
 	'privacy.where.3': 'Sul telefono: squadra, nome e ultimi risultati.',
 	'privacy.keep.title': 'Per quanto',
 	'privacy.keep.text':
-		'Finché il coach non li cancella, al massimo 12 mesi dopo l’ultima attività della squadra.',
+		'Finché il coach non li cancella, o dopo 12 mesi senza attività della squadra.',
 	'privacy.minors.title': 'Atleti minorenni',
 	'privacy.minors.text':
 		'Sotto i 14 anni passa dalla società sportiva, che informa i genitori. Usa solo nome o soprannome.',

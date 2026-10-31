@@ -71,7 +71,7 @@ Track-and-field identity from the Tempra Brand canvas: asphalt ground, volt acce
 
 ## Privacy
 
-`/privacy` (linked from the footer and from the athlete join form) leads with one line, then folds each topic in a `<details>`: what is collected (display name, block results, squad name, an ephemeral device id for presence), who sees it, where it lives (Supabase in Zurich, GitHub Pages, the device), how long it is kept, how minors use the app and how to have data deleted. The join form says a name or nickname is enough. A button erases everything Tempra saved on the device except the language, after a confirm. Squads inactive for 12 months are deleted on the server (see backend README § Retention). Fonts are self-hosted, so no third party sees visitors beyond hosting and Supabase. Placeholders in square brackets (controller, legal basis, contact) are open decisions for the owner.
+`/privacy` (linked from the footer and from the athlete join form) leads with one line, then folds each topic in a `<details>`: what is collected (display name, block results, squad name, a random per-browser id kept in localStorage and sent only over presence, never written to the database), who sees it, where it lives (Supabase in Zurich, GitHub Pages, the device), how long it is kept, how minors use the app and how to have data deleted. The join form says a name or nickname is enough. A button erases everything Tempra saved on the device except the language, after a confirm. Squads inactive for 12 months are deleted on the server (see backend README § Retention). Fonts are self-hosted, so no third party sees visitors beyond hosting and Supabase. Placeholders in square brackets (controller, legal basis, contact) are open decisions for the owner.
 
 ## Languages
 

@@ -187,7 +187,8 @@ export const en: Record<I18nKey, string> = {
 	'privacy.data.1': 'Name or nickname.',
 	'privacy.data.2': 'Block results: points, accuracy, times, level, date.',
 	'privacy.data.3': 'Squad name.',
-	'privacy.data.4': 'A random phone code to show who is online. Not stored.',
+	'privacy.data.4':
+		'A random code saved on your phone to show who is online. It never reaches the database.',
 	'privacy.why.title': 'Why',
 	'privacy.why.text':
 		'To train with the coach parameters and show the coach your results. No ads, no profiling. Legal basis: [TO COMPLETE].',
@@ -199,8 +200,7 @@ export const en: Record<I18nKey, string> = {
 	'privacy.where.2': 'Website: GitHub Pages (US), sees the IP address.',
 	'privacy.where.3': 'On your phone: squad, name and latest results.',
 	'privacy.keep.title': 'How long',
-	'privacy.keep.text':
-		'Until the coach deletes it, at most 12 months after the squad was last active.',
+	'privacy.keep.text': 'Until the coach deletes it, or after 12 months without squad activity.',
 	'privacy.minors.title': 'Under-age athletes',
 	'privacy.minors.text':
 		'Under 14, use goes through the sports club, which informs the parents. Use only a name or nickname.',

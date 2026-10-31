@@ -192,7 +192,8 @@ export const ptBR: Record<I18nKey, string> = {
 	'privacy.data.1': 'Nome ou apelido.',
 	'privacy.data.2': 'Resultados dos blocos: pontos, precisão, tempos, nível, data.',
 	'privacy.data.3': 'Nome da equipe.',
-	'privacy.data.4': 'Um código aleatório do celular para mostrar quem está online. Não é salvo.',
+	'privacy.data.4':
+		'Um código aleatório salvo no celular para mostrar quem está online. Não vai para o banco de dados.',
 	'privacy.why.title': 'Por quê',
 	'privacy.why.text':
 		'Para você treinar com os parâmetros do treinador e mostrar a ele os seus resultados. Sem anúncios nem criação de perfis. Base legal: [A COMPLETAR].',
@@ -204,8 +205,7 @@ export const ptBR: Record<I18nKey, string> = {
 	'privacy.where.2': 'Site: GitHub Pages (EUA), vê o endereço IP.',
 	'privacy.where.3': 'No seu celular: equipe, nome e últimos resultados.',
 	'privacy.keep.title': 'Por quanto tempo',
-	'privacy.keep.text':
-		'Até o treinador apagar, no máximo 12 meses após a última atividade da equipe.',
+	'privacy.keep.text': 'Até o treinador apagar, ou após 12 meses sem atividade da equipe.',
 	'privacy.minors.title': 'Atletas menores de idade',
 	'privacy.minors.text':
 		'Abaixo de 14 anos, o uso passa pelo clube esportivo, que informa os pais. Use só um nome ou apelido.',
