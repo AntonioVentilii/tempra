@@ -1,4 +1,5 @@
 <script lang="ts">
+	import InfoTip from '$lib/components/ui/InfoTip.svelte';
 	import { BLOCK_DURATIONS_S, GAME_DURATIONS_S } from '$lib/constants/config.constants';
 	import { localeStore } from '$lib/stores/locale.store';
 	import { toast } from '$lib/stores/toast.store';
@@ -110,39 +111,43 @@
 
 	<div>
 		<div class="toggle-row">
-			<label for="c-pressure">
-				{t({ locale: $localeStore, key: 'coach.pressure' })}
-				<small class="text-fg-2 block text-sm">
-					{t({ locale: $localeStore, key: 'coach.pressure.hint' })}
-				</small>
-			</label>
+			<span class="flex items-center gap-2">
+				<label for="c-pressure">{t({ locale: $localeStore, key: 'coach.pressure' })}</label>
+				<InfoTip
+					label={t({ locale: $localeStore, key: 'coach.pressure' })}
+					text={t({ locale: $localeStore, key: 'coach.pressure.hint' })}
+				/>
+			</span>
 			<input id="c-pressure" type="checkbox" bind:checked={draft.time_pressure} />
 		</div>
 		<div class="toggle-row">
-			<label for="c-distract">
-				{t({ locale: $localeStore, key: 'coach.distractors' })}
-				<small class="text-fg-2 block text-sm">
-					{t({ locale: $localeStore, key: 'coach.distractors.hint' })}
-				</small>
-			</label>
+			<span class="flex items-center gap-2">
+				<label for="c-distract">{t({ locale: $localeStore, key: 'coach.distractors' })}</label>
+				<InfoTip
+					label={t({ locale: $localeStore, key: 'coach.distractors' })}
+					text={t({ locale: $localeStore, key: 'coach.distractors.hint' })}
+				/>
+			</span>
 			<input id="c-distract" type="checkbox" bind:checked={draft.distractors} />
 		</div>
 		<div class="toggle-row">
-			<label for="c-penalty">
-				{t({ locale: $localeStore, key: 'coach.penalty' })}
-				<small class="text-fg-2 block text-sm">
-					{t({ locale: $localeStore, key: 'coach.penalty.hint' })}
-				</small>
-			</label>
+			<span class="flex items-center gap-2">
+				<label for="c-penalty">{t({ locale: $localeStore, key: 'coach.penalty' })}</label>
+				<InfoTip
+					label={t({ locale: $localeStore, key: 'coach.penalty' })}
+					text={t({ locale: $localeStore, key: 'coach.penalty.hint' })}
+				/>
+			</span>
 			<input id="c-penalty" type="checkbox" bind:checked={draft.penalty_on_error} />
 		</div>
 		<div class="toggle-row">
-			<label for="c-adapt">
-				{t({ locale: $localeStore, key: 'coach.adapt' })}
-				<small class="text-fg-2 block text-sm">
-					{t({ locale: $localeStore, key: 'coach.adapt.hint' })}
-				</small>
-			</label>
+			<span class="flex items-center gap-2">
+				<label for="c-adapt">{t({ locale: $localeStore, key: 'coach.adapt' })}</label>
+				<InfoTip
+					label={t({ locale: $localeStore, key: 'coach.adapt' })}
+					text={t({ locale: $localeStore, key: 'coach.adapt.hint' })}
+				/>
+			</span>
 			<input id="c-adapt" type="checkbox" bind:checked={draft.auto_adapt} />
 		</div>
 	</div>

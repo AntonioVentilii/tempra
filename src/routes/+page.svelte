@@ -30,17 +30,21 @@
 	</section>
 </div>
 
-<section class="card">
-	<h2 class="text-2xl font-bold">{t({ locale: $localeStore, key: 'home.how.title' })}</h2>
+<details class="card">
+	<summary class="font-display cursor-pointer text-2xl font-extrabold uppercase italic">
+		{t({ locale: $localeStore, key: 'home.how.title' })}
+	</summary>
 	<ol class="mt-3 grid gap-2 pl-5 text-sm">
 		{#each steps as step (step)}
 			<li>{t({ locale: $localeStore, key: step })}</li>
 		{/each}
 	</ol>
-</section>
+</details>
 
-<section class="card">
-	<h2 class="text-2xl font-bold">{t({ locale: $localeStore, key: 'home.games.title' })}</h2>
+<details class="card">
+	<summary class="font-display cursor-pointer text-2xl font-extrabold uppercase italic">
+		{t({ locale: $localeStore, key: 'home.games.title' })}
+	</summary>
 	<dl class="mt-3 grid gap-2 sm:grid-cols-2">
 		{#each GAME_KEYS as key (key)}
 			<div class="bg-bg-3 rounded-[10px] px-3 py-2.5">
@@ -53,4 +57,4 @@
 			</div>
 		{/each}
 	</dl>
-</section>
+</details>

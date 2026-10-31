@@ -5,6 +5,7 @@
 	import ConfigForm from '$lib/components/coach/ConfigForm.svelte';
 	import ResultsTable from '$lib/components/coach/ResultsTable.svelte';
 	import Roster from '$lib/components/coach/Roster.svelte';
+	import InfoTip from '$lib/components/ui/InfoTip.svelte';
 	import {
 		DEFAULT_SQUAD_CONFIG,
 		RESULTS_POLL_MS,
@@ -338,13 +339,18 @@
 			<p class="text-fg-2 mt-1 text-xs">{t({ locale: $localeStore, key: 'coach.code.share' })}</p>
 		</div>
 		<div class="flex flex-col items-end gap-1.5 text-right">
-			<span class="badge {realtimeLive ? 'badge-ok' : 'badge-warn'}">
-				{t({
-					locale: $localeStore,
-					key: realtimeLive ? 'coach.realtime.on' : 'coach.realtime.off'
-				})}
+			<span class="flex items-center gap-2">
+				<span class="badge {realtimeLive ? 'badge-ok' : 'badge-warn'}">
+					{t({
+						locale: $localeStore,
+						key: realtimeLive ? 'coach.realtime.on' : 'coach.realtime.off'
+					})}
+				</span>
+				<InfoTip
+					label={t({ locale: $localeStore, key: 'coach.live' })}
+					text={t({ locale: $localeStore, key: 'coach.live.hint' })}
+				/>
 			</span>
-			<p class="text-fg-2 m-0 text-xs">{t({ locale: $localeStore, key: 'coach.live.hint' })}</p>
 			{#if nonNullish(updatedAt)}
 				<p class="text-fg-2 m-0 text-xs">
 					{t({
