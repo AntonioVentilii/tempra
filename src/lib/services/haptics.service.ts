@@ -3,6 +3,19 @@ import { nonNullish } from '$lib/utils/nullish.utils';
 import { Capacitor } from '@capacitor/core';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 
+let enabled = true;
+
+/** A plain flag, so a trial never reads storage or a store on its way to the motor. */
+export const setHapticsEnabled = (value: boolean) => {
+	enabled = value;
+};
+
+const webCanVibrate = () =>
+	typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function';
+
+/** False where a switch would do nothing, such as iOS Safari. */
+export const hapticsSupported = () => Capacitor.isNativePlatform() || webCanVibrate();
+
 interface Feel {
 	native: () => Promise<void>;
 	/** `navigator.vibrate` pattern in ms. */
@@ -15,6 +28,10 @@ interface Feel {
  * (iOS Safari, Firefox) simply feel nothing.
  */
 const play = ({ native, web }: Feel) => {
+	if (!enabled) {
+		return;
+	}
+
 	try {
 		if (Capacitor.isNativePlatform()) {
 			void native().catch(() => undefined);
@@ -22,7 +39,7 @@ const play = ({ native, web }: Feel) => {
 			return;
 		}
 
-		if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
+		if (webCanVibrate()) {
 			navigator.vibrate(web);
 		}
 	} catch {

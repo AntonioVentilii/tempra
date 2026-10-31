@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
 import { afterEach, describe, it } from 'node:test';
-import { hapticBlockEnd, hapticTap, hapticTrial } from '$lib/services/haptics.service';
+import {
+	hapticBlockEnd,
+	hapticsSupported,
+	hapticTap,
+	hapticTrial,
+	setHapticsEnabled
+} from '$lib/services/haptics.service';
 
 const original = Object.getOwnPropertyDescriptor(globalThis, 'navigator');
 
@@ -21,6 +27,8 @@ const recordVibrations = () => {
 };
 
 afterEach(() => {
+	setHapticsEnabled(true);
+
 	if (original) {
 		Object.defineProperty(globalThis, 'navigator', original);
 	}
@@ -43,6 +51,25 @@ describe('hapticTrial', () => {
 		const calls = recordVibrations();
 		hapticTrial({ correct: false, rt_ms: null });
 		assert.deepEqual(calls, [40]);
+	});
+});
+
+describe('the switch', () => {
+	it('silences everything while off', () => {
+		const calls = recordVibrations();
+		setHapticsEnabled(false);
+		hapticTrial({ correct: true, rt_ms: 420 });
+		hapticTrial({ correct: false, rt_ms: null });
+		hapticBlockEnd();
+		hapticTap();
+		assert.deepEqual(calls, []);
+	});
+
+	it('is only offered where something can vibrate', () => {
+		recordVibrations();
+		assert.equal(hapticsSupported(), true);
+		stubNavigator({});
+		assert.equal(hapticsSupported(), false);
 	});
 });
 

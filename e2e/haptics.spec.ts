@@ -61,3 +61,35 @@ test('aborting a block ticks once and skips the end pattern', async ({ page }) =
 	await expect(page.getByTestId('start-block')).toBeVisible();
 	expect(await vibrations(page)).toEqual([15]);
 });
+
+test('the footer switch silences a block, survives a reload and ticks when turned back on', async ({
+	page
+}) => {
+	await recordVibrations(page);
+	await joinWithShortTrailBlock(page);
+
+	const toggle = page.getByTestId('haptics-toggle');
+	await expect(toggle).toBeChecked();
+	await toggle.uncheck();
+	await page.reload();
+	await expect(page.getByTestId('athlete-home')).toBeVisible();
+	await expect(toggle).not.toBeChecked();
+
+	await page.getByTestId('start-block').click();
+	await page.getByRole('button', { name: 'Interrompi' }).click();
+	await expect(page.getByTestId('start-block')).toBeVisible();
+	expect(await vibrations(page)).toEqual([]);
+
+	await toggle.check();
+	expect(await vibrations(page)).toEqual([15]);
+});
+
+test('the switch is hidden where the browser cannot vibrate', async ({ page }) => {
+	await page.addInitScript(() => {
+		Object.defineProperty(navigator, 'vibrate', { value: undefined });
+	});
+	await mockSupabase(page);
+	await page.goto('/');
+	await expect(page.getByTestId('locale-select')).toBeVisible();
+	await expect(page.getByTestId('haptics-toggle')).toHaveCount(0);
+});

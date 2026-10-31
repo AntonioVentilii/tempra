@@ -9,7 +9,7 @@ src/
   app.css                     design tokens (dark-first), @theme bridge to Tailwind, shared primitives
   app.html                    font preload, manifest, favicon (fonts are self-hosted in static/fonts, @font-face in app.css)
   routes/
-    +layout.svelte            header (brand, Athlete / Coach tabs), footer (locale picker, version), Toast
+    +layout.svelte            header (brand, Athlete / Coach tabs), footer (locale picker, vibration switch, version), Toast
     +page.svelte              landing
     athlete/+page.svelte      join form → home card → BlockRunner → BlockSummary
     coach/+page.svelte        create / restore → squad card + ConfigForm + ResultsTable
@@ -22,7 +22,7 @@ src/
       ui/                     Brand, Kpi, Toast, Sparkline, InfoTip ("i" button that shows a detail on demand)
     constants/                config, locale, supabase, messages/{it,en,pt-BR}.ts
     services/                 supabase.service (lazy client), squad.service (RPC wrappers), realtime.service (channel: config, presence, result broadcast), haptics.service (fire-and-forget vibration)
-    stores/                   locale, squad (athlete side), coach, results (local history), outbox (unsent results), toast
+    stores/                   locale, haptics, squad (athlete side), coach, results (local history), outbox (unsent results), toast
     types/                    config, result, game, presence
     utils/                    i18n, nullish, random, scoring, roster, storage, time, trial, device
   service-worker.ts           offline shell (cache-first assets, network-first pages)
@@ -60,7 +60,7 @@ interface GameProps {
 - Report `rt_ms` only for correct trials (mean RT is over correct answers).
 - Render `TrialTimer` inside `{#key trialId}` so the bar restarts per trial.
 - BlockRunner owns the slot clock and unmounts the game when the slot ends. A game never knows how long it runs.
-- BlockRunner also plays the haptics from `onTrial`, so a game never touches `haptics.service`. Calls there are never awaited and never throw: a reaction time must not wait on feedback. `rt_ms: null` on a correct trial means a withhold, which stays silent, so keep reporting `rt_ms` for every correct tap.
+- BlockRunner also plays the haptics from `onTrial`, so a game never touches `haptics.service`. Calls there are never awaited and never throw: a reaction time must not wait on feedback. The footer switch writes `haptics.store`, which pushes a plain flag into the service, so a trial never reads storage. `rt_ms: null` on a correct trial means a withhold, which stays silent, so keep reporting `rt_ms` for every correct tap.
 - Register in `GAME_COMPONENTS`, add the key to `GAME_KEYS`, add `game.<key>.name|hint|about` to every catalog, document the ladder in `PRODUCT.md`.
 
 ## i18n
