@@ -12,7 +12,7 @@ Tempra is a static SvelteKit 2 / Svelte 5 app published on GitHub Pages at https
 - **Config travels one way.** Coach publishes `SquadConfig` to `squad_config`; athletes subscribe over Realtime (`postgres_changes` filtered by code) with a 20 s poll as fallback. `DEFAULT_SQUAD_CONFIG` in `src/lib/constants/config.constants.ts` mirrors `default_squad_config()` in the migration: change both together.
 - **Games are self-contained components** under `src/lib/components/games/`, all taking the same `GameProps` (`difficulty`, `timePressure`, `onTrial`). The block runner mounts one per slot and unmounts it when the slot ends; a game never manages the block clock. Difficulty ladders are five-entry arrays read with `ladder(...)`.
 - **Scoring is pure** (`src/lib/utils/scoring.utils.ts`) and unit-tested with the Node test runner; UI never recomputes it differently.
-- **Everything user-visible is translated** (it, en) through `t({ locale, key })`; the catalog check runs inside `npm run lint`.
+- **Everything user-visible is translated** (it, en, pt-BR) through `t({ locale, key })`; the catalog check runs inside `npm run lint`.
 - **One build, three surfaces.** `build/` is the website (GitHub Pages) and the web layer of the Android and iOS apps (`android/`, `ios/`, Capacitor). Never branch behaviour on the platform unless a native capability requires it.
 - **Live roster through Realtime presence**, not a table: who is online and in which game is announced on the squad channel; only completed blocks are rows (`results`).
 
@@ -23,7 +23,7 @@ Tempra is a static SvelteKit 2 / Svelte 5 app published on GitHub Pages at https
 3. **Game loops live in `onMount`**, not `$effect`, so writes to `$state` inside the loop cannot retrigger it. Clean up in the returned function and resolve any pending trial gate.
 4. **Nullish checks** use `isNullish` / `nonNullish` from `$lib/utils/nullish.utils`; eslint rejects direct `null` / `undefined` comparisons.
 5. **Import through `$lib/...`**, never relative paths across folders.
-6. **No AI attribution** in commits or PRs. No em dashes in prose or UI copy. UI copy is short, clear and human, in both locales.
+6. **No AI attribution** in commits or PRs. No em dashes in prose or UI copy. UI copy is short, clear and human, in every locale.
 7. **Mobile first.** The athlete screen is used one-handed, sweating, at arm's length: large targets, high contrast, verify at 390px.
 8. **Run the gates** before opening a PR: `npm run quality`, `npm run check`, `npm test`, `npm run e2e`, `npm run build`.
 
