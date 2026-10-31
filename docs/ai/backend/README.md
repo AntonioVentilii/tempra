@@ -24,7 +24,7 @@ The coach key never leaves Postgres except once, in the `create_squad` response.
 | `delete_athlete_results(p_code, p_coach_key, p_athlete)`                                                                       | coach   | Verifies the key, deletes every result of that athlete name in the squad, returns how many.                                               |
 | `delete_squad(p_code, p_coach_key)`                                                                                            | coach   | Verifies the key and deletes the squad; `squad_config` and `results` go with it (`on delete cascade`).                                    |
 
-Validation lives in the functions (name lengths, unknown squad, unauthorized). The client surfaces failures as toasts and never retries blindly.
+Validation lives in the functions (name lengths, unknown squad, unauthorized). The client surfaces failures as toasts and never retries blindly. The one exception is `unknown squad` in `flushOutbox`: the coach deleted the squad, so the queued result is dropped instead of retried forever.
 
 ## Retention
 
