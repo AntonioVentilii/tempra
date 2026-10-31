@@ -188,7 +188,7 @@ export const en: Record<I18nKey, string> = {
 	'join.name.hint': 'A name or nickname is enough.',
 	'privacy.title': 'Privacy',
 	'privacy.lead': 'Just a name, even a nickname, and your scores. No account, email, age or ads.',
-	'privacy.updated': 'Updated 29 October 2026.',
+	'privacy.updated': 'Updated 31 October 2026.',
 	'privacy.who.title': 'Who is responsible',
 	'privacy.who.text': 'Controller: {owner}, {contact}. Role of the sports club: [TO DECIDE].',
 	'privacy.data.title': 'What data',
@@ -208,7 +208,8 @@ export const en: Record<I18nKey, string> = {
 	'privacy.where.2': 'Website: GitHub Pages (US), sees the IP address.',
 	'privacy.where.3': 'On your phone: squad, name and latest results.',
 	'privacy.keep.title': 'How long',
-	'privacy.keep.text': 'Until the coach deletes it, or after 12 months without squad activity.',
+	'privacy.keep.text':
+		'Until the coach deletes it, which you can ask for. There is no automatic expiry.',
 	'privacy.minors.title': 'Under-age athletes',
 	'privacy.minors.text':
 		'Under 14, use goes through the sports club, which informs the parents. Use only a name or nickname.',

@@ -28,7 +28,7 @@ Validation lives in the functions (name lengths, unknown squad, unauthorized). T
 
 ## Retention
 
-`purge_inactive_squads()` deletes every squad whose latest activity (creation, last config publish, last result) is older than 12 months; config and results go with it. pg_cron job `purge-inactive-squads` runs it nightly at 03:17 UTC. It briefly locks `squad_config` and `results` against writers so a write landing mid-purge cannot be lost with a squad judged idle. It is not granted to `anon`. Change the interval in a new migration and in the privacy copy (`privacy.keep.text`) together.
+Nothing expires by itself: history stays until the coach deletes it (`delete_athlete_results`, `delete_squad`) or someone asks, because following an athlete over the years is the product. Any automatic deletion, including a shorter history as a plan limit later, must change the privacy copy (`privacy.keep.text`) in the same PR. With no accounts, a squad whose coach link is lost has no one left who can delete it, so a request for it is handled by hand on the project.
 
 ## Realtime
 
