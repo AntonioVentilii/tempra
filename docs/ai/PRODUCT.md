@@ -35,14 +35,14 @@ Defaults: difficulty 3, all six games, 90 s block, 30 s per game, time pressure 
 
 ## Games
 
-| Key       | Name       | Rule                                 | Ladder (level 1 → 5)                                                                       |
-| --------- | ---------- | ------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `stroop`  | Stroop     | Tap the ink colour, not the word.    | Window 2500 → 1000 ms; congruent 60% → 20%; from level 4 buttons mis-coloured              |
-| `gonogo`  | Go / No-Go | Tap the green circle, never the red. | Shown 900 → 400 ms; no-go 20% → 40%; from level 4 half the no-go are green with a NO label |
-| `nback`   | N-back     | Match if the letter equals N back.   | N 1,1,2,2,3; stimulus 2000 → 1000 ms                                                       |
-| `flanker` | Flanker    | Direction of the centre arrow.       | Window 2000 → 800 ms; incongruent 50% → 80%; 3 → 7 arrows                                  |
-| `math`    | Arithmetic | Pick the result among four.          | Operands up to 10 → 200; × from level 3; window 7 → 3 s; close distractors from level 4    |
-| `trail`   | Trail      | Tap numbers in ascending order.      | 9 → 25 numbers; from level 4 the grid reshuffles after each correct tap                    |
+| Key       | Name       | Rule                               | Ladder (level 1 → 5)                                                                       |
+| --------- | ---------- | ---------------------------------- | ------------------------------------------------------------------------------------------ |
+| `stroop`  | Stroop     | Tap the ink colour, not the word.  | Window 2500 → 1000 ms; congruent 60% → 20%; from level 4 buttons mis-coloured              |
+| `gonogo`  | Go / No-Go | Tap GO, never NO.                  | Shown 900 → 400 ms; no-go 20% → 40%; from level 4 half the no-go are green with a NO label |
+| `nback`   | N-back     | Match if the letter equals N back. | N 1,1,2,2,3; stimulus 2000 → 1000 ms                                                       |
+| `flanker` | Flanker    | Direction of the centre arrow.     | Window 2000 → 800 ms; incongruent 50% → 80%; 3 → 7 arrows                                  |
+| `math`    | Arithmetic | Pick the result among four.        | Operands up to 10 → 200; × from level 3; window 7 → 3 s; close distractors from level 4    |
+| `trail`   | Trail      | Tap numbers in ascending order.    | 9 → 25 numbers; from level 4 the grid reshuffles after each correct tap                    |
 
 ## A block
 
@@ -58,9 +58,14 @@ Defaults: difficulty 3, all six games, 90 s block, 30 s per game, time pressure 
 
 - Squad card: code, name, live badge (real time or 10 s poll), last publish time, copy athlete link, copy coach link, leave.
 - **Roster**: one row per athlete, live first. Status badge: in a block (with the game), online, offline. Blocks played, last index with trend arrow (last three blocks vs the three before, ±3 points), mean accuracy, last block time, sparkline of the last twelve indices. Athletes who joined but never played appear as soon as they are online.
-- **Athlete history**: tap a roster row for the full track record: index (ember) and accuracy (grey) over time, plus the table of every block.
+- **Athlete history**: tap a roster row for the full track record: index (ember) and accuracy (grey) over time, plus the table of every block. A button deletes every result of that athlete after a browser confirm.
 - Config form: all parameters above; Publish writes them in one call and athletes receive them within a second.
 - Latest squad blocks: the fifteen most recent results across athletes, with index badge (green ≥ 75, amber ≥ 50, red below).
+- **Delete the squad**: after a browser confirm, removes the squad, its config and every result on the server and clears the coach session on the device. The code stops working; athletes keep only what their own device cached.
+
+## Copy
+
+Short by design: the athlete home shows level, block length, game count, the coach's message and the live badge; time pressure, last update and how a block works sit behind an "i". The landing folds "how it works" and the games list. Coach toggle hints and the live hint are behind an "i" too. Game rules on the 1.5 s interstitial are a few words each.
 
 ## Offline
 
@@ -69,6 +74,10 @@ A service worker caches the app shell and assets at install, so the app opens wi
 ## Look
 
 Track-and-field identity from the Tempra Brand canvas: asphalt ground, volt accent, condensed italics, bib-shaped buttons, lane-stripe progress. See `docs/ai/frontend/README.md` § Design tokens.
+
+## Privacy
+
+`/privacy` (linked from the footer and from the athlete join form) leads with one line, then folds each topic in a `<details>`: what is collected (display name, block results, squad name, a random per-browser id kept in localStorage and sent only over presence, never written to the database), who sees it, where it lives (Supabase in Zurich, GitHub Pages, the device), how long it is kept, how minors use the app and how to have data deleted. The join form says a name or nickname is enough. A button erases everything Tempra saved on the device except the language, after a confirm. Squads inactive for 12 months are deleted on the server (see backend README § Retention). Fonts are self-hosted, so no third party sees visitors beyond hosting and Supabase. Placeholders in square brackets (controller, legal basis, contact) are open decisions for the owner.
 
 ## Languages
 

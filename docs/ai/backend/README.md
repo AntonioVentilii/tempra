@@ -21,8 +21,14 @@ The coach key never leaves Postgres except once, in the `create_squad` response.
 | `update_squad_config(p_code, p_coach_key, p_config)`                                                                           | coach   | Rejects a non-object config, verifies the key, replaces the config, bumps `updated_at`.                                                   |
 | `submit_result(p_code, p_athlete, p_game, p_difficulty, p_score, p_accuracy, p_mean_rt_ms, p_trials, p_duration_ms, p_params)` | athlete | Inserts a result for an existing squad. `p_game` is `'block'` for a whole block; `p_params` carries `index`, `games`, `per_game`.         |
 | `list_results(p_code, p_coach_key, p_limit)`                                                                                   | coach   | Verifies the key, newest first, max 1000.                                                                                                 |
+| `delete_athlete_results(p_code, p_coach_key, p_athlete)`                                                                       | coach   | Verifies the key, deletes every result of that athlete name in the squad, returns how many.                                               |
+| `delete_squad(p_code, p_coach_key)`                                                                                            | coach   | Verifies the key and deletes the squad; `squad_config` and `results` go with it (`on delete cascade`).                                    |
 
 Validation lives in the functions (name lengths, unknown squad, unauthorized). The client surfaces failures as toasts and never retries blindly.
+
+## Retention
+
+`purge_inactive_squads()` deletes every squad whose latest activity (creation, last config publish, last result) is older than 12 months; config and results go with it. pg_cron job `purge-inactive-squads` runs it nightly at 03:17 UTC. It briefly locks `squad_config` and `results` against writers so a write landing mid-purge cannot be lost with a squad judged idle. It is not granted to `anon`. Change the interval in a new migration and in the privacy copy (`privacy.keep.text`) together.
 
 ## Realtime
 

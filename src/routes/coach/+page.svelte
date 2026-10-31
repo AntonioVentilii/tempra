@@ -5,6 +5,7 @@
 	import ConfigForm from '$lib/components/coach/ConfigForm.svelte';
 	import ResultsTable from '$lib/components/coach/ResultsTable.svelte';
 	import Roster from '$lib/components/coach/Roster.svelte';
+	import InfoTip from '$lib/components/ui/InfoTip.svelte';
 	import {
 		DEFAULT_SQUAD_CONFIG,
 		RESULTS_POLL_MS,
@@ -14,6 +15,8 @@
 	import { joinSquadChannel, type SquadChannel } from '$lib/services/realtime.service';
 	import {
 		createSquad,
+		deleteAthleteResults,
+		deleteSquad,
 		getSquad,
 		listResults,
 		updateSquadConfig
@@ -45,6 +48,8 @@
 	let realtimeLive = $state(false);
 	let selected = $state<string | undefined>(undefined);
 	let channel: SquadChannel | undefined;
+	// Bumped whenever the data on screen changes hands, so a load already in flight cannot restore it.
+	let loadGeneration = 0;
 
 	const session = $derived($coachStore);
 	const roster = $derived(buildRoster({ results, presences }));
@@ -101,11 +106,17 @@
 			return;
 		}
 
+		const generation = loadGeneration;
+
 		try {
 			const [squad, rows] = await Promise.all([
 				getSquad({ code: session.code }),
 				listResults({ session, limit: HISTORY_LIMIT })
 			]);
+
+			if (generation !== loadGeneration) {
+				return;
+			}
 
 			if (nonNullish(squad)) {
 				config = squad.config;
@@ -132,6 +143,56 @@
 			toast(t({ locale: $localeStore, key: 'coach.published' }));
 		} catch {
 			toast(t({ locale: $localeStore, key: 'coach.publish.error' }));
+		} finally {
+			busy = false;
+		}
+	};
+
+	// Erasure on request: irreversible, so the browser's own confirm guards both.
+	const removeAthlete = async (athlete: string) => {
+		if (
+			isNullish(session) ||
+			!window.confirm(
+				t({ locale: $localeStore, key: 'coach.athlete.delete.confirm', values: { name: athlete } })
+			)
+		) {
+			return;
+		}
+
+		busy = true;
+
+		try {
+			await deleteAthleteResults({ session, athlete });
+			loadGeneration += 1;
+			results = results.filter((r) => r.athlete !== athlete);
+			selected = undefined;
+			toast(t({ locale: $localeStore, key: 'coach.athlete.deleted', values: { name: athlete } }));
+		} catch {
+			toast(t({ locale: $localeStore, key: 'coach.delete.error' }));
+		} finally {
+			busy = false;
+		}
+	};
+
+	const removeSquad = async () => {
+		if (
+			isNullish(session) ||
+			!window.confirm(t({ locale: $localeStore, key: 'coach.squad.delete.confirm' }))
+		) {
+			return;
+		}
+
+		busy = true;
+
+		try {
+			await deleteSquad({ session });
+			loadGeneration += 1;
+			clearCoachSession();
+			results = [];
+			selected = undefined;
+			toast(t({ locale: $localeStore, key: 'coach.squad.deleted' }));
+		} catch {
+			toast(t({ locale: $localeStore, key: 'coach.delete.error' }));
 		} finally {
 			busy = false;
 		}
@@ -278,13 +339,18 @@
 			<p class="text-fg-2 mt-1 text-xs">{t({ locale: $localeStore, key: 'coach.code.share' })}</p>
 		</div>
 		<div class="flex flex-col items-end gap-1.5 text-right">
-			<span class="badge {realtimeLive ? 'badge-ok' : 'badge-warn'}">
-				{t({
-					locale: $localeStore,
-					key: realtimeLive ? 'coach.realtime.on' : 'coach.realtime.off'
-				})}
+			<span class="flex items-center gap-2">
+				<span class="badge {realtimeLive ? 'badge-ok' : 'badge-warn'}">
+					{t({
+						locale: $localeStore,
+						key: realtimeLive ? 'coach.realtime.on' : 'coach.realtime.off'
+					})}
+				</span>
+				<InfoTip
+					label={t({ locale: $localeStore, key: 'coach.live' })}
+					text={t({ locale: $localeStore, key: 'coach.live.hint' })}
+				/>
 			</span>
-			<p class="text-fg-2 m-0 text-xs">{t({ locale: $localeStore, key: 'coach.live.hint' })}</p>
 			{#if nonNullish(updatedAt)}
 				<p class="text-fg-2 m-0 text-xs">
 					{t({
@@ -337,6 +403,7 @@
 			name={selected}
 			results={selectedResults}
 			onClose={() => (selected = undefined)}
+			onDelete={() => void removeAthlete(selected ?? '')}
 		/>
 	{/if}
 
@@ -345,4 +412,19 @@
 	{/key}
 
 	<ResultsTable results={results.slice(0, RECENT_LIMIT)} onRefresh={() => void load()} />
+
+	<div class="card flex flex-col gap-2" data-tid="squad-delete-card">
+		<h3 class="text-fg-2 text-base font-bold tracking-[.08em]">
+			{t({ locale: $localeStore, key: 'coach.squad.delete.title' })}
+		</h3>
+		<p class="text-fg-2 text-sm">{t({ locale: $localeStore, key: 'coach.squad.delete.text' })}</p>
+		<button
+			class="btn btn-ghost self-start px-3 py-2 text-sm"
+			data-tid="squad-delete"
+			disabled={busy}
+			onclick={() => void removeSquad()}
+		>
+			{t({ locale: $localeStore, key: 'coach.squad.delete' })}
+		</button>
+	</div>
 {/if}
