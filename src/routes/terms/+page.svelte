@@ -2,9 +2,9 @@
 	import { TERMS_SECTIONS } from '$lib/constants/legal.constants';
 	import { localeStore } from '$lib/stores/locale.store';
 	import { t, type I18nKey } from '$lib/utils/i18n.utils';
-	import { LEGAL_DRAFT, legalValues } from '$lib/utils/legal.utils';
+	import { isLegalDraft, legalValues } from '$lib/utils/legal.utils';
 
-	const values = $derived(legalValues($localeStore));
+	const values = $derived(legalValues({ locale: $localeStore }));
 </script>
 
 <svelte:head>
@@ -20,7 +20,7 @@
 	<h1 class="text-4xl font-extrabold">{t({ locale: $localeStore, key: 'terms.title' })}</h1>
 	<p class="max-w-prose">{t({ locale: $localeStore, key: 'terms.lead' })}</p>
 
-	{#if LEGAL_DRAFT}
+	{#if isLegalDraft()}
 		<p class="badge badge-warn self-start whitespace-normal" data-tid="legal-draft">
 			{t({ locale: $localeStore, key: 'legal.draft' })}
 		</p>
