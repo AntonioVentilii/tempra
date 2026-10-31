@@ -25,6 +25,9 @@ export interface MockState {
 	updated_at: string;
 	results: Record<string, unknown>[];
 	calls: { fn: string; body: Record<string, unknown> }[];
+	squadDeleted: boolean;
+	/** While set, `list_results` answers with the rows it saw on arrival only once this resolves. */
+	holdListResults?: Promise<void>;
 }
 
 export const mockSupabase = async (page: Page): Promise<MockState> => {
@@ -32,7 +35,8 @@ export const mockSupabase = async (page: Page): Promise<MockState> => {
 		config: { ...defaultConfig },
 		updated_at: '2026-10-24T09:00:00.000Z',
 		results: [],
-		calls: []
+		calls: [],
+		squadDeleted: false
 	};
 
 	const json = (route: Route, body: unknown, status = 200) =>
@@ -53,7 +57,7 @@ export const mockSupabase = async (page: Page): Promise<MockState> => {
 
 		switch (fn) {
 			case 'get_squad':
-				if (String(body.p_code).toUpperCase() !== SQUAD_CODE) {
+				if (String(body.p_code).toUpperCase() !== SQUAD_CODE || state.squadDeleted) {
 					await json(route, []);
 
 					return;
@@ -86,6 +90,12 @@ export const mockSupabase = async (page: Page): Promise<MockState> => {
 
 				return;
 			case 'submit_result':
+				if (state.squadDeleted) {
+					await json(route, { message: 'unknown squad' }, 400);
+
+					return;
+				}
+
 				state.results.unshift({
 					id: `r${state.results.length + 1}`,
 					code: SQUAD_CODE,
@@ -103,14 +113,42 @@ export const mockSupabase = async (page: Page): Promise<MockState> => {
 				await json(route, 'd3b07384-d9a0-4c2e-9f3a-000000000001');
 
 				return;
-			case 'list_results':
+			case 'list_results': {
 				if (body.p_coach_key !== COACH_KEY) {
 					await json(route, { message: 'unauthorized' }, 400);
 
 					return;
 				}
 
-				await json(route, state.results);
+				const rows = [...state.results];
+				await state.holdListResults;
+				await json(route, rows);
+
+				return;
+			}
+			case 'delete_athlete_results': {
+				if (body.p_coach_key !== COACH_KEY) {
+					await json(route, { message: 'unauthorized' }, 400);
+
+					return;
+				}
+
+				const before = state.results.length;
+				state.results = state.results.filter((r) => r.athlete !== body.p_athlete);
+				await json(route, before - state.results.length);
+
+				return;
+			}
+			case 'delete_squad':
+				if (body.p_coach_key !== COACH_KEY) {
+					await json(route, { message: 'unauthorized' }, 400);
+
+					return;
+				}
+
+				state.results = [];
+				state.squadDeleted = true;
+				await json(route, null);
 
 				return;
 			default:

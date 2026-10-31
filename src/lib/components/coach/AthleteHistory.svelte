@@ -11,9 +11,10 @@
 		name: string;
 		results: RemoteResult[];
 		onClose: () => void;
+		onDelete: () => void;
 	}
 
-	let { name, results, onClose }: Props = $props();
+	let { name, results, onClose, onDelete }: Props = $props();
 
 	const W = 320;
 	const H = 120;
@@ -129,5 +130,13 @@
 				</tbody>
 			</table>
 		</div>
+
+		<button
+			class="btn btn-ghost mt-3 px-3 py-2 text-sm"
+			data-tid="athlete-delete"
+			onclick={onDelete}
+		>
+			{t({ locale: $localeStore, key: 'coach.athlete.delete' })}
+		</button>
 	{/if}
 </div>

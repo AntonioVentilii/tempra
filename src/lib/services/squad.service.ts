@@ -99,6 +99,37 @@ export const submitResult = async ({
 	}
 };
 
+export const deleteAthleteResults = async ({
+	session,
+	athlete
+}: {
+	session: CoachSession;
+	athlete: string;
+}): Promise<number> => {
+	const { data, error } = await supabase().rpc('delete_athlete_results', {
+		p_code: session.code,
+		p_coach_key: session.coach_key,
+		p_athlete: athlete
+	});
+
+	if (error) {
+		throw new Error(error.message);
+	}
+
+	return (data ?? 0) as number;
+};
+
+export const deleteSquad = async ({ session }: { session: CoachSession }): Promise<void> => {
+	const { error } = await supabase().rpc('delete_squad', {
+		p_code: session.code,
+		p_coach_key: session.coach_key
+	});
+
+	if (error) {
+		throw new Error(error.message);
+	}
+};
+
 export const listResults = async ({
 	session,
 	limit = 100

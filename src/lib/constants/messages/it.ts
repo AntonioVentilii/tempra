@@ -165,6 +165,18 @@ export const it = {
 	'coach.athlete.history': 'Storico di {name}',
 	'coach.athlete.chart': 'Indice Tempra e precisione nel tempo',
 	'coach.athlete.back': 'Chiudi',
+	'coach.athlete.delete': 'Cancella i dati di questo atleta',
+	'coach.athlete.delete.confirm':
+		'Cancellare tutti i risultati di {name}? Non si possono recuperare.',
+	'coach.athlete.deleted': 'Risultati di {name} cancellati',
+	'coach.squad.delete.title': 'Elimina la squadra',
+	'coach.squad.delete.text':
+		'Cancella la squadra, i parametri e tutti i risultati degli atleti. Il codice smette di funzionare.',
+	'coach.squad.delete': 'Elimina squadra e dati',
+	'coach.squad.delete.confirm':
+		'Eliminare la squadra e tutti i risultati? Non si possono recuperare.',
+	'coach.squad.deleted': 'Squadra e dati eliminati',
+	'coach.delete.error': 'Cancellazione non riuscita. Controlla la connessione.',
 	'coach.recent': 'Ultimi blocchi della squadra',
 	'coach.realtime.on': 'Live',
 	'coach.realtime.off': 'Ogni 10 s',
