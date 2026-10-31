@@ -47,6 +47,8 @@
 	let realtimeLive = $state(false);
 	let selected = $state<string | undefined>(undefined);
 	let channel: SquadChannel | undefined;
+	// Bumped whenever the data on screen changes hands, so a load already in flight cannot restore it.
+	let loadGeneration = 0;
 
 	const session = $derived($coachStore);
 	const roster = $derived(buildRoster({ results, presences }));
@@ -103,11 +105,17 @@
 			return;
 		}
 
+		const generation = loadGeneration;
+
 		try {
 			const [squad, rows] = await Promise.all([
 				getSquad({ code: session.code }),
 				listResults({ session, limit: HISTORY_LIMIT })
 			]);
+
+			if (generation !== loadGeneration) {
+				return;
+			}
 
 			if (nonNullish(squad)) {
 				config = squad.config;
@@ -154,6 +162,7 @@
 
 		try {
 			await deleteAthleteResults({ session, athlete });
+			loadGeneration += 1;
 			results = results.filter((r) => r.athlete !== athlete);
 			selected = undefined;
 			toast(t({ locale: $localeStore, key: 'coach.athlete.deleted', values: { name: athlete } }));
@@ -176,6 +185,7 @@
 
 		try {
 			await deleteSquad({ session });
+			loadGeneration += 1;
 			clearCoachSession();
 			results = [];
 			selected = undefined;
