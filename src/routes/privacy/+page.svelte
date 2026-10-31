@@ -3,6 +3,7 @@
 	import { toast } from '$lib/stores/toast.store';
 	import { clearLocal } from '$lib/utils/storage.utils';
 	import { t, type I18nKey } from '$lib/utils/i18n.utils';
+	import { LEGAL_DRAFT, legalValues } from '$lib/utils/legal.utils';
 	import { nonNullish } from '$lib/utils/nullish.utils';
 
 	interface Section {
@@ -29,6 +30,8 @@
 		{ title: 'privacy.who.title', text: 'privacy.who.text' }
 	];
 
+	const values = $derived(legalValues($localeStore));
+
 	// Stores read localStorage once at load, so a reload is the simplest full reset.
 	const eraseDevice = () => {
 		if (!window.confirm(t({ locale: $localeStore, key: 'privacy.device.confirm' }))) {
@@ -54,6 +57,12 @@
 	<h1 class="text-4xl font-extrabold">{t({ locale: $localeStore, key: 'privacy.title' })}</h1>
 	<p class="max-w-prose">{t({ locale: $localeStore, key: 'privacy.lead' })}</p>
 
+	{#if LEGAL_DRAFT}
+		<p class="badge badge-warn self-start whitespace-normal" data-tid="legal-draft">
+			{t({ locale: $localeStore, key: 'legal.draft' })}
+		</p>
+	{/if}
+
 	<div class="flex flex-col">
 		{#each sections as section (section.title)}
 			<details class="border-line border-t py-2.5">
@@ -62,7 +71,7 @@
 				</summary>
 				{#if nonNullish(section.text)}
 					<p class="text-fg-2 mt-1.5 max-w-prose text-sm">
-						{t({ locale: $localeStore, key: section.text })}
+						{t({ locale: $localeStore, key: section.text, values })}
 					</p>
 				{/if}
 				{#if nonNullish(section.items)}
