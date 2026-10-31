@@ -188,7 +188,8 @@ export const it = {
 	'privacy.data.1': 'Nome o soprannome.',
 	'privacy.data.2': 'Risultati dei blocchi: punti, precisione, tempi, livello, data.',
 	'privacy.data.3': 'Nome della squadra.',
-	'privacy.data.4': 'Un codice casuale del telefono per mostrare chi è online. Non viene salvato.',
+	'privacy.data.4':
+		'Un codice casuale salvato sul telefono, per mostrare chi è online. Non finisce nel database.',
 	'privacy.why.title': 'Perché',
 	'privacy.why.text':
 		'Per allenarti con i parametri del coach e mostrargli i risultati. Niente pubblicità né profilazione. Base giuridica: [DA COMPLETARE].',

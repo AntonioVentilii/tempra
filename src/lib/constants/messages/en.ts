@@ -187,7 +187,8 @@ export const en: Record<I18nKey, string> = {
 	'privacy.data.1': 'Name or nickname.',
 	'privacy.data.2': 'Block results: points, accuracy, times, level, date.',
 	'privacy.data.3': 'Squad name.',
-	'privacy.data.4': 'A random phone code to show who is online. Not stored.',
+	'privacy.data.4':
+		'A random code saved on your phone to show who is online. It never reaches the database.',
 	'privacy.why.title': 'Why',
 	'privacy.why.text':
 		'To train with the coach parameters and show the coach your results. No ads, no profiling. Legal basis: [TO COMPLETE].',

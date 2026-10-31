@@ -192,7 +192,8 @@ export const ptBR: Record<I18nKey, string> = {
 	'privacy.data.1': 'Nome ou apelido.',
 	'privacy.data.2': 'Resultados dos blocos: pontos, precisão, tempos, nível, data.',
 	'privacy.data.3': 'Nome da equipe.',
-	'privacy.data.4': 'Um código aleatório do celular para mostrar quem está online. Não é salvo.',
+	'privacy.data.4':
+		'Um código aleatório salvo no celular para mostrar quem está online. Não vai para o banco de dados.',
 	'privacy.why.title': 'Por quê',
 	'privacy.why.text':
 		'Para você treinar com os parâmetros do treinador e mostrar a ele os seus resultados. Sem anúncios nem criação de perfis. Base legal: [A COMPLETAR].',
