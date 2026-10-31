@@ -74,7 +74,7 @@ Identity lives on the Claude Design canvas "Tempra Brand" (https://claude.ai/art
 - Ground: asphalt `--bg` #0B0C0F, `--bg-2` #15171C, `--bg-3` #1F2229, chalk `--fg` #F5F6F2, `--fg-2` #9BA1A6, `--line` #2A2E36.
 - Accent: volt `--accent` #CCFF00 (buttons, code, active tab, progress), `--accent-2` lighter volt for small text on dark, `--cool` #8AB4FF for charts only. Semantic `--ok`, `--warn`, `--bad` are never used as the accent.
 - Light theme under `prefers-color-scheme: light`: volt stays on buttons (dark text on it), `--accent-2` turns to a dark olive so small volt text keeps contrast.
-- Type: Saira Extra Condensed 800 italic for headings, numbers, codes (always uppercase); Saira 400 to 600 for body and tables; `.tnum` wherever digits line up.
+- Type: Saira Extra Condensed 800 italic for headings, numbers, codes (always uppercase); Saira 400 to 600 for body and tables; `.tnum` wherever digits line up. Fonts stay self-hosted (`e2e/fonts.spec.ts` fails on a CDN) and `static/fonts/OFL.txt` travels with them, as the SIL Open Font License asks.
 - Shapes: no radius, no gradient, no shadow. Buttons are bibs: slanted edges with `clip-path`, text upright. Cards carry a 3px top rule (`.card`, volt with `.card-accent`). Status is a left rule on a `.badge`. The block progress is `.track`: lane stripes under a volt fill.
 - The mark (`Brand.svelte`, `static/logo.svg`, `favicon.svg`, `icon-512.svg`): a slanted T whose stem is a pulse spike. Drawn as two shapes, 13% stroke, readable at 16px. Never outlined, never shadowed, never recoloured outside volt / asphalt / chalk.
 
