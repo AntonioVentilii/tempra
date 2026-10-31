@@ -9,22 +9,23 @@ src/
   app.css                     design tokens (dark-first), @theme bridge to Tailwind, shared primitives
   app.html                    font preload, manifest, favicon (fonts are self-hosted in static/fonts, @font-face in app.css)
   routes/
-    +layout.svelte            header (brand, Athlete / Coach tabs), footer (locale picker, vibration switch, version), Toast
+    +layout.svelte            header (brand, Athlete / Coach tabs), footer (legal links, locale picker, vibration switch, version), Toast
     +page.svelte              landing
     athlete/+page.svelte      join form → home card → BlockRunner → BlockSummary
     coach/+page.svelte        create / restore → squad card + ConfigForm + ResultsTable
     privacy/+page.svelte      privacy notice, one section per catalog key group (privacy.*)
+    terms/+page.svelte        terms of use, one section per entry of TERMS_SECTIONS (terms.<id>.title|text)
   lib/
     components/
       games/                  one component per game + index.ts (GAME_COMPONENTS)
       session/                BlockRunner, BlockSummary, TrialTimer, Distractors
       coach/                  Roster, AthleteHistory, ConfigForm, ResultsTable
       ui/                     Brand, Kpi, Toast, Sparkline, InfoTip ("i" button that shows a detail on demand)
-    constants/                config, locale, supabase, messages/{it,en,pt-BR}.ts
+    constants/                config, legal, locale, supabase, messages/{it,en,pt-BR}.ts
     services/                 supabase.service (lazy client), squad.service (RPC wrappers), realtime.service (channel: config, presence, result broadcast), haptics.service (fire-and-forget vibration)
     stores/                   locale, haptics, squad (athlete side), coach, results (local history), outbox (unsent results), toast
     types/                    config, result, game, presence
-    utils/                    i18n, nullish, random, scoring, roster, storage, time, trial, device
+    utils/                    i18n, legal, nullish, random, scoring, roster, storage, time, trial, device
   service-worker.ts           offline shell (cache-first assets, network-first pages)
   tests/                      node --test specs, `$lib/...` imports resolved by scripts/test/lib-resolver.mjs
 e2e/                          Playwright specs + supabase-mock.ts (every RPC intercepted, no network)
