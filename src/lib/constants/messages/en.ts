@@ -209,7 +209,8 @@ export const en: Record<I18nKey, string> = {
 	'privacy.where.2': 'Website: GitHub Pages (US), sees the IP address.',
 	'privacy.where.3': 'On your phone: squad, name and latest results.',
 	'privacy.keep.title': 'How long',
-	'privacy.keep.text': 'Until the coach deletes it or you ask us to. There is no automatic expiry.',
+	'privacy.keep.text':
+		'Until the coach deletes it, which you can ask for. There is no automatic expiry.',
 	'privacy.minors.title': 'Under-age athletes',
 	'privacy.minors.text':
 		'Under 14, use goes through the sports club, which informs the parents. Use only a name or nickname.',

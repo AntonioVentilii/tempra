@@ -213,7 +213,8 @@ export const ptBR: Record<I18nKey, string> = {
 	'privacy.where.2': 'Site: GitHub Pages (EUA), vê o endereço IP.',
 	'privacy.where.3': 'No seu celular: equipe, nome e últimos resultados.',
 	'privacy.keep.title': 'Por quanto tempo',
-	'privacy.keep.text': 'Até o treinador apagar ou você pedir para apagar. Não há prazo automático.',
+	'privacy.keep.text':
+		'Até o treinador apagar, o que você pode pedir a ele. Não há prazo automático.',
 	'privacy.minors.title': 'Atletas menores de idade',
 	'privacy.minors.text':
 		'Abaixo de 14 anos, o uso passa pelo clube esportivo, que informa os pais. Use só um nome ou apelido.',
