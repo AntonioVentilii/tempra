@@ -4,6 +4,7 @@ import { readLocal, writeLocal } from '$lib/utils/storage.utils';
 import { get, writable } from 'svelte/store';
 
 const KEY = 'outbox';
+const UNKNOWN_SQUAD = 'unknown squad';
 
 interface QueuedResult {
 	code: string;
@@ -24,7 +25,7 @@ export const queueResult = (item: QueuedResult) => {
 
 let flushing = false;
 
-/** Sends queued results in order; stops at the first failure so order is kept. Returns how many were sent. */
+/** Sends queued results in order; stops at the first failure so order is kept, except for a deleted squad. Returns how many were sent. */
 export const flushOutbox = async (): Promise<number> => {
 	if (flushing) {
 		return 0;
@@ -39,13 +40,17 @@ export const flushOutbox = async (): Promise<number> => {
 		while (pending.length > 0) {
 			try {
 				await submitResult(pending[0]);
-			} catch {
-				break;
+				sent++;
+			} catch (err: unknown) {
+				// A squad the coach deleted will never accept it: drop it instead of retrying forever.
+				if (!(err instanceof Error) || err.message !== UNKNOWN_SQUAD) {
+					break;
+				}
 			}
 
-			pending = pending.slice(1);
+			// Reread the store: a block can end and queue another result while this one was in flight.
+			pending = get(outboxStore).slice(1);
 			persist(pending);
-			sent++;
 		}
 	} finally {
 		flushing = false;
