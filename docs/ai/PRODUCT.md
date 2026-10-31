@@ -71,7 +71,7 @@ Track-and-field identity from the Tempra Brand canvas: asphalt ground, volt acce
 
 ## Languages
 
-Italian (default) and English, switchable in the footer, remembered on the device.
+Italian (default), English and Brazilian Portuguese (pt-BR, also served to any other Portuguese browser). The first visit follows the browser languages in order of preference, falling back to Italian; the globe picker in the footer switches language and the choice is remembered on the device (there are no accounts to store it on).
 
 ## Not in the product (yet)
 
