@@ -198,13 +198,16 @@ export const en: Record<I18nKey, string> = {
 	'privacy.where.title': 'Where it lives',
 	'privacy.where.1': 'Database: Supabase, Zurich (Switzerland, adequate for the EU).',
 	'privacy.where.2': 'Website: GitHub Pages (US), sees the IP address.',
-	'privacy.where.3': 'Typefaces: Google Fonts (US), sees the IP address.',
-	'privacy.where.4': 'On your phone: squad, name and latest results.',
+	'privacy.where.3': 'On your phone: squad, name and latest results.',
 	'privacy.keep.title': 'How long',
-	'privacy.keep.text': 'Until the coach deletes it. [TO DECIDE: automatic deletion].',
+	'privacy.keep.text': 'Until the coach deletes it, or after 12 months without squad activity.',
 	'privacy.minors.title': 'Under-age athletes',
 	'privacy.minors.text':
 		'Under 14, use goes through the sports club, which informs the parents. Use only a name or nickname.',
+	'privacy.device.erase': 'Delete data from this phone',
+	'privacy.device.confirm':
+		'Delete the squad, name, results and pending uploads saved on this phone?',
+	'privacy.device.erased': 'Data deleted from this phone',
 	'privacy.rights.title': 'Your rights',
 	'privacy.rights.text':
 		'See, correct or delete your data: ask the coach or write to [TO COMPLETE: email]. Complaints: garanteprivacy.it (Italian authority).',

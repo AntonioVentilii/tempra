@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { localeStore } from '$lib/stores/locale.store';
+	import { toast } from '$lib/stores/toast.store';
+	import { clearLocal } from '$lib/utils/storage.utils';
 	import { t, type I18nKey } from '$lib/utils/i18n.utils';
 	import { nonNullish } from '$lib/utils/nullish.utils';
 
@@ -20,12 +22,23 @@
 		{ title: 'privacy.rights.title', text: 'privacy.rights.text' },
 		{
 			title: 'privacy.where.title',
-			items: ['privacy.where.1', 'privacy.where.2', 'privacy.where.3', 'privacy.where.4']
+			items: ['privacy.where.1', 'privacy.where.2', 'privacy.where.3']
 		},
 		{ title: 'privacy.keep.title', text: 'privacy.keep.text' },
 		{ title: 'privacy.why.title', text: 'privacy.why.text' },
 		{ title: 'privacy.who.title', text: 'privacy.who.text' }
 	];
+
+	// Stores read localStorage once at load, so a reload is the simplest full reset.
+	const eraseDevice = () => {
+		if (!window.confirm(t({ locale: $localeStore, key: 'privacy.device.confirm' }))) {
+			return;
+		}
+
+		clearLocal({ keep: ['locale'] });
+		toast(t({ locale: $localeStore, key: 'privacy.device.erased' }));
+		setTimeout(() => window.location.reload(), 800);
+	};
 </script>
 
 <svelte:head>
@@ -62,6 +75,14 @@
 			</details>
 		{/each}
 	</div>
+
+	<button
+		class="btn btn-ghost self-start px-3 py-2 text-sm"
+		data-tid="erase-device"
+		onclick={eraseDevice}
+	>
+		{t({ locale: $localeStore, key: 'privacy.device.erase' })}
+	</button>
 
 	<p class="text-fg-2 text-xs">{t({ locale: $localeStore, key: 'privacy.updated' })}</p>
 </article>

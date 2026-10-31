@@ -203,13 +203,16 @@ export const ptBR: Record<I18nKey, string> = {
 	'privacy.where.title': 'Onde ficam',
 	'privacy.where.1': 'Banco de dados: Supabase, Zurique (Suíça, adequada para a UE).',
 	'privacy.where.2': 'Site: GitHub Pages (EUA), vê o endereço IP.',
-	'privacy.where.3': 'Fontes: Google Fonts (EUA), vê o endereço IP.',
-	'privacy.where.4': 'No seu celular: equipe, nome e últimos resultados.',
+	'privacy.where.3': 'No seu celular: equipe, nome e últimos resultados.',
 	'privacy.keep.title': 'Por quanto tempo',
-	'privacy.keep.text': 'Até o treinador apagar. [A DECIDIR: exclusão automática].',
+	'privacy.keep.text': 'Até o treinador apagar, ou após 12 meses sem atividade da equipe.',
 	'privacy.minors.title': 'Atletas menores de idade',
 	'privacy.minors.text':
 		'Abaixo de 14 anos, o uso passa pelo clube esportivo, que informa os pais. Use só um nome ou apelido.',
+	'privacy.device.erase': 'Apagar os dados deste celular',
+	'privacy.device.confirm':
+		'Apagar a equipe, o nome, os resultados e os envios pendentes salvos neste celular?',
+	'privacy.device.erased': 'Dados apagados deste celular',
 	'privacy.rights.title': 'Seus direitos',
 	'privacy.rights.text':
 		'Ver, corrigir ou apagar seus dados: fale com o treinador ou escreva para [A COMPLETAR: e-mail]. Reclamações: garanteprivacy.it (autoridade italiana).',
