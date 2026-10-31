@@ -42,9 +42,6 @@ export const mockSupabase = async (page: Page): Promise<MockState> => {
 	const json = (route: Route, body: unknown, status = 200) =>
 		route.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) });
 
-	await page.route('https://fonts.googleapis.com/**', (route) => route.abort());
-	await page.route('https://fonts.gstatic.com/**', (route) => route.abort());
-
 	await page.route('**/*.supabase.co/**', async (route) => {
 		const url = new URL(route.request().url());
 		const fn = url.pathname.split('/rest/v1/rpc/')[1];

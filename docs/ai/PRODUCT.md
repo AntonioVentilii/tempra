@@ -70,6 +70,10 @@ A service worker caches the app shell and assets at install, so the app opens wi
 
 Track-and-field identity from the Tempra Brand canvas: asphalt ground, volt accent, condensed italics, bib-shaped buttons, lane-stripe progress. See `docs/ai/frontend/README.md` § Design tokens.
 
+## Privacy
+
+`/privacy` (linked from the footer and from the athlete join form) leads with one line, then folds each topic in a `<details>`: what is collected (display name, block results, squad name, a random per-browser id kept in localStorage and sent only over presence, never written to the database), who sees it, where it lives (Supabase in Zurich, GitHub Pages, the device), how long it is kept, how minors use the app and how to have data deleted. The join form says a name or nickname is enough. A button erases everything Tempra saved on the device except the language, after a confirm. Squads inactive for 12 months are deleted on the server (see backend README § Retention). Fonts are self-hosted, so no third party sees visitors beyond hosting and Supabase. Placeholders in square brackets (controller, legal basis, contact) are open decisions for the owner.
+
 ## Languages
 
 Italian (default), English and Brazilian Portuguese (pt-BR, also served to any other Portuguese browser). The first visit follows the browser languages in order of preference, falling back to Italian; the globe picker in the footer switches language and the choice is remembered on the device (there are no accounts to store it on).

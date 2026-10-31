@@ -260,9 +260,14 @@
 				maxlength="40"
 				autocomplete="given-name"
 				placeholder={t({ locale: $localeStore, key: 'join.name.placeholder' })}
+				aria-describedby="join-name-hint"
 				bind:value={nameInput}
 				required
 			/>
+			<p id="join-name-hint" class="text-fg-2 mt-1 text-xs">
+				{t({ locale: $localeStore, key: 'join.name.hint' })}
+				<a href="/privacy">{t({ locale: $localeStore, key: 'footer.privacy' })}</a>
+			</p>
 		</div>
 		{#if nonNullish(joinError)}
 			<p class="text-bad text-sm" role="alert" data-tid="join-error">{joinError}</p>

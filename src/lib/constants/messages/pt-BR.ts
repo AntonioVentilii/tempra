@@ -191,5 +191,42 @@ export const ptBR: Record<I18nKey, string> = {
 	'athlete.outbox': '{n} resultados aguardando envio',
 	'summary.queued': 'Sem conexão: o resultado é enviado assim que você voltar a ficar online',
 
+	'footer.privacy': 'Privacidade',
+	'join.name.hint': 'Basta um nome ou apelido.',
+	'privacy.title': 'Privacidade',
+	'privacy.lead':
+		'Só um nome, mesmo um apelido, e as suas pontuações. Sem conta, e-mail, idade ou anúncios.',
+	'privacy.updated': 'Atualizada em 29 de outubro de 2026.',
+	'privacy.who.title': 'Quem é responsável',
+	'privacy.who.text':
+		'Controlador: [A COMPLETAR: nome, e-mail]. Papel do clube esportivo: [A DECIDIR].',
+	'privacy.data.title': 'Quais dados',
+	'privacy.data.1': 'Nome ou apelido.',
+	'privacy.data.2': 'Resultados dos blocos: pontos, precisão, tempos, nível, data.',
+	'privacy.data.3': 'Nome da equipe.',
+	'privacy.data.4':
+		'Um código aleatório salvo no celular para mostrar quem está online. Não vai para o banco de dados.',
+	'privacy.why.title': 'Por quê',
+	'privacy.why.text':
+		'Para você treinar com os parâmetros do treinador e mostrar a ele os seus resultados. Sem anúncios nem criação de perfis. Base legal: [A COMPLETAR].',
+	'privacy.see.title': 'Quem vê',
+	'privacy.see.text':
+		'O treinador vê nomes e resultados. Quem tem só o código vê quem está online, não os resultados.',
+	'privacy.where.title': 'Onde ficam',
+	'privacy.where.1': 'Banco de dados: Supabase, Zurique (Suíça, adequada para a UE).',
+	'privacy.where.2': 'Site: GitHub Pages (EUA), vê o endereço IP.',
+	'privacy.where.3': 'No seu celular: equipe, nome e últimos resultados.',
+	'privacy.keep.title': 'Por quanto tempo',
+	'privacy.keep.text': 'Até o treinador apagar, ou após 12 meses sem atividade da equipe.',
+	'privacy.minors.title': 'Atletas menores de idade',
+	'privacy.minors.text':
+		'Abaixo de 14 anos, o uso passa pelo clube esportivo, que informa os pais. Use só um nome ou apelido.',
+	'privacy.device.erase': 'Apagar os dados deste celular',
+	'privacy.device.confirm':
+		'Apagar a equipe, o nome, os resultados e os envios pendentes salvos neste celular?',
+	'privacy.device.erased': 'Dados apagados deste celular',
+	'privacy.rights.title': 'Seus direitos',
+	'privacy.rights.text':
+		'Ver, corrigir ou apagar seus dados: fale com o treinador ou escreva para [A COMPLETAR: e-mail]. Reclamações: garanteprivacy.it (autoridade italiana).',
 	'footer.made': 'Um projeto de Antonio Ventilii.'
 };

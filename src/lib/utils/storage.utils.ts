@@ -30,6 +30,21 @@ export const writeLocal = (key: string, value: unknown) => {
 	}
 };
 
+/** Erase everything Tempra saved on this device except the listed keys (e.g. the language). */
+export const clearLocal = ({ keep = [] }: { keep?: string[] } = {}) => {
+	if (!browser) {
+		return;
+	}
+
+	try {
+		Object.keys(localStorage)
+			.filter((k) => k.startsWith(PREFIX) && !keep.includes(k.slice(PREFIX.length)))
+			.forEach((k) => localStorage.removeItem(k));
+	} catch {
+		// Nothing to clean when storage is unavailable.
+	}
+};
+
 export const removeLocal = (key: string) => {
 	if (!browser) {
 		return;

@@ -185,5 +185,41 @@ export const en: Record<I18nKey, string> = {
 	'athlete.outbox': '{n} results waiting to be sent',
 	'summary.queued': 'No connection: the result goes out as soon as you are back online',
 
+	'footer.privacy': 'Privacy',
+	'join.name.hint': 'A name or nickname is enough.',
+	'privacy.title': 'Privacy',
+	'privacy.lead': 'Just a name, even a nickname, and your scores. No account, email, age or ads.',
+	'privacy.updated': 'Updated 29 October 2026.',
+	'privacy.who.title': 'Who is responsible',
+	'privacy.who.text':
+		'Controller: [TO COMPLETE: name, email]. Role of the sports club: [TO DECIDE].',
+	'privacy.data.title': 'What data',
+	'privacy.data.1': 'Name or nickname.',
+	'privacy.data.2': 'Block results: points, accuracy, times, level, date.',
+	'privacy.data.3': 'Squad name.',
+	'privacy.data.4':
+		'A random code saved on your phone to show who is online. It never reaches the database.',
+	'privacy.why.title': 'Why',
+	'privacy.why.text':
+		'To train with the coach parameters and show the coach your results. No ads, no profiling. Legal basis: [TO COMPLETE].',
+	'privacy.see.title': 'Who sees it',
+	'privacy.see.text':
+		'The coach sees names and results. Whoever has only the code sees who is online, not results.',
+	'privacy.where.title': 'Where it lives',
+	'privacy.where.1': 'Database: Supabase, Zurich (Switzerland, adequate for the EU).',
+	'privacy.where.2': 'Website: GitHub Pages (US), sees the IP address.',
+	'privacy.where.3': 'On your phone: squad, name and latest results.',
+	'privacy.keep.title': 'How long',
+	'privacy.keep.text': 'Until the coach deletes it, or after 12 months without squad activity.',
+	'privacy.minors.title': 'Under-age athletes',
+	'privacy.minors.text':
+		'Under 14, use goes through the sports club, which informs the parents. Use only a name or nickname.',
+	'privacy.device.erase': 'Delete data from this phone',
+	'privacy.device.confirm':
+		'Delete the squad, name, results and pending uploads saved on this phone?',
+	'privacy.device.erased': 'Data deleted from this phone',
+	'privacy.rights.title': 'Your rights',
+	'privacy.rights.text':
+		'See, correct or delete your data: ask the coach or write to [TO COMPLETE: email]. Complaints: garanteprivacy.it (Italian authority).',
 	'footer.made': 'A project by Antonio Ventilii.'
 };
